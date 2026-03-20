@@ -10,29 +10,29 @@ Packages được chia thành **7 tầng (layers)** chính, mỗi tầng chịu 
 
 ```mermaid
 graph TD
-    App[Application / Hook / Service] --> |1. Call methods| ApiClient(ApiClient)
+    App[Application / Hook / Service] -->|1. Call methods| ApiClient
 
-    subgraph Core Package [@acme/api-client]
-        ApiClient --> |2. Parse Data| Parser(Parser Layer)
-        ApiClient --> |3. Throw/Handle| Error(Error Layer)
-        ApiClient --> |4. Notify| UI(Notification Layer)
+    subgraph Core_Package["@acme/api-client"]
+        ApiClient -->|2. Parse Data| Parser
+        ApiClient -->|3. Handle Errors| ErrorLayer
+        ApiClient -->|4. Notify UI| Notification
 
-        ApiClient --> |5. Execute HttpRequest| Interceptors(Interceptor Pipeline)
+        ApiClient -->|5. Execute HttpRequest| Interceptors
 
-        Interceptors --> Auth(Auth Interceptor)
-        Interceptors --> CacheReq(Cache Interceptor)
-        Interceptors --> Rate(Rate Limit / Dedup)
-        Interceptors --> Retry(Retry Interceptor)
-        Interceptors --> Log(Logging)
+        Interceptors --> Auth
+        Auth --> CacheReq
+        CacheReq --> Rate
+        Rate --> Retry
+        Retry --> Log
 
-        Log --> HttpClientInterface(HttpClient Interface)
+        Log --> HttpClientInterface
 
-        HttpClientInterface --> Axios[Axios Adapter]
-        HttpClientInterface --> Fetch[Fetch Adapter]
+        HttpClientInterface --> AxiosAdapter
+        HttpClientInterface --> FetchAdapter
     end
 
-    Axios --> |Network| Server[(Backend API)]
-    Fetch --> |Network| Server
+    AxiosAdapter -->|Network| Server[(Backend API)]
+    FetchAdapter -->|Network| Server
 ```
 
 ---
@@ -51,7 +51,7 @@ graph TD
 
 ### 2.2. Api Client (`api-client.ts`) - The Orchestrator
 
-**Vai trò:** Điểm giao tiếp duy nhất (Facade) giữa ứng dụng và hệ thống network.
+**Vai trò:** Điểm giao tiếp duy nhất (Facad e) giữa ứng dụng và hệ thống network.
 
 - **Trách nhiệm:**
   - Cung cấp các API dễ dùng (`get`, `post`, `upload`, `download`, `withAbort`).
