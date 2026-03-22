@@ -1,1 +1,0 @@
-export {default as SampleReducer} from './sample-slice';

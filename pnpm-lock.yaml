@@ -95,15 +95,15 @@ importers:
       '@acme/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@acme/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       '@acme/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@acme/validators':
         specifier: workspace:*
         version: link:../../packages/validators
-      '@reduxjs/toolkit':
-        specifier: ^2.11.2
-        version: 2.11.2(react-redux@9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1))(react@19.1.4)
       '@t3-oss/env-nextjs':
         specifier: ^0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(valibot@1.0.0-beta.15(typescript@5.9.3))(zod@4.1.12)
@@ -134,12 +134,6 @@ importers:
       react-dom:
         specifier: catalog:react19
         version: 19.1.4(react@19.1.4)
-      react-redux:
-        specifier: ^9.2.0
-        version: 9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1)
-      redux-persist:
-        specifier: ^6.0.0
-        version: 6.0.0(react@19.1.4)(redux@5.0.1)
       superjson:
         specifier: 2.2.3
         version: 2.2.3
@@ -192,15 +186,15 @@ importers:
       '@acme/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@acme/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       '@acme/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@acme/validators':
         specifier: workspace:*
         version: link:../../packages/validators
-      '@reduxjs/toolkit':
-        specifier: ^2.11.2
-        version: 2.11.2(react-redux@9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1))(react@19.1.4)
       '@t3-oss/env-nextjs':
         specifier: ^0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(valibot@1.0.0-beta.15(typescript@5.9.3))(zod@4.1.12)
@@ -231,12 +225,6 @@ importers:
       react-dom:
         specifier: catalog:react19
         version: 19.1.4(react@19.1.4)
-      react-redux:
-        specifier: ^9.2.0
-        version: 9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1)
-      redux-persist:
-        specifier: ^6.0.0
-        version: 6.0.0(react@19.1.4)(redux@5.0.1)
       superjson:
         specifier: 2.2.3
         version: 2.2.3
@@ -289,15 +277,15 @@ importers:
       '@acme/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@acme/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       '@acme/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@acme/validators':
         specifier: workspace:*
         version: link:../../packages/validators
-      '@reduxjs/toolkit':
-        specifier: ^2.11.2
-        version: 2.11.2(react-redux@9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1))(react@19.1.4)
       '@t3-oss/env-nextjs':
         specifier: ^0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(valibot@1.0.0-beta.15(typescript@5.9.3))(zod@4.1.12)
@@ -386,15 +374,15 @@ importers:
       '@acme/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
+      '@acme/store':
+        specifier: workspace:*
+        version: link:../../packages/store
       '@acme/ui':
         specifier: workspace:*
         version: link:../../packages/ui
       '@acme/validators':
         specifier: workspace:*
         version: link:../../packages/validators
-      '@reduxjs/toolkit':
-        specifier: ^2.11.2
-        version: 2.11.2(react-redux@9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1))(react@19.1.4)
       '@t3-oss/env-nextjs':
         specifier: ^0.13.8
         version: 0.13.8(arktype@2.1.20)(typescript@5.9.3)(valibot@1.0.0-beta.15(typescript@5.9.3))(zod@4.1.12)
@@ -425,12 +413,6 @@ importers:
       react-dom:
         specifier: catalog:react19
         version: 19.1.4(react@19.1.4)
-      react-redux:
-        specifier: ^9.2.0
-        version: 9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1)
-      redux-persist:
-        specifier: ^6.0.0
-        version: 6.0.0(react@19.1.4)(redux@5.0.1)
       superjson:
         specifier: 2.2.3
         version: 2.2.3
@@ -575,6 +557,46 @@ importers:
       '@types/react-dom':
         specifier: catalog:react19
         version: 19.1.9(@types/react@19.1.12)
+      eslint:
+        specifier: 'catalog:'
+        version: 9.38.0(jiti@2.6.1)
+      prettier:
+        specifier: 'catalog:'
+        version: 3.6.2
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
+  packages/store:
+    dependencies:
+      '@reduxjs/toolkit':
+        specifier: ^2.11.2
+        version: 2.11.2(react-redux@9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1))(react@19.1.4)
+      react-redux:
+        specifier: ^9.2.0
+        version: 9.2.0(@types/react@19.1.12)(react@19.1.4)(redux@5.0.1)
+      redux-persist:
+        specifier: ^6.0.0
+        version: 6.0.0(react@19.1.4)(redux@5.0.1)
+    devDependencies:
+      '@acme/eslint-config':
+        specifier: workspace:*
+        version: link:../../tooling/eslint
+      '@acme/prettier-config':
+        specifier: workspace:*
+        version: link:../../tooling/prettier
+      '@acme/tsconfig':
+        specifier: workspace:*
+        version: link:../../tooling/typescript
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.18.12
+      '@types/react':
+        specifier: catalog:react19
+        version: 19.1.12
+      '@types/react-redux':
+        specifier: ^7.1.33
+        version: 7.1.34
       eslint:
         specifier: 'catalog:'
         version: 9.38.0(jiti@2.6.1)
@@ -957,6 +979,10 @@ packages:
 
   '@babel/runtime-corejs3@7.28.4':
     resolution: {integrity: sha512-h7iEYiW4HebClDEhtvFObtPmIvrd1SSfpI9EhOeKk4CtIK/ngBWFpuhCzhdmRKtg71ylcue+9I6dv54XYO1epQ==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/runtime@7.29.2':
+    resolution: {integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.27.2':
@@ -2791,6 +2817,11 @@ packages:
   '@types/glob@7.2.0':
     resolution: {integrity: sha512-ZUxbzKl0IfJILTS6t7ip5fQQM/J3TJYubDm3nMbgubNNYS62eXeUpoLUC8/7fJNiFYHTrGPQn7hspDUzIHX3UA==}
 
+  '@types/hoist-non-react-statics@3.3.7':
+    resolution: {integrity: sha512-PQTyIulDkIDro8P+IHbKCsw7U2xxBYflVzW/FgWdCAePD9xGSidgA76/GeJ6lBKoblyhf9pBY763gbrN+1dI8g==}
+    peerDependencies:
+      '@types/react': '*'
+
   '@types/inquirer@6.5.0':
     resolution: {integrity: sha512-rjaYQ9b9y/VFGOpqBEXRavc3jh0a+e6evAbI31tMda8VlPaSy0AZJfXsvmIe3wklc7W6C3zCSfleuMXR7NOyXw==}
 
@@ -2813,6 +2844,9 @@ packages:
     resolution: {integrity: sha512-qXRuZaOsAdXKFyOhRBg6Lqqc0yay13vN7KrIg4L7N4aaHN68ma9OK3NE1BoDFgFOTfM7zg+3/8+2n8rLUH3OKQ==}
     peerDependencies:
       '@types/react': ^19.0.0
+
+  '@types/react-redux@7.1.34':
+    resolution: {integrity: sha512-GdFaVjEbYv4Fthm2ZLvj1VSCedV7TqE5y1kNwnjSdBOTXuRSgowux6J8TAct15T3CKBr63UMk+2CO7ilRhyrAQ==}
 
   '@types/react@19.1.12':
     resolution: {integrity: sha512-cMoR+FoAf/Jyq6+Df2/Z41jISvGZZ2eTlnsaJRptmZ76Caldwy1odD4xTr/gNV9VLj0AWgg/nmkevIyUfIIq5w==}
@@ -3863,6 +3897,9 @@ packages:
   hermes-parser@0.25.1:
     resolution: {integrity: sha512-6pEjquH3rqaI6cYAXYPcz9MS4rY6R4ngRgrgfDshRptUZIc3lw0MCIJIGDj9++mfySOuPTHB4nrSW99BCvOPIA==}
 
+  hoist-non-react-statics@3.3.2:
+    resolution: {integrity: sha512-/gGivxi8JPKWNm/W0jSmzcMPpfpPLc3dY/6GxhX2hQ9iGj3aDfklV4ET7NjKpSinLpJ5vafa9iiGIEZg10SfBw==}
+
   htmlparser2@10.0.0:
     resolution: {integrity: sha512-TwAZM+zE5Tq3lrEHvOlvwgj1XLWQCtaaibSN11Q+gGBAS7Y1uZSWwXXRe4iF6OXnaq1riyQAPFOBtYc77Mxq0g==}
 
@@ -4759,6 +4796,9 @@ packages:
     resolution: {integrity: sha512-NW2r5T6ksUKXCabzhL9z+h206HQw/NJkcLm1GPImRQ8IzfXwRGqjVhKJGauHirT0DAuyy6hjdnMZaRoAcy0Klw==}
     peerDependencies:
       redux: ^5.0.0
+
+  redux@4.2.1:
+    resolution: {integrity: sha512-LAUYz4lc+Do8/g7aeRa8JkyDErK6ekstQaqWQrNRW//MY1TvCEpMtpTWvlQ+FPbWCx+Xixu/6SHt5N0HR+SB4w==}
 
   redux@5.0.1:
     resolution: {integrity: sha512-M9/ELqF6fy8FwmkpnF0S3YKOqMyoWJ4+CS5Efg2ct3oY9daQvd/Pc71FpGZsVsbl3Cpb+IIcjBDUnnyBdQbq4w==}
@@ -5657,6 +5697,8 @@ snapshots:
   '@babel/runtime-corejs3@7.28.4':
     dependencies:
       core-js-pure: 3.46.0
+
+  '@babel/runtime@7.29.2': {}
 
   '@babel/template@7.27.2':
     dependencies:
@@ -7479,6 +7521,11 @@ snapshots:
       '@types/minimatch': 5.1.2
       '@types/node': 24.9.1
 
+  '@types/hoist-non-react-statics@3.3.7(@types/react@19.1.12)':
+    dependencies:
+      '@types/react': 19.1.12
+      hoist-non-react-statics: 3.3.2
+
   '@types/inquirer@6.5.0':
     dependencies:
       '@types/through': 0.0.33
@@ -7501,6 +7548,13 @@ snapshots:
   '@types/react-dom@19.1.9(@types/react@19.1.12)':
     dependencies:
       '@types/react': 19.1.12
+
+  '@types/react-redux@7.1.34':
+    dependencies:
+      '@types/hoist-non-react-statics': 3.3.7(@types/react@19.1.12)
+      '@types/react': 19.1.12
+      hoist-non-react-statics: 3.3.2
+      redux: 4.2.1
 
   '@types/react@19.1.12':
     dependencies:
@@ -8881,6 +8935,10 @@ snapshots:
     dependencies:
       hermes-estree: 0.25.1
 
+  hoist-non-react-statics@3.3.2:
+    dependencies:
+      react-is: 16.13.1
+
   htmlparser2@10.0.0:
     dependencies:
       domelementtype: 2.3.0
@@ -9834,6 +9892,10 @@ snapshots:
   redux-thunk@3.1.0(redux@5.0.1):
     dependencies:
       redux: 5.0.1
+
+  redux@4.2.1:
+    dependencies:
+      '@babel/runtime': 7.29.2
 
   redux@5.0.1: {}
 

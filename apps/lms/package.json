@@ -1,5 +1,5 @@
 {
-  "name": "@acme/web",
+  "name": "@acme/lms",
   "private": true,
   "type": "module",
   "scripts": {
@@ -14,9 +14,9 @@
   },
   "dependencies": {
     "@acme/api-client": "workspace:*",
+    "@acme/store": "workspace:*",
     "@acme/ui": "workspace:*",
     "@acme/validators": "workspace:*",
-    "@reduxjs/toolkit": "^2.11.2",
     "@t3-oss/env-nextjs": "^0.13.8",
     "@tanstack/react-form": "catalog:",
     "@tanstack/react-query": "catalog:",

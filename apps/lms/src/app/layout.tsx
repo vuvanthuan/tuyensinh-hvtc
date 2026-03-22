@@ -8,6 +8,7 @@ import { Toaster } from "@acme/ui/toast";
 import { env } from "~/env";
 
 import "~/app/styles.css";
+import { StoreProvider } from "./store-provider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -57,7 +58,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
         )}
       >
         <ThemeProvider>
-          {props.children}
+          <StoreProvider>{props.children}</StoreProvider>
           <div className="absolute right-4 bottom-4">
             <ThemeToggle />
           </div>
