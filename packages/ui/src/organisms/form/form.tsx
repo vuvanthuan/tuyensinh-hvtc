@@ -6,8 +6,8 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { Controller, FormProvider, useFormContext } from "react-hook-form";
 
-import { cn } from ".";
-import { Label } from "./label";
+import { Label } from "../../atoms/label";
+import { cn } from "../../index";
 
 const Form = FormProvider;
 
@@ -41,11 +41,6 @@ const useFormField = () => {
   const { getFieldState, formState } = useFormContext();
 
   const fieldState = getFieldState(fieldContext.name, formState);
-
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-  if (!fieldContext) {
-    throw new Error("useFormField should be used within <FormField>");
-  }
 
   const { id } = itemContext;
 
@@ -81,10 +76,15 @@ const FormItem = React.forwardRef<
 });
 FormItem.displayName = "FormItem";
 
+interface FormLabelProps
+  extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> {
+  required?: boolean;
+}
+
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
->(({ className, ...props }, ref) => {
+  FormLabelProps
+>(({ className, required, ...props }, ref) => {
   const { error, formItemId } = useFormField();
 
   return (
@@ -93,7 +93,10 @@ const FormLabel = React.forwardRef<
       className={cn(error && "text-destructive", className)}
       htmlFor={formItemId}
       {...props}
-    />
+    >
+      {props.children}
+      {required && <span className="text-destructive ml-1">*</span>}
+    </Label>
   );
 });
 FormLabel.displayName = "FormLabel";
@@ -131,7 +134,7 @@ const FormDescription = React.forwardRef<
     <p
       ref={ref}
       id={formDescriptionId}
-      className={cn("text-muted-foreground text-[0.8rem]", className)}
+      className={cn("text-muted-foreground text-sm", className)}
       {...props}
     />
   );
@@ -143,7 +146,7 @@ const FormMessage = React.forwardRef<
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, children, ...props }, ref) => {
   const { error, formMessageId } = useFormField();
-  const body = error ? String(error.message ?? "") : children;
+  const body = error ? String(error.message) : children;
 
   if (!body) {
     return null;
@@ -153,7 +156,7 @@ const FormMessage = React.forwardRef<
     <p
       ref={ref}
       id={formMessageId}
-      className={cn("text-destructive text-[0.8rem] font-medium", className)}
+      className={cn("text-destructive text-sm font-medium", className)}
       {...props}
     >
       {body}

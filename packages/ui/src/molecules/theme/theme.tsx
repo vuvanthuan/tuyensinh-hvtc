@@ -1,15 +1,33 @@
 "use client";
 
+import type * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
-import { ThemeProvider, useTheme } from "next-themes";
+import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 
-import { Button } from "./button";
+import { Button } from "../../atoms/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./dropdown-menu";
+} from "../../organisms/dropdown-menu";
+
+function ThemeProvider({
+  children,
+  ...props
+}: React.ComponentProps<typeof NextThemesProvider>) {
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+      {...props}
+    >
+      {children}
+    </NextThemesProvider>
+  );
+}
 
 function ThemeToggle() {
   const { setTheme } = useTheme();
@@ -18,8 +36,8 @@ function ThemeToggle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon">
-          <SunIcon className="size-5 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-          <MoonIcon className="absolute size-5 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+          <SunIcon className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
@@ -38,4 +56,4 @@ function ThemeToggle() {
   );
 }
 
-export { ThemeProvider, ThemeToggle };
+export { ThemeProvider, ThemeToggle, useTheme };
