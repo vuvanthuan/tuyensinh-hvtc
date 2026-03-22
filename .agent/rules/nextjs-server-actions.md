@@ -1,8 +1,5 @@
 ---
-title: Next.js Server Actions & Forms
-impact: HIGH
-impactDescription: Ensures robust and secure data mutations.
-tags: nextjs, forms, server-actions
+trigger: manual
 ---
 
 ## Next.js Server Actions & Forms
