@@ -2,6 +2,23 @@ import * as React from "react";
 
 import { cn } from "../../index";
 
+/**
+ * A fundamental text input field with standard accessible styling.
+ *
+ * @example
+ * ```tsx
+ * import { Input, Label } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <div className="grid w-full max-w-sm items-center gap-1.5">
+ *       <Label htmlFor="email">Email</Label>
+ *       <Input type="email" id="email" placeholder="Email" />
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {
     return (

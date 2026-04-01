@@ -18,6 +18,29 @@ function TooltipProvider({
   );
 }
 
+/**
+ * A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
+ *
+ * @example
+ * ```tsx
+ * import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, Button } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <TooltipProvider>
+ *       <Tooltip>
+ *         <TooltipTrigger asChild>
+ *           <Button variant="outline">Hover</Button>
+ *         </TooltipTrigger>
+ *         <TooltipContent>
+ *           <p>Add to library</p>
+ *         </TooltipContent>
+ *       </Tooltip>
+ *     </TooltipProvider>
+ *   );
+ * }
+ * ```
+ */
 function Tooltip({
   ...props
 }: React.ComponentProps<typeof TooltipPrimitive.Root>) {

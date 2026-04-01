@@ -5,6 +5,23 @@ import * as SwitchPrimitive from "@radix-ui/react-switch";
 
 import { cn } from "../..";
 
+/**
+ * A control that allows the user to toggle between checked and not checked.
+ *
+ * @example
+ * ```tsx
+ * import { Switch, Label } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <div className="flex items-center space-x-2">
+ *       <Switch id="airplane-mode" />
+ *       <Label htmlFor="airplane-mode">Airplane Mode</Label>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 function Switch({
   className,
   ...props

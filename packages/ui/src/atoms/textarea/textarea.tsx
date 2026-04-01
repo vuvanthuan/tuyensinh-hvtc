@@ -2,6 +2,23 @@ import * as React from "react";
 
 import { cn } from "@acme/ui";
 
+/**
+ * A multi-line text input control.
+ *
+ * @example
+ * ```tsx
+ * import { Textarea, Label } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <div className="grid w-full gap-1.5">
+ *       <Label htmlFor="message">Your message</Label>
+ *       <Textarea placeholder="Type your message here." id="message" />
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 function Textarea({ className, ...props }: React.ComponentProps<"textarea">) {
   return (
     <textarea

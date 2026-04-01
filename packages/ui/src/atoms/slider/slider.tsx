@@ -5,6 +5,26 @@ import * as SliderPrimitive from "@radix-ui/react-slider";
 
 import { cn } from "../..";
 
+/**
+ * An input where the user selects a value from within a given range.
+ *
+ * @example
+ * ```tsx
+ * import { Slider, cn } from "@acme/ui";
+ *
+ * export function Example({ className, ...props }: React.ComponentProps<typeof Slider>) {
+ *   return (
+ *     <Slider
+ *       defaultValue={[50]}
+ *       max={100}
+ *       step={1}
+ *       className={cn("w-[60%]", className)}
+ *       {...props}
+ *     />
+ *   );
+ * }
+ * ```
+ */
 function Slider({
   className,
   defaultValue,

@@ -5,6 +5,22 @@ import * as ScrollAreaPrimitive from "@radix-ui/react-scroll-area";
 
 import { cn } from "../..";
 
+/**
+ * Augments native scroll functionality for custom, cross-browser styling.
+ *
+ * @example
+ * ```tsx
+ * import { ScrollArea } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <ScrollArea className="h-[200px] w-[350px] rounded-md border p-4">
+ *       Jokester began sneaking into the castle in the middle of the night...
+ *     </ScrollArea>
+ *   );
+ * }
+ * ```
+ */
 function ScrollArea({
   className,
   children,

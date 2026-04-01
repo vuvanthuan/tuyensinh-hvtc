@@ -5,6 +5,18 @@ import * as ProgressPrimitive from "@radix-ui/react-progress";
 
 import { cn } from "../..";
 
+/**
+ * Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.
+ *
+ * @example
+ * ```tsx
+ * import { Progress } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return <Progress value={33} className="w-[60%]" />;
+ * }
+ * ```
+ */
 function Progress({
   className,
   value,

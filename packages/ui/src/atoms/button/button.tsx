@@ -11,6 +11,26 @@ export interface ButtonProps
   asChild?: boolean;
 }
 
+/**
+ * A highly customizable Button component that supports various sizes, variants, and polymorphism (`asChild`).
+ *
+ * @example
+ * ```tsx
+ * import { Button } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <div className="flex gap-4">
+ *       <Button variant="default" size="default">Standard</Button>
+ *       <Button variant="outline" size="sm">Small Outline</Button>
+ *       <Button variant="ghost" asChild>
+ *         <a href="/login">Link as Button</a>
+ *       </Button>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";

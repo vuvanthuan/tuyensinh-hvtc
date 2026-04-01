@@ -5,6 +5,23 @@ import * as AvatarPrimitive from "@radix-ui/react-avatar";
 
 import { cn } from "../../index";
 
+/**
+ * An image element with a fallback for representing the user.
+ *
+ * @example
+ * ```tsx
+ * import { Avatar, AvatarFallback, AvatarImage } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <Avatar>
+ *       <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+ *       <AvatarFallback>CN</AvatarFallback>
+ *     </Avatar>
+ *   );
+ * }
+ * ```
+ */
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>

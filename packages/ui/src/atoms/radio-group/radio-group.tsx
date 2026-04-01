@@ -6,6 +6,29 @@ import { CircleIcon } from "lucide-react";
 
 import { cn } from "../..";
 
+/**
+ * A set of checkable buttons—known as radio buttons—where no more than one of the buttons can be checked at a time.
+ *
+ * @example
+ * ```tsx
+ * import { RadioGroup, RadioGroupItem, Label } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <RadioGroup defaultValue="comfortable">
+ *       <div className="flex items-center space-x-2">
+ *         <RadioGroupItem value="default" id="r1" />
+ *         <Label htmlFor="r1">Default</Label>
+ *       </div>
+ *       <div className="flex items-center space-x-2">
+ *         <RadioGroupItem value="comfortable" id="r2" />
+ *         <Label htmlFor="r2">Comfortable</Label>
+ *       </div>
+ *     </RadioGroup>
+ *   );
+ * }
+ * ```
+ */
 function RadioGroup({
   className,
   ...props
@@ -19,6 +42,9 @@ function RadioGroup({
   );
 }
 
+/**
+ * An item in the radio group.
+ */
 function RadioGroupItem({
   className,
   ...props

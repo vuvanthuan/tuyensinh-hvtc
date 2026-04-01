@@ -29,6 +29,23 @@ const toggleVariants = cva(
   },
 );
 
+/**
+ * A two-state button that can be either on or off.
+ *
+ * @example
+ * ```tsx
+ * import { Toggle } from "@acme/ui";
+ * import { Bold } from "lucide-react";
+ *
+ * export function Example() {
+ *   return (
+ *     <Toggle aria-label="Toggle italic">
+ *       <Bold className="h-4 w-4" />
+ *     </Toggle>
+ *   );
+ * }
+ * ```
+ */
 function Toggle({
   className,
   variant,

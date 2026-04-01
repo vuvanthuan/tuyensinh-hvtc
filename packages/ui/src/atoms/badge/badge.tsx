@@ -26,6 +26,25 @@ const badgeVariants = cva(
   },
 );
 
+/**
+ * Displays a badge or a component that looks like a badge.
+ *
+ * @example
+ * ```tsx
+ * import { Badge } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <div className="flex gap-2">
+ *       <Badge variant="default">New</Badge>
+ *       <Badge variant="secondary">Approved</Badge>
+ *       <Badge variant="destructive">Error</Badge>
+ *       <Badge variant="outline">Label</Badge>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 function Badge({
   className,
   variant,

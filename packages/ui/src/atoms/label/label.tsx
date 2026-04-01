@@ -9,6 +9,23 @@ const labelVariants = cva(
   "text-sm leading-none font-medium peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
 );
 
+/**
+ * Renders an accessible label associated with controls.
+ *
+ * @example
+ * ```tsx
+ * import { Label, Checkbox } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <div className="flex items-center space-x-2">
+ *       <Checkbox id="terms" />
+ *       <Label htmlFor="terms">Accept terms and conditions</Label>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 const Label = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &

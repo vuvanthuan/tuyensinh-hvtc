@@ -6,6 +6,31 @@ import { CheckIcon } from "@radix-ui/react-icons";
 
 import { cn } from "../../index";
 
+/**
+ * A control that allows the user to toggle between checked and not checked.
+ * Built on top of `\@radix-ui/react-checkbox`.
+ *
+ * @example
+ * ```tsx
+ * import { Checkbox } from "@acme/ui";
+ *
+ * export function Example() {
+ *   return (
+ *     <div className="items-top flex space-x-2">
+ *       <Checkbox id="terms1" />
+ *       <div className="grid gap-1.5 leading-none">
+ *         <label htmlFor="terms1" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+ *           Accept terms and conditions
+ *         </label>
+ *         <p className="text-sm text-muted-foreground">
+ *           You agree to our Terms of Service and Privacy Policy.
+ *         </p>
+ *       </div>
+ *     </div>
+ *   );
+ * }
+ * ```
+ */
 const Checkbox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>
