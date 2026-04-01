@@ -46,7 +46,10 @@ export class DeduplicationInterceptor implements Interceptor {
 
         return config;
       },
-      (error: unknown) => Promise.reject(error instanceof Error ? error : new Error(String(error))),
+      (error: unknown) =>
+        Promise.reject(
+          error instanceof Error ? error : new Error(String(error)),
+        ),
     );
 
     instance.interceptors.response.use(
@@ -69,12 +72,18 @@ export class DeduplicationInterceptor implements Interceptor {
         const axiosError = error as { config?: Record<string, unknown> };
         if (axiosError.config) {
           const key = this.buildKey(
-            axiosError.config as { url?: string; method?: string; params?: unknown },
+            axiosError.config as {
+              url?: string;
+              method?: string;
+              params?: unknown;
+            },
           );
           this.inFlight.delete(key);
         }
 
-        return Promise.reject(error instanceof Error ? error : new Error(String(error)));
+        return Promise.reject(
+          error instanceof Error ? error : new Error(String(error)),
+        );
       },
     );
   }

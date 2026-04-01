@@ -1,16 +1,16 @@
 "use client";
 
-import type * as React from "react";
+import * as React from "react";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 
-import { Button } from "../../atoms/button";
 import {
+  Button,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../../organisms/dropdown-menu";
+} from "@acme/ui";
 
 function ThemeProvider({
   children,

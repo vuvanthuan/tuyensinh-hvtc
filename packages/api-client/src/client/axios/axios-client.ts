@@ -44,7 +44,15 @@ export class AxiosHttpClient implements HttpClient {
    * @param instance - A pre-configured Axios instance with interceptors
    *   already registered (provided by {@link AxiosInstanceFactory}).
    */
-  constructor(private readonly instance: AxiosInstance) {}
+  constructor(private readonly _instance: AxiosInstance) {}
+
+  /**
+   * The underlying AxiosInstance used by this client.
+   * Useful for registering mock adapters or direct Axios interceptors.
+   */
+  public get instance(): AxiosInstance {
+    return this._instance;
+  }
 
   // ─── HttpClient interface ─────────────────────────────────────────────────
 

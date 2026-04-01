@@ -8,8 +8,8 @@
  * optional field-level `errors`.
  */
 
-import { BaseException } from "./base.exception";
 import type { ErrorCode } from "../../core/constants/error.constant";
+import { BaseException } from "./base.exception";
 
 /**
  * Constructor context for {@link HttpException}.

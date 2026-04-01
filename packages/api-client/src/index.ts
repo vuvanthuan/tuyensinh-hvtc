@@ -8,14 +8,8 @@
  */
 
 // ─── Main client ──────────────────────────────────────────────────────────────
-export {
-  ApiClient,
-  createAbortHandle,
-} from "./api-client";
-export type {
-  AbortHandle,
-  ApiClientOptions,
-} from "./api-client";
+export { ApiClient, createAbortHandle } from "./api-client";
+export type { AbortHandle, ApiClientOptions } from "./api-client";
 
 // ─── Core types ───────────────────────────────────────────────────────────────
 export type {
@@ -45,10 +39,7 @@ export type {
   IResponseDTO,
   IResponseWithMetadataDTO,
 } from "./core/types/response.types";
-export {
-  isErrorResponse,
-  isResponseDTO,
-} from "./core/types/response.types";
+export { isErrorResponse, isResponseDTO } from "./core/types/response.types";
 
 export type {
   ErrorContext,
@@ -117,10 +108,7 @@ export type {
 export { DefaultTokenRefreshHandler } from "./auth/token-refresh-handler";
 export type { RefreshTokenResponse } from "./auth/token-refresh-handler";
 
-export type {
-  TokenData,
-  TokenStorage,
-} from "./auth/token-storage.interface";
+export type { TokenData, TokenStorage } from "./auth/token-storage.interface";
 export { LocalStorageTokenStorage } from "./auth/token-storage";
 
 // ─── Cache layer ──────────────────────────────────────────────────────────────

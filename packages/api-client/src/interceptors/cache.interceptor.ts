@@ -63,12 +63,18 @@ export class CacheInterceptor implements Interceptor {
   register(instance: AxiosInstance): void {
     instance.interceptors.request.use(
       this.handleRequest.bind(this),
-      (error: unknown) => Promise.reject(error instanceof Error ? error : new Error(String(error))),
+      (error: unknown) =>
+        Promise.reject(
+          error instanceof Error ? error : new Error(String(error)),
+        ),
     );
 
     instance.interceptors.response.use(
       this.handleResponse.bind(this),
-      (error: unknown) => Promise.reject(error instanceof Error ? error : new Error(String(error))),
+      (error: unknown) =>
+        Promise.reject(
+          error instanceof Error ? error : new Error(String(error)),
+        ),
     );
   }
 

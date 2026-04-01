@@ -137,7 +137,18 @@ export class ApiClient {
     // Logging is always last so it observes the final resolved config
     interceptors.push(new LoggingInterceptor());
 
+
     this.httpClient = AxiosInstanceFactory.create(config, interceptors);
+  }
+
+  /**
+   * The underlying AxiosInstance used by this client.
+   * Only available when using the Axios-backed HttpClient.
+   */
+  public get instance(): any {
+    // We cast to any here because ApiClient is technically framework-agnostic
+    // but in this monorepo we know it's always AxiosHttpClient.
+    return (this.httpClient as any).instance;
   }
 
   // ─── Core request execution ───────────────────────────────────────────────
@@ -179,7 +190,10 @@ export class ApiClient {
     params?: Record<string, unknown>,
     options?: IRequestOptions,
   ): Promise<IResponseWithMetadataDTO<TResponse>> {
-    return this.requestWithMeta<TResponse>({ method: "GET", url, params }, options);
+    return this.requestWithMeta<TResponse>(
+      { method: "GET", url, params },
+      options,
+    );
   }
 
   async post<TResponse = unknown, TData = unknown>(
@@ -187,7 +201,10 @@ export class ApiClient {
     data?: TData,
     options?: IRequestOptions,
   ): Promise<IResponseDTO<TResponse>> {
-    return this.request<TResponse, TData>({ method: "POST", url, data }, options);
+    return this.request<TResponse, TData>(
+      { method: "POST", url, data },
+      options,
+    );
   }
 
   async put<TResponse = unknown, TData = unknown>(
@@ -195,7 +212,10 @@ export class ApiClient {
     data?: TData,
     options?: IRequestOptions,
   ): Promise<IResponseDTO<TResponse>> {
-    return this.request<TResponse, TData>({ method: "PUT", url, data }, options);
+    return this.request<TResponse, TData>(
+      { method: "PUT", url, data },
+      options,
+    );
   }
 
   async patch<TResponse = unknown, TData = unknown>(
@@ -203,7 +223,10 @@ export class ApiClient {
     data?: TData,
     options?: IRequestOptions,
   ): Promise<IResponseDTO<TResponse>> {
-    return this.request<TResponse, TData>({ method: "PATCH", url, data }, options);
+    return this.request<TResponse, TData>(
+      { method: "PATCH", url, data },
+      options,
+    );
   }
 
   async delete<TResponse = unknown>(
@@ -306,11 +329,15 @@ export class ApiClient {
    * // Later:
    * abort("user navigated away");
    */
-  withAbort<T>(
-    fn: (signal: AbortSignal) => Promise<T>,
-  ): { promise: Promise<T>; abort: (reason?: string) => void } {
+  withAbort<T>(fn: (signal: AbortSignal) => Promise<T>): {
+    promise: Promise<T>;
+    abort: (reason?: string) => void;
+  } {
     const handle = createAbortHandle();
-    return { promise: fn(handle.signal), abort: (reason?: string) => handle.abort(reason) };
+    return {
+      promise: fn(handle.signal),
+      abort: (reason?: string) => handle.abort(reason),
+    };
   }
 
   // ─── Private helpers ──────────────────────────────────────────────────────
@@ -363,7 +390,9 @@ export class ApiClient {
         enhancedConfig,
       );
 
-      const parsed = this.responseParser.parseWithMeta<TResponse>(response.data);
+      const parsed = this.responseParser.parseWithMeta<TResponse>(
+        response.data,
+      );
 
       if (!parsed.success && options?.displayError !== false) {
         this.displayError(parsed.message ?? "Request failed");
@@ -406,7 +435,11 @@ export class ApiClient {
     });
   }
 
-  private triggerDownload(blob: Blob, fileName: string, fileType: string): void {
+  private triggerDownload(
+    blob: Blob,
+    fileName: string,
+    fileType: string,
+  ): void {
     if (typeof window === "undefined") return;
 
     const href = URL.createObjectURL(blob);

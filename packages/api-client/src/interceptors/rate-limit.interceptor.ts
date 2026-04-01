@@ -32,7 +32,10 @@ export class RateLimitInterceptor implements Interceptor {
         await this.acquireToken();
         return cfg;
       },
-      (error: unknown) => Promise.reject(error instanceof Error ? error : new Error(String(error))),
+      (error: unknown) =>
+        Promise.reject(
+          error instanceof Error ? error : new Error(String(error)),
+        ),
     );
   }
 

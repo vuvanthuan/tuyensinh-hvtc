@@ -187,7 +187,7 @@ export interface ApiClientConfig {
    * The connection is aborted and a {@link TimeoutException} is thrown when
    * exceeded.
    */
-  timeout: number;
+  timeout?: number;
 
   /**
    * Headers merged into every outgoing request.

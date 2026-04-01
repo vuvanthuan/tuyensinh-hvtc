@@ -14,7 +14,12 @@ function serializeParams(params?: Record<string, unknown>): string {
   const qs = new URLSearchParams();
   for (const [key, value] of Object.entries(params)) {
     if (value !== undefined && value !== null) {
-      qs.append(key, typeof value === "object" ? JSON.stringify(value) : String(value as string | number | boolean));
+      qs.append(
+        key,
+        typeof value === "object"
+          ? JSON.stringify(value)
+          : String(value as string | number | boolean),
+      );
     }
   }
   const str = qs.toString();
@@ -125,7 +130,11 @@ export class FetchHttpClient implements HttpClient {
         ((data ?? {}) as { message?: string }).message ??
           `HTTP Error ${fetchResponse.status}`,
       ) as Error & {
-        response: { status: number; data: unknown; headers: Record<string, string> };
+        response: {
+          status: number;
+          data: unknown;
+          headers: Record<string, string>;
+        };
         isAxiosError: false;
       };
 

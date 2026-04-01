@@ -2,16 +2,17 @@
 
 import * as React from "react";
 
-import type { ToastActionElement, ToastProps } from "./toast";
 import {
   Toast,
+  ToastActionElement,
   ToastClose,
   ToastDescription,
+  ToastProps,
   ToastProvider,
   ToastTitle,
   ToastViewport,
-} from "./toast";
-import { useToast } from "./use-toast";
+  useToast,
+} from "@acme/ui";
 
 interface ToasterToast extends Omit<ToastProps, "title" | "description"> {
   id: string;

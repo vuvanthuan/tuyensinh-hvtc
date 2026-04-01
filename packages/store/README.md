@@ -3,6 +3,7 @@
 Shared state management for the Acme monorepo using **Clean Architecture** and **Redux Toolkit**.
 
 ## Core Features
+
 - **Layered Architecture**: Decouples business logic from state management libraries.
 - **App Isolation**: Separate stores for `admin`, `landing`, `lms`, and `web`.
 - **Persistence**: Built-in support for `redux-persist`.
@@ -11,6 +12,7 @@ Shared state management for the Acme monorepo using **Clean Architecture** and *
 ## Quick Start
 
 ### 1. Add Dependency
+
 Add `@acme/store` to your application's `package.json`.
 
 ```json
@@ -22,13 +24,16 @@ Add `@acme/store` to your application's `package.json`.
 ```
 
 ### 2. Configure Provider
+
 Wrap your app with the Redux `Provider` and `PersistGate` using the store specific to your app.
 
 Example for the `Admin` app:
+
 ```tsx
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { adminStore, adminPersistor } from "@acme/store";
+
+import { adminPersistor, adminStore } from "@acme/store";
 
 export function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -42,6 +47,7 @@ export function RootLayout({ children }: { children: React.ReactNode }) {
 ```
 
 ### 3. Use State Hooks
+
 Use the exported presentation hooks to access state and actions.
 
 ```tsx
@@ -60,5 +66,6 @@ export function Counter() {
 ```
 
 ## Documentation
+
 - [Usage Guide](./USAGE.md) - How to add new features and follow Clean Architecture.
 - [API Reference](./API_REFERENCE.md) - Detailed list of stores and hooks.

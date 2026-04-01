@@ -12,7 +12,7 @@
  * - {@link FetchHttpClient} – native `fetch` for Edge / Cloudflare Workers
  */
 
-import type { HttpResponse } from "@/core/types/response.types";
+import type { HttpResponse } from "../core/types/response.types";
 
 import type {
   DeleteRequestConfig,

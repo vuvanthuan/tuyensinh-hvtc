@@ -26,18 +26,18 @@
  * ```
  */
 
-import axios from "axios";
 import type { AxiosRequestConfig } from "axios";
+import axios from "axios";
 
 import type { ApiClientConfig } from "../../core/types/api.types";
 import type { Interceptor } from "../../interceptors/interceptor.interface";
+import { AxiosHttpClient } from "./axios-client";
 import {
   addCorrelationId,
   parseResponseDates,
   serializeDates,
   stripUndefined,
 } from "./axios-transformers";
-import { AxiosHttpClient } from "./axios-client";
 
 export class AxiosInstanceFactory {
   /**
@@ -116,7 +116,9 @@ export class AxiosInstanceFactory {
    *
    * @param instance - The newly created Axios instance to mutate.
    */
-  private static applyTransformers(instance: ReturnType<typeof axios.create>): void {
+  private static applyTransformers(
+    instance: ReturnType<typeof axios.create>,
+  ): void {
     // The existing default transformers from Axios (JSON.stringify / JSON.parse)
     const defaultRequestTransformers = axios.defaults.transformRequest ?? [];
     const defaultResponseTransformers = axios.defaults.transformResponse ?? [];
@@ -142,5 +144,21 @@ export class AxiosInstanceFactory {
 
     // Interceptors (e.g. Correlation ID)
     instance.interceptors.request.use((config) => addCorrelationId(config));
+
+    // Error normalization interceptor
+    instance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        const normalizedError = {
+          message:
+            error.response?.data?.message ||
+            error.message ||
+            "An unexpected error occurred",
+          status: error.response?.status,
+          data: error.response?.data,
+        };
+        return Promise.reject(normalizedError);
+      },
+    );
   }
 }

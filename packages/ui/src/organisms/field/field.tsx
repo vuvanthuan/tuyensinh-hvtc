@@ -3,17 +3,17 @@
 import type { FieldValues } from "react-hook-form";
 import { useFormContext } from "react-hook-form";
 
-import { Checkbox } from "../../atoms/checkbox";
-import { Input } from "../../atoms/input";
-import { Textarea } from "../../atoms/textarea";
-import { cn } from "../../index";
 import {
+  Checkbox,
+  cn,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../organisms/form";
+  Input,
+  Textarea,
+} from "@acme/ui";
 
 interface BaseFieldProps {
   name: string;

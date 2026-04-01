@@ -7,6 +7,7 @@ This guide explains how to use the `@acme/store` package and how to add new stat
 Each feature in this package is divided into three layers:
 
 ### 1. Domain Layer (`domain/`)
+
 Defines the state shape and business entities. This layer is pure TypeScript and has no dependencies on Redux or React.
 
 ```typescript
@@ -19,6 +20,7 @@ export interface SampleState {
 ```
 
 ### 2. Infrastructure Layer (`infrastructure/`)
+
 Contains the specific implementation of the state management (Redux slices). This is where the "how" of state management lives.
 
 ```typescript
@@ -30,13 +32,14 @@ export const sampleReducer = sampleSlice.reducer;
 ```
 
 ### 3. Presentation / Application Layer (`presentation/`)
+
 Exposes custom hooks that the React components use. This layer acts as a **Facade**, hiding the infrastructure implementation.
 
 ```typescript
 // use-sample.ts
 export const useSample = () => {
   const dispatch = useAppDispatch();
-  const state = useAppSelector(s => s.sample);
+  const state = useAppSelector((s) => s.sample);
   return {
     ...state,
     increment: () => dispatch(increment()),
@@ -60,6 +63,7 @@ To add a new feature (e.g., `user` for the `admin` app):
 4. **Expose the hook** in `presentation/use-user.ts`.
 
 5. **Register the reducer** in `src/apps/admin/store.ts`:
+
    ```typescript
    const rootReducer = combineReducers({
      sample: sampleReducer,
@@ -75,6 +79,7 @@ To add a new feature (e.g., `user` for the `admin` app):
 ## Swapping Libraries
 
 If you need to change from Redux to **Zustand**:
+
 1. Keep the `domain/` layer as is.
 2. Rewrite the `infrastructure/` layer using Zustand.
 3. Update the `presentation/` hooks to pull state from Zustand instead of Redux.

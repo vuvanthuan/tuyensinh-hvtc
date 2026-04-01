@@ -53,7 +53,8 @@ export class ErrorFactory {
     if (!this.isAxiosError(error)) {
       return new HttpException({
         statusCode: ERROR_CODES.UNKNOWN_ERROR,
-        message: error instanceof Error ? error.message : "Unknown error occurred",
+        message:
+          error instanceof Error ? error.message : "Unknown error occurred",
       });
     }
 
