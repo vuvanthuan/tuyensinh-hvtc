@@ -1,7 +1,7 @@
 "use client";
 
 import type { Table } from "@tanstack/react-table";
-import * as React from "react";
+import type * as React from "react";
 
 import { cn } from "@acme/ui";
 

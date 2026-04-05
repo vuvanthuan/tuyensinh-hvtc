@@ -24,13 +24,26 @@ const chartData = [
   { month: "Jun", uv: 2390, pv: 3800 },
 ];
 
-// Generate more granular data points for smooth line look like the screenshot 
+// Generate more granular data points for smooth line look like the screenshot
 // (or just use more array points if doing a static mock)
 const detailedData = Array.from({ length: 60 }).map((_, i) => ({
   date: `${i}`,
   uv: Math.sin(i / 3) * 2000 + 4000 + Math.random() * 1000,
   pv: Math.cos(i / 4) * 1500 + 3000 + Math.random() * 800,
-  label: i === 0 ? "Jan" : i === 12 ? "Feb" : i === 24 ? "Mar" : i === 36 ? "Apr" : i === 48 ? "May" : i === 59 ? "Jun" : "",
+  label:
+    i === 0
+      ? "Jan"
+      : i === 12
+        ? "Feb"
+        : i === 24
+          ? "Mar"
+          : i === 36
+            ? "Apr"
+            : i === 48
+              ? "May"
+              : i === 59
+                ? "Jun"
+                : "",
 }));
 
 // We'll hardcode orange/teal in CSS variables just for this component or inline them.
@@ -49,21 +62,23 @@ export function TrafficChart({ className }: { className?: string }) {
   const [timeRange, setTimeRange] = React.useState("last3months");
 
   return (
-    <Card className={cn("shadow-none border-border", className)}>
+    <Card className={cn("border-border shadow-none", className)}>
       <CardHeader className="flex flex-row items-center justify-between pb-8">
         <div className="flex flex-col gap-1">
-          <CardTitle className="text-base font-semibold">Total Visitors</CardTitle>
+          <CardTitle className="text-base font-semibold">
+            Total Visitors
+          </CardTitle>
           <CardDescription className="text-muted-foreground font-normal">
             Total for the last 3 months
           </CardDescription>
         </div>
-        <div className="flex items-center gap-1.5 rounded-md bg-muted/50 p-1 border border-border/40 shadow-sm">
+        <div className="bg-muted/50 border-border/40 flex items-center gap-1.5 rounded-md border p-1 shadow-sm">
           <button
             onClick={() => setTimeRange("last3months")}
             className={cn(
               "rounded-sm px-2.5 py-1 text-xs font-medium transition-colors",
               timeRange === "last3months"
-                ? "bg-background text-foreground shadow-sm ring-1 ring-border/20"
+                ? "bg-background text-foreground ring-border/20 shadow-sm ring-1"
                 : "text-muted-foreground hover:text-foreground",
             )}
           >
@@ -74,7 +89,7 @@ export function TrafficChart({ className }: { className?: string }) {
             className={cn(
               "rounded-sm px-2.5 py-1 text-xs font-medium transition-colors",
               timeRange === "last30days"
-                ? "bg-background text-foreground shadow-sm ring-1 ring-border/20"
+                ? "bg-background text-foreground ring-border/20 shadow-sm ring-1"
                 : "text-muted-foreground hover:text-foreground",
             )}
           >
@@ -85,7 +100,7 @@ export function TrafficChart({ className }: { className?: string }) {
             className={cn(
               "rounded-sm px-2.5 py-1 text-xs font-medium transition-colors",
               timeRange === "last7days"
-                ? "bg-background text-foreground shadow-sm ring-1 ring-border/20"
+                ? "bg-background text-foreground ring-border/20 shadow-sm ring-1"
                 : "text-muted-foreground hover:text-foreground",
             )}
           >
@@ -95,7 +110,10 @@ export function TrafficChart({ className }: { className?: string }) {
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-[240px] w-full">
-          <AreaChart data={detailedData} margin={{ left: -20, right: 0, top: 0, bottom: 0 }}>
+          <AreaChart
+            data={detailedData}
+            margin={{ left: -20, right: 0, top: 0, bottom: 0 }}
+          >
             <defs>
               <linearGradient id="fillUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#f97316" stopOpacity={0.4} />

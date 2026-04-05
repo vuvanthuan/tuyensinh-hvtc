@@ -1,5 +1,6 @@
-import { api } from "../../lib/api";
 import { Course, CourseQuery, PaginatedCourse } from "@acme/api-contract";
+
+import { api } from "../../lib/api";
 
 export const coursesApi = {
   /**

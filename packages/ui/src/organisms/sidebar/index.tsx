@@ -22,6 +22,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@acme/ui";
+
 import { useIsMobile } from "../../hooks";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";

@@ -24,7 +24,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
   Carousel,
@@ -32,11 +31,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-  Checkbox,
   CheckboxField,
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
   Form,
   Label,
   Progress,
@@ -161,7 +156,7 @@ export default function HomePage() {
               Using useLmsSample() facade hook from @acme/store
             </CardDescription>
           </CardHeader>
-          <CardContent className="flex items-center gap-6">
+          <CardContent className="text-primary-900 flex items-center gap-6">
             <span className="text-4xl font-bold">{count}</span>
             <div className="space-x-2">
               <Button onClick={increment}>Increment</Button>
@@ -318,7 +313,143 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Section 4: Complex Organisms */}
+      {/* Section 4: Color System Showcase */}
+      <section className="space-y-4">
+        <h2 className="text-2xl font-semibold">4. Figma Color System</h2>
+        <Card>
+          <CardHeader>
+            <CardTitle>Color Scales</CardTitle>
+            <CardDescription>
+              New palette migrated from Figma (#006FEE Primary, #0B1928 Neutral)
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {/* Primary Scale */}
+            <div className="space-y-2">
+              <Label>Primary Scale (#006FEE)</Label>
+              <div className="grid grid-cols-11 gap-px overflow-hidden rounded-md border">
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-50 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">50</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-100 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">100</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-200 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">200</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-300 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">300</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-400 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">400</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-500 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">500</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-600 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">600</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-700 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">700</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-800 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">800</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-900 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">900</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="bg-primary-950 h-12 w-full rounded-sm" />
+                  <span className="font-mono text-[10px]">950</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Neutral Scale */}
+            <div className="space-y-2">
+              <Label>Neutral/Navy Scale (#0B1928)</Label>
+              <div className="grid grid-cols-11 gap-px overflow-hidden rounded-md border">
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-50" />
+                  <span className="font-mono text-[10px]">50</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-100" />
+                  <span className="font-mono text-[10px]">100</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-200" />
+                  <span className="font-mono text-[10px]">200</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-300" />
+                  <span className="font-mono text-[10px]">300</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-400" />
+                  <span className="font-mono text-[10px]">400</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-500" />
+                  <span className="font-mono text-[10px]">500</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-600" />
+                  <span className="font-mono text-[10px]">600</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-700" />
+                  <span className="font-mono text-[10px]">700</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-800" />
+                  <span className="font-mono text-[10px]">800</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-900" />
+                  <span className="font-mono text-[10px]">900</span>
+                </div>
+                <div className="flex flex-col items-center gap-1 p-2">
+                  <div className="h-12 w-full rounded-sm bg-neutral-950" />
+                  <span className="font-mono text-[10px]">950</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Semantic Colors */}
+            <div className="flex flex-wrap gap-4 pt-4">
+              <div className="flex items-center gap-2">
+                <div className="bg-success h-8 w-8 rounded-full" />
+                <span className="text-sm font-medium">Success</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="bg-warning h-8 w-8 rounded-full" />
+                <span className="text-sm font-medium">Warning</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="bg-destructive h-8 w-8 rounded-full" />
+                <span className="text-sm font-medium">Danger</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="bg-tertiary h-8 w-8 rounded-full" />
+                <span className="text-sm font-medium">Accent (Indigo)</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Section 5: Complex Organisms */}
       <section className="space-y-8">
         <h2 className="text-2xl font-semibold">4. Interactive Organisms</h2>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">

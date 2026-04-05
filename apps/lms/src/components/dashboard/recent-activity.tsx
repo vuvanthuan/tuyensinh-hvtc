@@ -1,5 +1,16 @@
 import * as React from "react";
-import { Avatar, AvatarFallback, AvatarImage, Badge, Card, CardContent, CardHeader, CardTitle, cn } from "@acme/ui";
+
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Badge,
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  cn,
+} from "@acme/ui";
 
 type StatusVariant = "default" | "secondary" | "outline" | "destructive";
 
@@ -16,7 +27,11 @@ interface Activity {
 const activities: Activity[] = [
   {
     id: "1",
-    user: { name: "Alex Rivera", avatar: "https://i.pravatar.cc/150?u=1", initials: "AR" },
+    user: {
+      name: "Alex Rivera",
+      avatar: "https://i.pravatar.cc/150?u=1",
+      initials: "AR",
+    },
     action: "published",
     target: "Advanced React Patterns",
     time: "2h ago",
@@ -25,7 +40,11 @@ const activities: Activity[] = [
   },
   {
     id: "2",
-    user: { name: "Sarah Chen", avatar: "https://i.pravatar.cc/150?u=2", initials: "SC" },
+    user: {
+      name: "Sarah Chen",
+      avatar: "https://i.pravatar.cc/150?u=2",
+      initials: "SC",
+    },
     action: "updated",
     target: "Fullstack Next.js",
     time: "5h ago",
@@ -34,7 +53,11 @@ const activities: Activity[] = [
   },
   {
     id: "3",
-    user: { name: "Michael J.", avatar: "https://i.pravatar.cc/150?u=3", initials: "MJ" },
+    user: {
+      name: "Michael J.",
+      avatar: "https://i.pravatar.cc/150?u=3",
+      initials: "MJ",
+    },
     action: "submitted for review",
     target: "Mobile App Design",
     time: "1d ago",
@@ -43,7 +66,11 @@ const activities: Activity[] = [
   },
   {
     id: "4",
-    user: { name: "Emma Wilson", avatar: "https://i.pravatar.cc/150?u=4", initials: "EW" },
+    user: {
+      name: "Emma Wilson",
+      avatar: "https://i.pravatar.cc/150?u=4",
+      initials: "EW",
+    },
     action: "archived",
     target: "UI/UX Basics",
     time: "2d ago",
@@ -57,15 +84,20 @@ export function RecentActivity({ className }: { className?: string }) {
     <Card className={className}>
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-base font-semibold">Recent Activity</CardTitle>
-          <button className="text-xs text-muted-foreground underline-offset-4 hover:underline">
+          <CardTitle className="text-base font-semibold">
+            Recent Activity
+          </CardTitle>
+          <button className="text-muted-foreground text-xs underline-offset-4 hover:underline">
             View all
           </button>
         </div>
       </CardHeader>
-      <CardContent className="flex flex-col divide-y divide-border">
+      <CardContent className="divide-border flex flex-col divide-y">
         {activities.map((item) => (
-          <div key={item.id} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
+          <div
+            key={item.id}
+            className="flex items-start gap-3 py-3 first:pt-0 last:pb-0"
+          >
             <Avatar className="mt-0.5 size-7 rounded-full">
               <AvatarImage src={item.user.avatar} alt={item.user.name} />
               <AvatarFallback className="text-[10px] font-semibold">
@@ -79,10 +111,15 @@ export function RecentActivity({ className }: { className?: string }) {
                 <span className="font-medium">{item.target}</span>
               </p>
               <div className="mt-1.5 flex items-center gap-2">
-                <Badge variant={item.variant} className="h-5 px-1.5 text-[10px] font-medium">
+                <Badge
+                  variant={item.variant}
+                  className="h-5 px-1.5 text-[10px] font-medium"
+                >
                   {item.status}
                 </Badge>
-                <span className="text-xs text-muted-foreground">{item.time}</span>
+                <span className="text-muted-foreground text-xs">
+                  {item.time}
+                </span>
               </div>
             </div>
           </div>

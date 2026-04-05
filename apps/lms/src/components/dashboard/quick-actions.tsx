@@ -17,21 +17,24 @@ const actions = [
     description: "View performance data",
     icon: BarChart3Icon,
     href: "/analytics",
-    className: "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
+    className:
+      "bg-emerald-50 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
   },
   {
     label: "Team",
     description: "Manage collaborators",
     icon: UsersIcon,
     href: "/team",
-    className: "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
+    className:
+      "bg-amber-50 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
   },
   {
     label: "Settings",
     description: "Configure the platform",
     icon: SettingsIcon,
     href: "/settings",
-    className: "bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300",
+    className:
+      "bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300",
   },
 ];
 
@@ -62,8 +65,8 @@ export function QuickActions({ className }: { className?: string }) {
                 <Icon className="size-4" />
               </div>
               <div>
-                <p className="font-medium leading-none">{action.label}</p>
-                <p className="mt-1 text-xs text-muted-foreground leading-snug">
+                <p className="leading-none font-medium">{action.label}</p>
+                <p className="text-muted-foreground mt-1 text-xs leading-snug">
                   {action.description}
                 </p>
               </div>

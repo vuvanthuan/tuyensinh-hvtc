@@ -1,5 +1,7 @@
 import type MockAdapter from "axios-mock-adapter";
+
 import { Course, CourseSchema, PaginatedCourse } from "@acme/api-contract";
+
 import { MockScenario } from "../setup";
 
 const MOCK_COURSES: Course[] = [

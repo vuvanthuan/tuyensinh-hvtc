@@ -1,0 +1,4 @@
+@source "./**/*.{ts,tsx}";
+
+@import "tailwindcss" reference;
+@import "@acme/tailwind-config/theme" reference;

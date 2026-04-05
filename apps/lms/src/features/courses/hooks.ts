@@ -1,6 +1,8 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { coursesApi } from "./api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+
 import { CourseQuery } from "@acme/api-contract";
+
+import { coursesApi } from "./api";
 
 export const COURSES_QUERY_KEY = ["courses"] as const;
 

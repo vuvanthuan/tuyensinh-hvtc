@@ -41,7 +41,7 @@ import {
 import { formatDate } from "../lib/format";
 import { generateId } from "../lib/id";
 import { getFiltersStateParser } from "../lib/parsers";
-import { ExtendedColumnFilter, FilterOperator } from "../types/data-table";
+import type { ExtendedColumnFilter, FilterOperator } from "../types/data-table";
 import { DataTableRangeFilter } from "./data-table-range-filter";
 
 const FILTERS_KEY = "filters";

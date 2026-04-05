@@ -57,7 +57,7 @@ import { dataTableConfig } from "../lib/data-table-config";
 import { formatDate } from "../lib/format";
 import { generateId } from "../lib/id";
 import { getFiltersStateParser } from "../lib/parsers";
-import {
+import type {
   ExtendedColumnFilter,
   FilterOperator,
   JoinOperator,

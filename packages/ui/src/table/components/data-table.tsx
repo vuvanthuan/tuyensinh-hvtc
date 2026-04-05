@@ -1,5 +1,5 @@
 import type { Table as TanstackTable } from "@tanstack/react-table";
-import * as React from "react";
+import type * as React from "react";
 import { flexRender } from "@tanstack/react-table";
 
 import {
@@ -65,7 +65,7 @@ export function DataTable<TData>({
       {...props}
     >
       {children}
-      <div className="overflow-hidden rounded-xl border border-border/40 bg-background shadow-xs">
+      <div className="border-border/40 bg-background overflow-hidden rounded-xl border shadow-xs">
         <Table>
           <TableHeader className="bg-muted/30">
             {table.getHeaderGroups().map((headerGroup) => (

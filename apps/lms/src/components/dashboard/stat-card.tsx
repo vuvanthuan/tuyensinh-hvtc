@@ -15,24 +15,19 @@ interface StatCardProps {
   className?: string;
 }
 
-export function StatCard({
-  title,
-  value,
-  trend,
-  className,
-}: StatCardProps) {
+export function StatCard({ title, value, trend, className }: StatCardProps) {
   return (
-    <Card className={cn("shadow-none border-border", className)}>
-      <CardContent className="p-5 flex flex-col gap-4">
+    <Card className={cn("border-border shadow-none", className)}>
+      <CardContent className="flex flex-col gap-4 p-5">
         {/* Header row: Title and Percentage */}
         <div className="flex items-center justify-between">
-          <span className="text-sm font-medium text-muted-foreground/80">
+          <span className="text-muted-foreground/80 text-sm font-medium">
             {title}
           </span>
           <span
             className={cn(
               "flex items-center gap-0.5 text-xs font-semibold",
-              trend.isUp ? "text-foreground" : "text-foreground", 
+              trend.isUp ? "text-foreground" : "text-foreground",
               /* The screenshot just shows standard text color for the percentage, with perhaps a very faint background or just naked text (+12.5% and a tiny arrow) */
             )}
           >
@@ -47,22 +42,22 @@ export function StatCard({
 
         {/* Value */}
         <div>
-          <span className="text-3xl font-bold tracking-tight text-foreground">
+          <span className="text-foreground text-3xl font-bold tracking-tight">
             {value}
           </span>
         </div>
 
         {/* Footer row: Descriptions */}
-        <div className="flex flex-col gap-0.5 mt-1">
-          <span className="text-xs font-medium text-foreground flex items-center gap-1.5">
+        <div className="mt-1 flex flex-col gap-0.5">
+          <span className="text-foreground flex items-center gap-1.5 text-xs font-medium">
             {trend.description}
             {trend.isUp ? (
-              <TrendingUp className="size-3 text-muted-foreground" />
+              <TrendingUp className="text-muted-foreground size-3" />
             ) : (
-              <TrendingDown className="size-3 text-muted-foreground" />
+              <TrendingDown className="text-muted-foreground size-3" />
             )}
           </span>
-          <span className="text-xs text-muted-foreground">
+          <span className="text-muted-foreground text-xs">
             {trend.subDescription}
           </span>
         </div>

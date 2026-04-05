@@ -1,5 +1,6 @@
 import { z } from "zod";
-import { CourseSchema, CourseQuerySchema } from "@acme/api-contract";
+
+import { CourseQuerySchema, CourseSchema } from "@acme/api-contract";
 
 export const CourseFeatureSchema = CourseSchema.extend({
   // Add any feature-specific UI fields here

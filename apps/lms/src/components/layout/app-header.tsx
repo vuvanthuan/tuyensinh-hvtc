@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CornerUpRight } from "lucide-react";
 
 import {
@@ -25,21 +25,28 @@ export function AppHeader() {
   const pageLabel = routeLabels[pathname] ?? "Page";
 
   return (
-    <header className="flex h-[60px] shrink-0 items-center justify-between border-b border-border/40 bg-background px-6">
+    <header className="border-border/40 bg-background flex h-[60px] shrink-0 items-center justify-between border-b px-6">
       <div className="flex items-center gap-3">
-        <SidebarTrigger className="-ml-2 flex aspect-square size-8 items-center justify-center rounded-md hover:bg-muted" />
+        <SidebarTrigger className="hover:bg-muted -ml-2 flex aspect-square size-8 items-center justify-center rounded-md" />
         <Separator orientation="vertical" className="mr-2 h-4" />
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbPage className="font-semibold text-sm">{pageLabel}</BreadcrumbPage>
+              <BreadcrumbPage className="text-sm font-semibold">
+                {pageLabel}
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
       </div>
 
       <div className="flex items-center gap-2">
-        <Button variant="ghost" size="sm" className="hidden h-8 gap-1.5 px-3 text-xs font-medium text-muted-foreground hover:text-foreground md:flex" asChild>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-muted-foreground hover:text-foreground hidden h-8 gap-1.5 px-3 text-xs font-medium md:flex"
+          asChild
+        >
           <Link href="https://github.com" target="_blank">
             <span>GitHub</span>
           </Link>

@@ -15,8 +15,18 @@
     { "pattern": "tooling/*/" }
   ],
   "files.associations": {
-    "*.css": "tailwindcss"
+    "*.css": "css"
   },
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[tailwindcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.colorDecorators": true,
   "files.readonlyInclude": {
     "**/routeTree.gen.ts": true
   },
@@ -24,12 +34,49 @@
     "**/routeTree.gen.ts": true
   },
   "prettier.ignorePath": ".gitignore",
-  "tailwindCSS.classFunctions": ["cva", "cx", "cn"],
+  "tailwindCSS.classFunctions": ["cva", "cx", "cn", "cl", "clsx", "twMerge"],
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "javascript": "javascript",
+    "typescript": "typescript",
+    "typescriptreact": "typescriptreact",
+    "css": "css",
+    "mdx": "mdx"
+  },
+  "editor.quickSuggestions": {
+    "strings": true,
+    "other": true,
+    "comments": false
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*)\"']"],
+    ["cn\\(([^)]*)\\)", "[\"'`]([^\"'`]*)\"']"],
+    ["clsx\\(([^)]*)\\)", "[\"'`]([^\"'`]*)\"']"],
+    ["cl\\(([^)]*)\\)", "[\"'`]([^\"'`]*)\"']"],
+    ["tv\\(([^)]*)\\)", "[\"'`]([^\"'`]*)\"']"],
+    ["twMerge\\(([^)]*)\\)", "[\"'`]([^\"'`]*)\"']"],
+    ["variants: [\"'`]([^\"'`]*)\"']"],
+    ["className: [\"'`]([^\"'`]*)\"']"],
+    ["class: [\"'`]([^\"'`]*)\"']"],
+    ["classNames: [\"'`]([^\"'`]*)\"']"]
+  ],
+  "tailwindCSS.experimental.configFile": {
+    "apps/admin/src/app/styles.css": "apps/admin/**",
+    "apps/web/src/app/styles.css": "apps/web/**",
+    "apps/lms/src/app/styles.css": "apps/lms/**",
+    "apps/landing/src/app/styles.css": "apps/landing/**",
+    "packages/ui/src/index.css": "packages/ui/**"
+  },
+  "tailwindCSS.colorDecorators": true,
+  "tailwindCSS.hovers": true,
+  "tailwindCSS.suggestions": true,
+  "tailwindCSS.codeActions": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.autoImportFileExcludePatterns": [
     "next/router.d.ts",
     "next/dist/client/router.d.ts"
   ],
+
   "typescript.tsdk": "node_modules/typescript/lib",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

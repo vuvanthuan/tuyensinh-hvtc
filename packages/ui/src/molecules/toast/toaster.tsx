@@ -1,13 +1,14 @@
 "use client";
 
-import * as React from "react";
+import type * as React from "react";
 
+import type {
+  ToastActionElement,
+  ToastProps} from "@acme/ui";
 import {
   Toast,
-  ToastActionElement,
   ToastClose,
   ToastDescription,
-  ToastProps,
   ToastProvider,
   ToastTitle,
   ToastViewport,
