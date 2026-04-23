@@ -108,115 +108,124 @@ jobs:
           cache-from: type=gha,scope=asemis-fe
           cache-to: type=gha,mode=max,scope=asemis-fe
 
-      - name: Configure SSH key
-        shell: bash
-        run: |
-          set -euo pipefail
-          install -m 700 -d ~/.ssh
-          printf '%s' '${{ secrets.SERVER_SSH_KEY }}' > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H "${{ secrets.SERVER_HOST }}" >> ~/.ssh/known_hosts
-
-      - name: Deploy on VPS
-        shell: bash
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
         env:
+          IMAGE_NAME: ${{ env.IMAGE_NAME }}
+          IMAGE_TAG: ${{ github.sha }}
+          CONTAINER_NAME: ${{ env.CONTAINER_NAME }}
+          HOST_PORT: ${{ env.HOST_PORT }}
+          CONTAINER_PORT: ${{ env.CONTAINER_PORT }}
+          REMOTE_ENV_FILE: ${{ env.REMOTE_ENV_FILE }}
+          CANARY_PORT: ${{ env.CANARY_PORT }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
-          SERVER_USER: ${{ secrets.SERVER_USER }}
-          IMAGE_TAG: ${{ github.sha }}
-        run: |
-          set -euo pipefail
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          envs: IMAGE_NAME,IMAGE_TAG,CONTAINER_NAME,HOST_PORT,CONTAINER_PORT,REMOTE_ENV_FILE,CANARY_PORT,DOCKER_USERNAME,DOCKER_PASSWORD
+          script: |
+            set -Eeuo pipefail
 
-          printf '%s' "${DOCKER_PASSWORD}" | \
-            ssh "${SERVER_USER}@${SERVER_HOST}" \
-            "docker login -u '${DOCKER_USERNAME}' --password-stdin"
+            CANARY_NAME="${CONTAINER_NAME}-canary"
+            PREVIOUS_NAME="${CONTAINER_NAME}-previous"
+            HAD_PREVIOUS=0
 
-          ssh "${SERVER_USER}@${SERVER_HOST}" \
-            "IMAGE_NAME='${IMAGE_NAME}' IMAGE_TAG='${IMAGE_TAG}' CONTAINER_NAME='${CONTAINER_NAME}' HOST_PORT='${HOST_PORT}' CONTAINER_PORT='${CONTAINER_PORT}' REMOTE_ENV_FILE='${REMOTE_ENV_FILE}' CANARY_PORT='${CANARY_PORT}' bash -s" <<'EOF'
-          set -Eeuo pipefail
-
-          CANARY_NAME="${CONTAINER_NAME}-canary"
-          PREVIOUS_NAME="${CONTAINER_NAME}-previous"
-          HAD_PREVIOUS=0
-
-          if ! command -v docker >/dev/null 2>&1; then
-            echo "Docker is not installed on the VPS."
-            exit 1
-          fi
-
-          if [ ! -f "${REMOTE_ENV_FILE}" ]; then
-            echo "Missing env file: ${REMOTE_ENV_FILE}"
-            exit 1
-          fi
-
-          docker pull "${IMAGE_NAME}:${IMAGE_TAG}"
-
-          docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
-
-          docker run -d \
-            --name "${CANARY_NAME}" \
-            --env-file "${REMOTE_ENV_FILE}" \
-            -p "127.0.0.1:${CANARY_PORT}:${CONTAINER_PORT}" \
-            "${IMAGE_NAME}:${IMAGE_TAG}"
-
-          for _ in $(seq 1 30); do
-            status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CANARY_NAME}")"
-
-            if [ "${status}" = "healthy" ]; then
-              break
+            if ! command -v docker >/dev/null 2>&1; then
+              echo "Docker is not installed on the VPS."
+              exit 1
             fi
 
-            if [ "${status}" = "unhealthy" ] || [ "${status}" = "exited" ]; then
+            if [ ! -f "${REMOTE_ENV_FILE}" ]; then
+              echo "Missing env file: ${REMOTE_ENV_FILE}"
+              exit 1
+            fi
+
+            echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+            docker pull "${IMAGE_NAME}:${IMAGE_TAG}"
+
+            docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
+
+            docker run -d \
+              --name "${CANARY_NAME}" \
+              --env-file "${REMOTE_ENV_FILE}" \
+              -p "127.0.0.1:${CANARY_PORT}:${CONTAINER_PORT}" \
+              "${IMAGE_NAME}:${IMAGE_TAG}"
+
+            for _ in $(seq 1 30); do
+              status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CANARY_NAME}")"
+
+              if [ "${status}" = "healthy" ]; then
+                break
+              fi
+
+              if [ "${status}" = "unhealthy" ] || [ "${status}" = "exited" ]; then
+                docker logs "${CANARY_NAME}" || true
+                docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
+                exit 1
+              fi
+
+              sleep 2
+            done
+
+            canary_status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CANARY_NAME}")"
+            if [ "${canary_status}" != "healthy" ]; then
               docker logs "${CANARY_NAME}" || true
               docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
               exit 1
             fi
 
-            sleep 2
-          done
+            docker rm -f "${PREVIOUS_NAME}" >/dev/null 2>&1 || true
 
-          canary_status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CANARY_NAME}")"
-          if [ "${canary_status}" != "healthy" ]; then
-            docker logs "${CANARY_NAME}" || true
-            docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
-            exit 1
-          fi
-
-          docker rm -f "${PREVIOUS_NAME}" >/dev/null 2>&1 || true
-
-          if docker ps -a --format '{{.Names}}' | grep -Fxq "${CONTAINER_NAME}"; then
-            HAD_PREVIOUS=1
-            docker stop "${CONTAINER_NAME}" >/dev/null 2>&1 || true
-            docker rename "${CONTAINER_NAME}" "${PREVIOUS_NAME}"
-          fi
-
-          if ! docker run -d \
-            --name "${CONTAINER_NAME}" \
-            --restart unless-stopped \
-            --env-file "${REMOTE_ENV_FILE}" \
-            -p "${HOST_PORT}:${CONTAINER_PORT}" \
-            "${IMAGE_NAME}:${IMAGE_TAG}"; then
-            docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
-
-            if [ "${HAD_PREVIOUS}" -eq 1 ]; then
-              docker rename "${PREVIOUS_NAME}" "${CONTAINER_NAME}"
-              docker start "${CONTAINER_NAME}"
+            if docker ps -a --format '{{.Names}}' | grep -Fxq "${CONTAINER_NAME}"; then
+              HAD_PREVIOUS=1
+              docker stop "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+              docker rename "${CONTAINER_NAME}" "${PREVIOUS_NAME}"
             fi
 
-            exit 1
-          fi
+            if ! docker run -d \
+              --name "${CONTAINER_NAME}" \
+              --restart unless-stopped \
+              --env-file "${REMOTE_ENV_FILE}" \
+              -p "${HOST_PORT}:${CONTAINER_PORT}" \
+              "${IMAGE_NAME}:${IMAGE_TAG}"; then
+              docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
 
-          docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
+              if [ "${HAD_PREVIOUS}" -eq 1 ]; then
+                docker rename "${PREVIOUS_NAME}" "${CONTAINER_NAME}"
+                docker start "${CONTAINER_NAME}"
+              fi
 
-          for _ in $(seq 1 30); do
-            status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CONTAINER_NAME}")"
-
-            if [ "${status}" = "healthy" ]; then
-              break
+              exit 1
             fi
 
-            if [ "${status}" = "unhealthy" ] || [ "${status}" = "exited" ]; then
+            docker rm -f "${CANARY_NAME}" >/dev/null 2>&1 || true
+
+            for _ in $(seq 1 30); do
+              status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CONTAINER_NAME}")"
+
+              if [ "${status}" = "healthy" ]; then
+                break
+              fi
+
+              if [ "${status}" = "unhealthy" ] || [ "${status}" = "exited" ]; then
+                docker logs "${CONTAINER_NAME}" || true
+                docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
+
+                if [ "${HAD_PREVIOUS}" -eq 1 ]; then
+                  docker rename "${PREVIOUS_NAME}" "${CONTAINER_NAME}"
+                  docker start "${CONTAINER_NAME}"
+                fi
+
+                exit 1
+              fi
+
+              sleep 2
+            done
+
+            final_status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CONTAINER_NAME}")"
+            if [ "${final_status}" != "healthy" ]; then
               docker logs "${CONTAINER_NAME}" || true
               docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
 
@@ -228,22 +237,5 @@ jobs:
               exit 1
             fi
 
-            sleep 2
-          done
-
-          final_status="$(docker inspect --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' "${CONTAINER_NAME}")"
-          if [ "${final_status}" != "healthy" ]; then
-            docker logs "${CONTAINER_NAME}" || true
-            docker rm -f "${CONTAINER_NAME}" >/dev/null 2>&1 || true
-
-            if [ "${HAD_PREVIOUS}" -eq 1 ]; then
-              docker rename "${PREVIOUS_NAME}" "${CONTAINER_NAME}"
-              docker start "${CONTAINER_NAME}"
-            fi
-
-            exit 1
-          fi
-
-          docker rm -f "${PREVIOUS_NAME}" >/dev/null 2>&1 || true
-          docker image prune -af --filter "until=168h" >/dev/null 2>&1 || true
-          EOF
+            docker rm -f "${PREVIOUS_NAME}" >/dev/null 2>&1 || true
+            docker image prune -af --filter "until=168h" >/dev/null 2>&1 || true
