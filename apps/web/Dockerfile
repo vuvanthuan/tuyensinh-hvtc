@@ -24,7 +24,10 @@ FROM base AS installer
 WORKDIR /repo
 
 COPY --from=pruner /repo/out/json/ .
-COPY --from=pruner /repo/out/pnpm-lock.yaml ./pnpm-lock.yaml
+# Use the root lockfile instead of the pruned one.
+# `turbo prune --docker` currently drops the full `nuqs` snapshot in this repo,
+# which breaks `pnpm install --frozen-lockfile` inside CI builds.
+COPY --from=pruner /repo/pnpm-lock.yaml ./pnpm-lock.yaml
 
 # The root postinstall runs workspace lint tooling and is not needed in the image build.
 RUN node -e "const fs=require('fs');const p=require('./package.json');if(p.scripts?.postinstall){delete p.scripts.postinstall;fs.writeFileSync('package.json', JSON.stringify(p, null, 2)+'\\n');}"
