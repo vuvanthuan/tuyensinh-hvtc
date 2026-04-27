@@ -27,16 +27,19 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "figma:styles": "node --env-file=.env scripts/figma-styles.js",
+    "tokens:build": "node scripts/fix-tokens.js && node sd.config.js",
     "prepare": "husky"
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:*",
+    "@tokens-studio/sd-transforms": "^2.0.3",
     "@turbo/gen": "^2.5.8",
     "dotenv-cli": "^10.0.0",
     "eslint": "9.38.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "prettier": "catalog:",
+    "style-dictionary": "^5.4.0",
     "turbo": "^2.5.8",
     "typescript": "catalog:"
   },

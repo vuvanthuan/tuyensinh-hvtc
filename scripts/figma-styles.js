@@ -41,7 +41,6 @@ const buildCssVariables = (styles) => {
     }
   });
 
-  // Sort variables alphabetically to group exactly by block
   codes.sort((a, b) => a.localeCompare(b));
 
   return `:root {\n${codes.join("\n")}\n}`;

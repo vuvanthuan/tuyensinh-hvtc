@@ -4,6 +4,7 @@
   "type": "module",
   "exports": {
     "./theme": "./theme.css",
+    "./tokens": "./tokens.css",
     "./postcss-config": "./postcss-config.js"
   },
   "license": "MIT",

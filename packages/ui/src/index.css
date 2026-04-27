@@ -2,3 +2,4 @@
 
 @import "tailwindcss" reference;
 @import "@acme/tailwind-config/theme" reference;
+@import "@acme/tailwind-config/tokens" reference;
