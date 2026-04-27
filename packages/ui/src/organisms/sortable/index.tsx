@@ -171,7 +171,7 @@ function Sortable<T>(props: SortableProps<T>) {
   const onDragEnd = React.useCallback(
     (event: DragEndEvent) => {
       const { active, over } = event;
-      if (over && active.id !== over?.id) {
+      if (over && active.id !== over.id) {
         const activeIndex = value.findIndex(
           (item) => getItemValue(item) === active.id,
         );
@@ -194,12 +194,21 @@ function Sortable<T>(props: SortableProps<T>) {
     () => ({
       onDragStart({ active }) {
         const activeValue = active.id.toString();
-        return `Grabbed sortable item "${activeValue}". Current position is ${active.data.current?.sortable.index + 1} of ${value.length}. Use arrow keys to move, space to drop.`;
+        const sortableData = active.data.current?.sortable as
+          | { index: number }
+          | undefined;
+        return `Grabbed sortable item "${activeValue}". Current position is ${(sortableData?.index ?? 0) + 1} of ${value.length}. Use arrow keys to move, space to drop.`;
       },
       onDragOver({ active, over }) {
         if (over) {
-          const overIndex = over.data.current?.sortable.index ?? 0;
-          const activeIndex = active.data.current?.sortable.index ?? 0;
+          const overSortable = over.data.current?.sortable as
+            | { index: number }
+            | undefined;
+          const activeSortable = active.data.current?.sortable as
+            | { index: number }
+            | undefined;
+          const overIndex = overSortable?.index ?? 0;
+          const activeIndex = activeSortable?.index ?? 0;
           const moveDirection = overIndex > activeIndex ? "down" : "up";
           const activeValue = active.id.toString();
           return `Sortable item "${activeValue}" moved ${moveDirection} to position ${overIndex + 1} of ${value.length}.`;
@@ -209,20 +218,32 @@ function Sortable<T>(props: SortableProps<T>) {
       onDragEnd({ active, over }) {
         const activeValue = active.id.toString();
         if (over) {
-          const overIndex = over.data.current?.sortable.index ?? 0;
+          const overSortable = over.data.current?.sortable as
+            | { index: number }
+            | undefined;
+          const overIndex = overSortable?.index ?? 0;
           return `Sortable item "${activeValue}" dropped at position ${overIndex + 1} of ${value.length}.`;
         }
         return `Sortable item "${activeValue}" dropped. No changes were made.`;
       },
       onDragCancel({ active }) {
-        const activeIndex = active.data.current?.sortable.index ?? 0;
+        const activeSortable = active.data.current?.sortable as
+          | { index: number }
+          | undefined;
+        const activeIndex = activeSortable?.index ?? 0;
         const activeValue = active.id.toString();
         return `Sorting cancelled. Sortable item "${activeValue}" returned to position ${activeIndex + 1} of ${value.length}.`;
       },
       onDragMove({ active, over }) {
         if (over) {
-          const overIndex = over.data.current?.sortable.index ?? 0;
-          const activeIndex = active.data.current?.sortable.index ?? 0;
+          const overSortable = over.data.current?.sortable as
+            | { index: number }
+            | undefined;
+          const activeSortable = active.data.current?.sortable as
+            | { index: number }
+            | undefined;
+          const overIndex = overSortable?.index ?? 0;
+          const activeIndex = activeSortable?.index ?? 0;
           const moveDirection = overIndex > activeIndex ? "down" : "up";
           const activeValue = active.id.toString();
           return `Sortable item "${activeValue}" is moving ${moveDirection} to position ${overIndex + 1} of ${value.length}.`;
@@ -534,7 +555,7 @@ function SortableOverlay(props: SortableOverlayProps) {
   React.useLayoutEffect(() => setMounted(true), []);
 
   const container =
-    containerProp ?? (mounted ? globalThis.document?.body : null);
+    containerProp ?? (mounted ? globalThis.document.body : null);
 
   if (!container) return null;
 

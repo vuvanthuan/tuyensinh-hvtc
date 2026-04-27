@@ -1,8 +1,6 @@
-import * as React from "react";
 import {
   CheckCircle2,
   CircleDashed,
-  CopyIcon,
   MoreHorizontal,
   Plus,
   Settings2,
@@ -10,17 +8,8 @@ import {
 
 import {
   Button,
-  Card,
-  CardContent,
-  CardHeader,
   Checkbox,
   cn,
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
   Table,
   TableBody,
   TableCell,

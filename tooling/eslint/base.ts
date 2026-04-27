@@ -9,9 +9,6 @@ import tseslint from "typescript-eslint";
 
 const currentDir = path.dirname(fileURLToPath(import.meta.url));
 
-/**
- * All packages that leverage t3-env should use this rule
- */
 export const restrictEnvAccess = defineConfig(
   { ignores: ["**/env.ts"] },
   {
@@ -40,9 +37,8 @@ export const restrictEnvAccess = defineConfig(
 );
 
 export const baseConfig = defineConfig(
-  // Ignore files not tracked by VCS and any config files
   includeIgnoreFile(path.join(currentDir, "../../.gitignore")),
-  { ignores: ["**/*.config.*"] },
+  { ignores: ["**/*.config.*", "**/scripts/**"] },
   {
     files: ["**/*.js", "**/*.ts", "**/*.tsx"],
     plugins: {

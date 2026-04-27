@@ -39,7 +39,7 @@ function DynamicContainer({
   const rafRef = React.useRef<number | null>(null);
 
   React.useEffect(() => {
-    const node = containerRef?.current;
+    const node = containerRef.current;
     if (!node) return;
 
     function updateDimensions([entry]: ResizeObserverEntry[]) {
@@ -49,8 +49,8 @@ function DynamicContainer({
 
       rafRef.current = requestAnimationFrame(() => {
         setDimensions({
-          width: width ? (entry?.contentRect?.width ?? "auto") : "auto",
-          height: height ? (entry?.contentRect?.height ?? "auto") : "auto",
+          width: width ? (entry?.contentRect.width ?? "auto") : "auto",
+          height: height ? (entry?.contentRect.height ?? "auto") : "auto",
         });
       });
     }

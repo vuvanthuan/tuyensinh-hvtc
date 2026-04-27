@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {
   Avatar,
   AvatarFallback,
@@ -9,7 +7,6 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  cn,
 } from "@acme/ui";
 
 type StatusVariant = "default" | "secondary" | "outline" | "destructive";

@@ -1,0 +1,8 @@
+echo "🔍 Running lint-staged..."
+pnpm lint:staged
+
+echo "🚀 Turbo lint (staged changes)..."
+pnpm turbo lint --filter=...[HEAD^1]
+
+echo "🧠 Turbo typecheck (staged changes)..."
+pnpm turbo typecheck --filter=...[HEAD^1]

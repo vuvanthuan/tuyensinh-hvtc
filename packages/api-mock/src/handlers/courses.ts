@@ -1,8 +1,15 @@
+import type { AxiosRequestConfig } from "axios";
 import type MockAdapter from "axios-mock-adapter";
 
-import { Course, CourseSchema, PaginatedCourse } from "@acme/api-contract";
+import type { Course, PaginatedCourse } from "@acme/api-contract";
 
-import { MockScenario } from "../setup";
+import type { MockScenario } from "../setup";
+
+interface CourseQueryParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+}
 
 const MOCK_COURSES: Course[] = [
   {
@@ -63,7 +70,6 @@ const MOCK_COURSES: Course[] = [
 ];
 
 export function setupCourseHandlers(mock: MockAdapter, scenario: MockScenario) {
-  // Handle scenarios
   if (scenario === "error") {
     mock.onGet(/\/courses.*/).reply(500, {
       message: "Internal Server Error from Mock",
@@ -84,12 +90,12 @@ export function setupCourseHandlers(mock: MockAdapter, scenario: MockScenario) {
     return;
   }
 
-  // Success handler with basic search/pagination
-  mock.onGet(/\/courses.*/).reply((config) => {
-    const params = config.params || {};
+  mock.onGet(/\/courses.*/).reply((config: AxiosRequestConfig) => {
+    const params = (config.params ?? {}) as CourseQueryParams;
+
     const page = Number(params.page) || 1;
     const limit = Number(params.limit) || 10;
-    const search = params.search?.toLowerCase() || "";
+    const search = params.search?.toLowerCase() ?? "";
 
     let filtered = [...MOCK_COURSES];
 
@@ -118,8 +124,7 @@ export function setupCourseHandlers(mock: MockAdapter, scenario: MockScenario) {
     return [200, response];
   });
 
-  // Get single course
-  mock.onGet(/\/courses\/[a-z0-9-]+/).reply((config) => {
+  mock.onGet(/\/courses\/[a-z0-9-]+/).reply((config: AxiosRequestConfig) => {
     const id = config.url?.split("/").pop();
     const course = MOCK_COURSES.find((c) => c.id === id);
 

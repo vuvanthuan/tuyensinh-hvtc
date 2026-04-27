@@ -17,11 +17,11 @@ import { formatDate } from "../lib/format";
 type DateSelection = Date[] | DateRange;
 
 function getIsDateRange(value: DateSelection): value is DateRange {
-  return value && typeof value === "object" && !Array.isArray(value);
+  return !Array.isArray(value);
 }
 
 function parseAsDate(timestamp: number | string | undefined): Date | undefined {
-  if (!timestamp) return undefined;
+  if (timestamp === undefined) return undefined;
   const numericTimestamp =
     typeof timestamp === "string" ? Number(timestamp) : timestamp;
   const date = new Date(numericTimestamp);
@@ -109,7 +109,7 @@ export function DataTableDateFilter<TData>({
   const hasValue = React.useMemo(() => {
     if (multiple) {
       if (!getIsDateRange(selectedDates)) return false;
-      return selectedDates.from || selectedDates.to;
+      return !!(selectedDates.from ?? selectedDates.to);
     }
     if (!Array.isArray(selectedDates)) return false;
     return selectedDates.length > 0;
@@ -127,7 +127,7 @@ export function DataTableDateFilter<TData>({
     if (multiple) {
       if (!getIsDateRange(selectedDates)) return null;
 
-      const hasSelectedDates = selectedDates.from || selectedDates.to;
+      const hasSelectedDates = !!(selectedDates.from ?? selectedDates.to);
       const dateText = hasSelectedDates
         ? formatDateRange(selectedDates)
         : "Select date range";

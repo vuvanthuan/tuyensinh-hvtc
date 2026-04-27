@@ -1,4 +1,4 @@
-import { Course, CourseQuery, PaginatedCourse } from "@acme/api-contract";
+import type { Course, CourseQuery } from "@acme/api-contract";
 
 import { api } from "../../lib/api";
 
@@ -7,7 +7,7 @@ export const coursesApi = {
    * Fetch paginated courses with optional filters
    */
   getAll: async (query?: CourseQuery) => {
-    const response = await api.getWithMeta<Course[]>("/courses", query as any);
+    const response = await api.getWithMeta<Course[]>("/courses", query);
     return {
       data: response.data,
       meta: response.metaData,

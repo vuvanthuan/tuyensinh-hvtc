@@ -22,6 +22,9 @@ export const env = createEnv({
    * For them to be exposed to the client, prefix them with `NEXT_PUBLIC_`.
    */
   client: {
+    NEXT_PUBLIC_API_URL: z.url().optional(),
+    NEXT_PUBLIC_ENABLE_MOCK: z.enum(["true", "false"]).optional(),
+    NEXT_PUBLIC_MOCK_SCENARIO: z.string().optional(),
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
   },
   /**
@@ -30,6 +33,9 @@ export const env = createEnv({
   experimental__runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
 
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+    NEXT_PUBLIC_ENABLE_MOCK: process.env.NEXT_PUBLIC_ENABLE_MOCK,
+    NEXT_PUBLIC_MOCK_SCENARIO: process.env.NEXT_PUBLIC_MOCK_SCENARIO,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   skipValidation:

@@ -39,9 +39,9 @@ export function DataTableFacetedFilter<TData, TValue>({
   const [open, setOpen] = React.useState(false);
 
   const columnFilterValue = column?.getFilterValue();
-  const selectedValues = new Set(
-    Array.isArray(columnFilterValue) ? columnFilterValue : [],
-  );
+  const selectedValues = React.useMemo(() => {
+    return new Set(Array.isArray(columnFilterValue) ? columnFilterValue : []);
+  }, [columnFilterValue]);
 
   const onItemSelect = React.useCallback(
     (option: Option, isSelected: boolean) => {
@@ -76,7 +76,7 @@ export function DataTableFacetedFilter<TData, TValue>({
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm" className="border-dashed">
-          {selectedValues?.size > 0 ? (
+          {selectedValues.size > 0 ? (
             // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
             <div
               // biome-ignore lint/a11y/useSemanticElements: <explanation>
@@ -92,7 +92,7 @@ export function DataTableFacetedFilter<TData, TValue>({
             <PlusCircle />
           )}
           {title}
-          {selectedValues?.size > 0 && (
+          {selectedValues.size > 0 && (
             <>
               <Separator
                 orientation="vertical"

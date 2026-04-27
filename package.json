@@ -19,20 +19,35 @@
     "format:fix": "turbo run format --continue -- --write --cache --cache-location .cache/.prettiercache",
     "lint": "turbo run lint --continue -- --cache --cache-location .cache/.eslintcache",
     "lint:fix": "turbo run lint --continue -- --fix --cache --cache-location .cache/.eslintcache",
+    "lint:staged": "lint-staged",
     "lint:ws": "pnpm dlx sherif@latest",
     "postinstall": "pnpm lint:ws",
     "typecheck": "turbo run typecheck",
     "ui-add": "turbo run ui-add",
     "android": "expo run:android",
-    "ios": "expo run:ios"
+    "ios": "expo run:ios",
+    "figma:styles": "node --env-file=.env scripts/figma-styles.js",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@acme/prettier-config": "workspace:*",
     "@turbo/gen": "^2.5.8",
     "dotenv-cli": "^10.0.0",
+    "eslint": "9.38.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "prettier": "catalog:",
     "turbo": "^2.5.8",
     "typescript": "catalog:"
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@acme/prettier-config",
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "pnpm exec eslint --flag unstable_native_nodejs_ts_config --fix",
+      "pnpm exec prettier --write"
+    ],
+    "**/*.{json,md,css}": [
+      "pnpm exec prettier --write"
+    ]
+  }
 }

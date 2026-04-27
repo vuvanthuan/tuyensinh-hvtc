@@ -1,4 +1,3 @@
-import * as React from "react";
 import { TrendingDown, TrendingUp } from "lucide-react";
 
 import { Card, CardContent, cn } from "@acme/ui";

@@ -1,0 +1,842 @@
+:root {
+  --dark-amber-100: #fbfdff;
+  --dark-amber-200: #f5faff;
+  --dark-amber-25: #fbfdff;
+  --dark-amber-300: #edf6ff;
+  --dark-amber-400: #e1f0ff;
+  --dark-amber-50: #f5faff;
+  --dark-amber-500: #cee7fe;
+  --dark-amber-600: #b7d9f8;
+  --dark-amber-700: #96c7f2;
+  --dark-amber-800: #5eb0ef;
+  --dark-amber-900: #006adc;
+  --dark-amber-950: #cee7fe;
+  --dark-blue-100: #fbfdff;
+  --dark-blue-200: #f5faff;
+  --dark-blue-25: #fbfdff;
+  --dark-blue-300: #edf6ff;
+  --dark-blue-400: #e1f0ff;
+  --dark-blue-50: #f5faff;
+  --dark-blue-500: #cee7fe;
+  --dark-blue-600: #b7d9f8;
+  --dark-blue-700: #96c7f2;
+  --dark-blue-800: #5eb0ef;
+  --dark-blue-900: #006adc;
+  --dark-blue-950: #cee7fe;
+  --dark-bronze-100: #fbfdff;
+  --dark-bronze-200: #f5faff;
+  --dark-bronze-25: #fbfdff;
+  --dark-bronze-300: #edf6ff;
+  --dark-bronze-400: #e1f0ff;
+  --dark-bronze-50: #f5faff;
+  --dark-bronze-500: #cee7fe;
+  --dark-bronze-600: #b7d9f8;
+  --dark-bronze-700: #96c7f2;
+  --dark-bronze-800: #5eb0ef;
+  --dark-bronze-900: #006adc;
+  --dark-bronze-950: #cee7fe;
+  --dark-brown-100: #fbfdff;
+  --dark-brown-200: #f5faff;
+  --dark-brown-25: #fbfdff;
+  --dark-brown-300: #edf6ff;
+  --dark-brown-400: #e1f0ff;
+  --dark-brown-50: #f5faff;
+  --dark-brown-500: #cee7fe;
+  --dark-brown-600: #b7d9f8;
+  --dark-brown-700: #96c7f2;
+  --dark-brown-800: #5eb0ef;
+  --dark-brown-900: #006adc;
+  --dark-brown-950: #cee7fe;
+  --dark-crimson-100: #fbfdff;
+  --dark-crimson-200: #f5faff;
+  --dark-crimson-25: #fbfdff;
+  --dark-crimson-300: #edf6ff;
+  --dark-crimson-400: #e1f0ff;
+  --dark-crimson-50: #f5faff;
+  --dark-crimson-500: #cee7fe;
+  --dark-crimson-600: #b7d9f8;
+  --dark-crimson-700: #96c7f2;
+  --dark-crimson-800: #5eb0ef;
+  --dark-crimson-900: #006adc;
+  --dark-crimson-950: #cee7fe;
+  --dark-cyan-100: #fbfdff;
+  --dark-cyan-200: #f5faff;
+  --dark-cyan-25: #fbfdff;
+  --dark-cyan-300: #edf6ff;
+  --dark-cyan-400: #e1f0ff;
+  --dark-cyan-50: #f5faff;
+  --dark-cyan-500: #cee7fe;
+  --dark-cyan-600: #b7d9f8;
+  --dark-cyan-700: #96c7f2;
+  --dark-cyan-800: #5eb0ef;
+  --dark-cyan-900: #006adc;
+  --dark-cyan-950: #cee7fe;
+  --dark-gold-100: #fbfdff;
+  --dark-gold-200: #f5faff;
+  --dark-gold-25: #fbfdff;
+  --dark-gold-300: #edf6ff;
+  --dark-gold-400: #e1f0ff;
+  --dark-gold-50: #f5faff;
+  --dark-gold-500: #cee7fe;
+  --dark-gold-600: #b7d9f8;
+  --dark-gold-700: #96c7f2;
+  --dark-gold-800: #5eb0ef;
+  --dark-gold-900: #006adc;
+  --dark-gold-950: #cee7fe;
+  --dark-grass-100: #fbfdff;
+  --dark-grass-200: #f5faff;
+  --dark-grass-25: #fbfdff;
+  --dark-grass-300: #edf6ff;
+  --dark-grass-400: #e1f0ff;
+  --dark-grass-50: #f5faff;
+  --dark-grass-500: #cee7fe;
+  --dark-grass-600: #b7d9f8;
+  --dark-grass-700: #96c7f2;
+  --dark-grass-800: #5eb0ef;
+  --dark-grass-900: #006adc;
+  --dark-grass-950: #cee7fe;
+  --dark-gray-100: #fbfdff;
+  --dark-gray-200: #f5faff;
+  --dark-gray-25: #fbfdff;
+  --dark-gray-300: #edf6ff;
+  --dark-gray-400: #e1f0ff;
+  --dark-gray-50: #f5faff;
+  --dark-gray-500: #cee7fe;
+  --dark-gray-600: #b7d9f8;
+  --dark-gray-700: #96c7f2;
+  --dark-gray-800: #5eb0ef;
+  --dark-gray-900: #006adc;
+  --dark-gray-950: #cee7fe;
+  --dark-green-100: #fbfdff;
+  --dark-green-200: #f5faff;
+  --dark-green-25: #fbfdff;
+  --dark-green-300: #edf6ff;
+  --dark-green-400: #e1f0ff;
+  --dark-green-50: #f5faff;
+  --dark-green-500: #cee7fe;
+  --dark-green-600: #b7d9f8;
+  --dark-green-700: #96c7f2;
+  --dark-green-800: #5eb0ef;
+  --dark-green-900: #006adc;
+  --dark-green-950: #cee7fe;
+  --dark-indigo-100: #fbfdff;
+  --dark-indigo-200: #f5faff;
+  --dark-indigo-25: #fbfdff;
+  --dark-indigo-300: #edf6ff;
+  --dark-indigo-400: #e1f0ff;
+  --dark-indigo-50: #f5faff;
+  --dark-indigo-500: #cee7fe;
+  --dark-indigo-600: #b7d9f8;
+  --dark-indigo-700: #96c7f2;
+  --dark-indigo-800: #5eb0ef;
+  --dark-indigo-900: #006adc;
+  --dark-indigo-950: #cee7fe;
+  --dark-lime-100: #fbfdff;
+  --dark-lime-200: #f5faff;
+  --dark-lime-25: #fbfdff;
+  --dark-lime-300: #edf6ff;
+  --dark-lime-400: #e1f0ff;
+  --dark-lime-50: #f5faff;
+  --dark-lime-500: #cee7fe;
+  --dark-lime-600: #b7d9f8;
+  --dark-lime-700: #96c7f2;
+  --dark-lime-800: #5eb0ef;
+  --dark-lime-900: #006adc;
+  --dark-lime-950: #cee7fe;
+  --dark-mauve-100: #fbfdff;
+  --dark-mauve-200: #fbfdff;
+  --dark-mauve-25: #fbfdff;
+  --dark-mauve-300: #fbfdff;
+  --dark-mauve-400: #fbfdff;
+  --dark-mauve-50: #fbfdff;
+  --dark-mauve-500: #fbfdff;
+  --dark-mauve-600: #fbfdff;
+  --dark-mauve-700: #fbfdff;
+  --dark-mauve-800: #fbfdff;
+  --dark-mauve-900: #fbfdff;
+  --dark-mauve-950: #fbfdff;
+  --dark-mint-100: #fbfdff;
+  --dark-mint-200: #f5faff;
+  --dark-mint-25: #fbfdff;
+  --dark-mint-300: #edf6ff;
+  --dark-mint-400: #e1f0ff;
+  --dark-mint-50: #f5faff;
+  --dark-mint-500: #cee7fe;
+  --dark-mint-600: #b7d9f8;
+  --dark-mint-700: #96c7f2;
+  --dark-mint-800: #5eb0ef;
+  --dark-mint-900: #006adc;
+  --dark-mint-950: #cee7fe;
+  --dark-olive-100: #fbfdff;
+  --dark-olive-200: #fbfdff;
+  --dark-olive-25: #fbfdff;
+  --dark-olive-300: #fbfdff;
+  --dark-olive-400: #fbfdff;
+  --dark-olive-50: #fbfdff;
+  --dark-olive-500: #fbfdff;
+  --dark-olive-600: #fbfdff;
+  --dark-olive-700: #fbfdff;
+  --dark-olive-800: #fbfdff;
+  --dark-olive-900: #fbfdff;
+  --dark-olive-950: #fbfdff;
+  --dark-orange-100: #fbfdff;
+  --dark-orange-200: #f5faff;
+  --dark-orange-25: #fbfdff;
+  --dark-orange-300: #edf6ff;
+  --dark-orange-400: #e1f0ff;
+  --dark-orange-50: #f5faff;
+  --dark-orange-500: #cee7fe;
+  --dark-orange-600: #b7d9f8;
+  --dark-orange-700: #96c7f2;
+  --dark-orange-800: #5eb0ef;
+  --dark-orange-900: #006adc;
+  --dark-orange-950: #cee7fe;
+  --dark-pink-100: #fbfdff;
+  --dark-pink-200: #f5faff;
+  --dark-pink-25: #fbfdff;
+  --dark-pink-300: #edf6ff;
+  --dark-pink-400: #e1f0ff;
+  --dark-pink-50: #f5faff;
+  --dark-pink-500: #cee7fe;
+  --dark-pink-600: #b7d9f8;
+  --dark-pink-700: #96c7f2;
+  --dark-pink-800: #5eb0ef;
+  --dark-pink-900: #006adc;
+  --dark-pink-950: #cee7fe;
+  --dark-plum-100: #fbfdff;
+  --dark-plum-200: #f5faff;
+  --dark-plum-25: #fbfdff;
+  --dark-plum-300: #edf6ff;
+  --dark-plum-400: #e1f0ff;
+  --dark-plum-50: #f5faff;
+  --dark-plum-500: #cee7fe;
+  --dark-plum-600: #b7d9f8;
+  --dark-plum-700: #96c7f2;
+  --dark-plum-800: #5eb0ef;
+  --dark-plum-900: #006adc;
+  --dark-plum-950: #cee7fe;
+  --dark-purple-100: #fbfdff;
+  --dark-purple-200: #f5faff;
+  --dark-purple-25: #fbfdff;
+  --dark-purple-300: #edf6ff;
+  --dark-purple-400: #e1f0ff;
+  --dark-purple-50: #f5faff;
+  --dark-purple-500: #cee7fe;
+  --dark-purple-600: #b7d9f8;
+  --dark-purple-700: #96c7f2;
+  --dark-purple-800: #5eb0ef;
+  --dark-purple-900: #006adc;
+  --dark-purple-950: #cee7fe;
+  --dark-red-100: #fbfdff;
+  --dark-red-200: #f5faff;
+  --dark-red-25: #fbfdff;
+  --dark-red-300: #edf6ff;
+  --dark-red-400: #e1f0ff;
+  --dark-red-50: #f5faff;
+  --dark-red-500: #cee7fe;
+  --dark-red-600: #b7d9f8;
+  --dark-red-700: #96c7f2;
+  --dark-red-800: #5eb0ef;
+  --dark-red-900: #006adc;
+  --dark-red-950: #cee7fe;
+  --dark-sage-100: #fbfdff;
+  --dark-sage-200: #fbfdff;
+  --dark-sage-25: #fbfdff;
+  --dark-sage-300: #fbfdff;
+  --dark-sage-400: #fbfdff;
+  --dark-sage-50: #fbfdff;
+  --dark-sage-500: #fbfdff;
+  --dark-sage-600: #fbfdff;
+  --dark-sage-700: #fbfdff;
+  --dark-sage-800: #fbfdff;
+  --dark-sage-900: #fbfdff;
+  --dark-sage-950: #fbfdff;
+  --dark-sand-100: #fbfdff;
+  --dark-sand-200: #fbfdff;
+  --dark-sand-25: #fbfdff;
+  --dark-sand-300: #fbfdff;
+  --dark-sand-400: #fbfdff;
+  --dark-sand-50: #fbfdff;
+  --dark-sand-500: #fbfdff;
+  --dark-sand-600: #fbfdff;
+  --dark-sand-700: #fbfdff;
+  --dark-sand-800: #fbfdff;
+  --dark-sand-900: #fbfdff;
+  --dark-sand-950: #fbfdff;
+  --dark-sky-100: #fbfdff;
+  --dark-sky-200: #f5faff;
+  --dark-sky-25: #fbfdff;
+  --dark-sky-300: #edf6ff;
+  --dark-sky-400: #e1f0ff;
+  --dark-sky-50: #f5faff;
+  --dark-sky-500: #cee7fe;
+  --dark-sky-600: #b7d9f8;
+  --dark-sky-700: #96c7f2;
+  --dark-sky-800: #5eb0ef;
+  --dark-sky-900: #006adc;
+  --dark-sky-950: #cee7fe;
+  --dark-slate-100: #fbfdff;
+  --dark-slate-200: #fbfdff;
+  --dark-slate-25: #fbfdff;
+  --dark-slate-300: #fbfdff;
+  --dark-slate-400: #fbfdff;
+  --dark-slate-50: #fbfdff;
+  --dark-slate-500: #fbfdff;
+  --dark-slate-600: #fbfdff;
+  --dark-slate-700: #fbfdff;
+  --dark-slate-800: #fbfdff;
+  --dark-slate-900: #fbfdff;
+  --dark-slate-950: #fbfdff;
+  --dark-teal-100: #fbfdff;
+  --dark-teal-200: #f5faff;
+  --dark-teal-25: #fbfdff;
+  --dark-teal-300: #edf6ff;
+  --dark-teal-400: #e1f0ff;
+  --dark-teal-50: #f5faff;
+  --dark-teal-500: #cee7fe;
+  --dark-teal-600: #b7d9f8;
+  --dark-teal-700: #96c7f2;
+  --dark-teal-800: #5eb0ef;
+  --dark-teal-900: #006adc;
+  --dark-teal-950: #cee7fe;
+  --dark-tomato-100: #fbfdff;
+  --dark-tomato-200: #f5faff;
+  --dark-tomato-25: #fbfdff;
+  --dark-tomato-300: #edf6ff;
+  --dark-tomato-400: #e1f0ff;
+  --dark-tomato-50: #f5faff;
+  --dark-tomato-500: #cee7fe;
+  --dark-tomato-600: #b7d9f8;
+  --dark-tomato-700: #96c7f2;
+  --dark-tomato-800: #5eb0ef;
+  --dark-tomato-900: #006adc;
+  --dark-tomato-950: #cee7fe;
+  --dark-violet-100: #fbfdff;
+  --dark-violet-200: #f5faff;
+  --dark-violet-25: #fbfdff;
+  --dark-violet-300: #edf6ff;
+  --dark-violet-400: #e1f0ff;
+  --dark-violet-50: #f5faff;
+  --dark-violet-500: #cee7fe;
+  --dark-violet-600: #b7d9f8;
+  --dark-violet-700: #96c7f2;
+  --dark-violet-800: #5eb0ef;
+  --dark-violet-900: #006adc;
+  --dark-violet-950: #cee7fe;
+  --dark-yellow-100: #fbfdff;
+  --dark-yellow-200: #f5faff;
+  --dark-yellow-25: #fbfdff;
+  --dark-yellow-300: #edf6ff;
+  --dark-yellow-400: #e1f0ff;
+  --dark-yellow-50: #f5faff;
+  --dark-yellow-500: #cee7fe;
+  --dark-yellow-600: #b7d9f8;
+  --dark-yellow-700: #96c7f2;
+  --dark-yellow-800: #5eb0ef;
+  --dark-yellow-900: #006adc;
+  --dark-yellow-950: #cee7fe;
+  --display-display-lg-bold:
+    Family: Inter, Size: 64px, Weight: Bold, Line height: 80px,
+    Letter spacing: 0px;
+  --display-display-lg-regular:
+    Family: Inter, Size: 64px, Weight: Regular, Line height: 80px,
+    Letter spacing: 0px;
+  --display-display-md-bold:
+    Family: Inter, Size: 56px, Weight: Bold, Line height: 70px,
+    Letter spacing: 0px;
+  --display-display-md-regular:
+    Family: Inter, Size: 56px, Weight: Regular, Line height: 70px,
+    Letter spacing: 0px;
+  --display-display-sm-bold:
+    Family: Inter, Size: 48px, Weight: Bold, Line height: 60px,
+    Letter spacing: 0px;
+  --display-display-sm-regular:
+    Family: Inter, Size: 48px, Weight: Regular, Line height: 60px,
+    Letter spacing: 0px;
+  --display-display-xl-bold:
+    Family: Inter, Size: 72px, Weight: Bold, Line height: 90px,
+    Letter spacing: 0px;
+  --display-display-xl-regular:
+    Family: Inter, Size: 72px, Weight: Regular, Line height: 90px,
+    Letter spacing: 0px;
+  --display-display-xs-bold:
+    Family: Inter, Size: 40px, Weight: Bold, Line height: 50px,
+    Letter spacing: 0px;
+  --display-display-xs-regular:
+    Family: Inter, Size: 40px, Weight: Regular, Line height: 50px,
+    Letter spacing: 0px;
+  --display-display-xxl-bold:
+    Family: Inter, Size: 80px, Weight: Bold, Line height: 100px,
+    Letter spacing: 0px;
+  --display-display-xxl-regular:
+    Family: Inter, Size: 80px, Weight: Regular, Line height: 100px,
+    Letter spacing: 0px;
+  --headings-h1:
+    Family: Inter, Size: 40px, Weight: Bold, Line height: 50px,
+    Letter spacing: 0px;
+  --headings-h2:
+    Family: Inter, Size: 32px, Weight: Bold, Line height: 40px,
+    Letter spacing: 0px;
+  --headings-h3:
+    Family: Inter, Size: 24px, Weight: Bold, Line height: 32px,
+    Letter spacing: 0px;
+  --headings-h4:
+    Family: Inter, Size: 20px, Weight: Bold, Line height: 28px,
+    Letter spacing: 0px;
+  --headings-h5:
+    Family: Inter, Size: 18px, Weight: Bold, Line height: 26px,
+    Letter spacing: 0px;
+  --headings-h6:
+    Family: Inter, Size: 16px, Weight: Bold, Line height: 24px,
+    Letter spacing: 0px;
+  --headings-subtitle:
+    Family: Inter, Size: 14px, Weight: Semi Bold, Line height: 20px,
+    Letter spacing: 0px, Case: Uppercase;
+  --lead-text-lead-text-md-bold:
+    Family: Inter, Size: 24px, Weight: Bold, Line height: 32px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-md-medium:
+    Family: Inter, Size: 24px, Weight: Medium, Line height: 32px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-md-regular:
+    Family: Inter, Size: 24px, Weight: Regular, Line height: 32px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-md-semibold:
+    Family: Inter, Size: 24px, Weight: Semi Bold, Line height: 32px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-sm-bold:
+    Family: Inter, Size: 20px, Weight: Bold, Line height: 28px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-sm-medium:
+    Family: Inter, Size: 20px, Weight: Medium, Line height: 28px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-sm-regular:
+    Family: Inter, Size: 20px, Weight: Regular, Line height: 28px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-sm-semibold:
+    Family: Inter, Size: 20px, Weight: Semi Bold, Line height: 28px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-xs-bold:
+    Family: Inter, Size: 18px, Weight: Bold, Line height: 26px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-xs-medium:
+    Family: Inter, Size: 18px, Weight: Medium, Line height: 26px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-xs-regular:
+    Family: Inter, Size: 18px, Weight: Regular, Line height: 26px,
+    Letter spacing: 0px;
+  --lead-text-lead-text-xs-semibold:
+    Family: Inter, Size: 18px, Weight: Semi Bold, Line height: 26px,
+    Letter spacing: 0px;
+  --light-amber-100: #fbfdff;
+  --light-amber-200: #f5faff;
+  --light-amber-25: #fbfdff;
+  --light-amber-300: #edf6ff;
+  --light-amber-400: #e1f0ff;
+  --light-amber-50: #f5faff;
+  --light-amber-500: #cee7fe;
+  --light-amber-600: #b7d9f8;
+  --light-amber-700: #96c7f2;
+  --light-amber-800: #5eb0ef;
+  --light-amber-900: #006adc;
+  --light-amber-950: #cee7fe;
+  --light-blue-100: #fbfdff;
+  --light-blue-200: #f5faff;
+  --light-blue-25: #fbfdff;
+  --light-blue-300: #edf6ff;
+  --light-blue-400: #e1f0ff;
+  --light-blue-50: #f5faff;
+  --light-blue-500: #cee7fe;
+  --light-blue-600: #b7d9f8;
+  --light-blue-700: #96c7f2;
+  --light-blue-800: #5eb0ef;
+  --light-blue-900: #006adc;
+  --light-blue-950: #cee7fe;
+  --light-bronze-100: #fbfdff;
+  --light-bronze-200: #f5faff;
+  --light-bronze-25: #fbfdff;
+  --light-bronze-300: #edf6ff;
+  --light-bronze-400: #e1f0ff;
+  --light-bronze-50: #f5faff;
+  --light-bronze-500: #cee7fe;
+  --light-bronze-600: #b7d9f8;
+  --light-bronze-700: #96c7f2;
+  --light-bronze-800: #5eb0ef;
+  --light-bronze-900: #006adc;
+  --light-bronze-950: #cee7fe;
+  --light-brown-100: #fbfdff;
+  --light-brown-200: #f5faff;
+  --light-brown-25: #fbfdff;
+  --light-brown-300: #edf6ff;
+  --light-brown-400: #e1f0ff;
+  --light-brown-50: #f5faff;
+  --light-brown-500: #cee7fe;
+  --light-brown-600: #b7d9f8;
+  --light-brown-700: #96c7f2;
+  --light-brown-800: #5eb0ef;
+  --light-brown-900: #006adc;
+  --light-brown-950: #cee7fe;
+  --light-crimson-100: #fbfdff;
+  --light-crimson-200: #f5faff;
+  --light-crimson-25: #fbfdff;
+  --light-crimson-300: #edf6ff;
+  --light-crimson-400: #e1f0ff;
+  --light-crimson-50: #f5faff;
+  --light-crimson-500: #cee7fe;
+  --light-crimson-600: #b7d9f8;
+  --light-crimson-700: #96c7f2;
+  --light-crimson-800: #5eb0ef;
+  --light-crimson-900: #006adc;
+  --light-crimson-950: #cee7fe;
+  --light-cyan-100: #fbfdff;
+  --light-cyan-200: #f5faff;
+  --light-cyan-25: #fbfdff;
+  --light-cyan-300: #edf6ff;
+  --light-cyan-400: #e1f0ff;
+  --light-cyan-50: #f5faff;
+  --light-cyan-500: #cee7fe;
+  --light-cyan-600: #b7d9f8;
+  --light-cyan-700: #96c7f2;
+  --light-cyan-800: #5eb0ef;
+  --light-cyan-900: #006adc;
+  --light-cyan-950: #cee7fe;
+  --light-gold-100: #fbfdff;
+  --light-gold-200: #f5faff;
+  --light-gold-25: #fbfdff;
+  --light-gold-300: #edf6ff;
+  --light-gold-400: #e1f0ff;
+  --light-gold-50: #f5faff;
+  --light-gold-500: #cee7fe;
+  --light-gold-600: #b7d9f8;
+  --light-gold-700: #96c7f2;
+  --light-gold-800: #5eb0ef;
+  --light-gold-900: #006adc;
+  --light-gold-950: #cee7fe;
+  --light-grass-100: #fbfdff;
+  --light-grass-200: #f5faff;
+  --light-grass-25: #fbfdff;
+  --light-grass-300: #edf6ff;
+  --light-grass-400: #e1f0ff;
+  --light-grass-50: #f5faff;
+  --light-grass-500: #cee7fe;
+  --light-grass-600: #b7d9f8;
+  --light-grass-700: #96c7f2;
+  --light-grass-800: #5eb0ef;
+  --light-grass-900: #006adc;
+  --light-grass-950: #cee7fe;
+  --light-gray-100: #fbfdff;
+  --light-gray-200: #f5faff;
+  --light-gray-25: #fbfdff;
+  --light-gray-300: #edf6ff;
+  --light-gray-400: #e1f0ff;
+  --light-gray-50: #f5faff;
+  --light-gray-500: #cee7fe;
+  --light-gray-600: #b7d9f8;
+  --light-gray-700: #96c7f2;
+  --light-gray-800: #5eb0ef;
+  --light-gray-900: #006adc;
+  --light-gray-950: #cee7fe;
+  --light-green-100: #fbfdff;
+  --light-green-200: #f5faff;
+  --light-green-25: #fbfdff;
+  --light-green-300: #edf6ff;
+  --light-green-400: #e1f0ff;
+  --light-green-50: #f5faff;
+  --light-green-500: #cee7fe;
+  --light-green-600: #b7d9f8;
+  --light-green-700: #96c7f2;
+  --light-green-800: #5eb0ef;
+  --light-green-900: #006adc;
+  --light-green-950: #cee7fe;
+  --light-indigo-100: #fbfdff;
+  --light-indigo-200: #f5faff;
+  --light-indigo-25: #fbfdff;
+  --light-indigo-300: #edf6ff;
+  --light-indigo-400: #e1f0ff;
+  --light-indigo-50: #f5faff;
+  --light-indigo-500: #cee7fe;
+  --light-indigo-600: #b7d9f8;
+  --light-indigo-700: #96c7f2;
+  --light-indigo-800: #5eb0ef;
+  --light-indigo-900: #006adc;
+  --light-indigo-950: #cee7fe;
+  --light-lime-100: #fbfdff;
+  --light-lime-200: #f5faff;
+  --light-lime-25: #fbfdff;
+  --light-lime-300: #edf6ff;
+  --light-lime-400: #e1f0ff;
+  --light-lime-50: #f5faff;
+  --light-lime-500: #cee7fe;
+  --light-lime-600: #b7d9f8;
+  --light-lime-700: #96c7f2;
+  --light-lime-800: #5eb0ef;
+  --light-lime-900: #006adc;
+  --light-lime-950: #cee7fe;
+  --light-mauve-100: #fbfdff;
+  --light-mauve-200: #fbfdff;
+  --light-mauve-25: #fbfdff;
+  --light-mauve-300: #fbfdff;
+  --light-mauve-400: #fbfdff;
+  --light-mauve-50: #fbfdff;
+  --light-mauve-500: #fbfdff;
+  --light-mauve-600: #fbfdff;
+  --light-mauve-700: #fbfdff;
+  --light-mauve-800: #fbfdff;
+  --light-mauve-900: #fbfdff;
+  --light-mauve-950: #fbfdff;
+  --light-mint-100: #fbfdff;
+  --light-mint-200: #f5faff;
+  --light-mint-25: #fbfdff;
+  --light-mint-300: #edf6ff;
+  --light-mint-400: #e1f0ff;
+  --light-mint-50: #f5faff;
+  --light-mint-500: #cee7fe;
+  --light-mint-600: #b7d9f8;
+  --light-mint-700: #96c7f2;
+  --light-mint-800: #5eb0ef;
+  --light-mint-900: #006adc;
+  --light-mint-950: #cee7fe;
+  --light-olive-100: #fbfdff;
+  --light-olive-200: #fbfdff;
+  --light-olive-25: #fbfdff;
+  --light-olive-300: #fbfdff;
+  --light-olive-400: #fbfdff;
+  --light-olive-50: #fbfdff;
+  --light-olive-500: #fbfdff;
+  --light-olive-600: #fbfdff;
+  --light-olive-700: #fbfdff;
+  --light-olive-800: #fbfdff;
+  --light-olive-900: #fbfdff;
+  --light-olive-950: #fbfdff;
+  --light-orange-100: #fbfdff;
+  --light-orange-200: #f5faff;
+  --light-orange-25: #fbfdff;
+  --light-orange-300: #edf6ff;
+  --light-orange-400: #e1f0ff;
+  --light-orange-50: #f5faff;
+  --light-orange-500: #cee7fe;
+  --light-orange-600: #b7d9f8;
+  --light-orange-700: #96c7f2;
+  --light-orange-800: #5eb0ef;
+  --light-orange-900: #006adc;
+  --light-orange-950: #cee7fe;
+  --light-pink-100: #fbfdff;
+  --light-pink-200: #f5faff;
+  --light-pink-25: #fbfdff;
+  --light-pink-300: #edf6ff;
+  --light-pink-400: #e1f0ff;
+  --light-pink-50: #f5faff;
+  --light-pink-500: #cee7fe;
+  --light-pink-600: #b7d9f8;
+  --light-pink-700: #96c7f2;
+  --light-pink-800: #5eb0ef;
+  --light-pink-900: #006adc;
+  --light-pink-950: #cee7fe;
+  --light-plum-100: #fbfdff;
+  --light-plum-200: #f5faff;
+  --light-plum-25: #fbfdff;
+  --light-plum-300: #edf6ff;
+  --light-plum-400: #e1f0ff;
+  --light-plum-50: #f5faff;
+  --light-plum-500: #cee7fe;
+  --light-plum-600: #b7d9f8;
+  --light-plum-700: #96c7f2;
+  --light-plum-800: #5eb0ef;
+  --light-plum-900: #006adc;
+  --light-plum-950: #cee7fe;
+  --light-purple-100: #fbfdff;
+  --light-purple-200: #f5faff;
+  --light-purple-25: #fbfdff;
+  --light-purple-300: #edf6ff;
+  --light-purple-400: #e1f0ff;
+  --light-purple-50: #f5faff;
+  --light-purple-500: #cee7fe;
+  --light-purple-600: #b7d9f8;
+  --light-purple-700: #96c7f2;
+  --light-purple-800: #5eb0ef;
+  --light-purple-900: #006adc;
+  --light-purple-950: #cee7fe;
+  --light-red-100: #fbfdff;
+  --light-red-200: #f5faff;
+  --light-red-25: #fbfdff;
+  --light-red-300: #edf6ff;
+  --light-red-400: #e1f0ff;
+  --light-red-50: #f5faff;
+  --light-red-500: #cee7fe;
+  --light-red-600: #b7d9f8;
+  --light-red-700: #96c7f2;
+  --light-red-800: #5eb0ef;
+  --light-red-900: #006adc;
+  --light-red-950: #cee7fe;
+  --light-sage-100: #fbfdff;
+  --light-sage-200: #fbfdff;
+  --light-sage-25: #fbfdff;
+  --light-sage-300: #fbfdff;
+  --light-sage-400: #fbfdff;
+  --light-sage-50: #fbfdff;
+  --light-sage-500: #fbfdff;
+  --light-sage-600: #fbfdff;
+  --light-sage-700: #fbfdff;
+  --light-sage-800: #fbfdff;
+  --light-sage-900: #fbfdff;
+  --light-sage-950: #fbfdff;
+  --light-sand-100: #fbfdff;
+  --light-sand-200: #fbfdff;
+  --light-sand-25: #fbfdff;
+  --light-sand-300: #fbfdff;
+  --light-sand-400: #fbfdff;
+  --light-sand-50: #fbfdff;
+  --light-sand-500: #fbfdff;
+  --light-sand-600: #fbfdff;
+  --light-sand-700: #fbfdff;
+  --light-sand-800: #fbfdff;
+  --light-sand-900: #fbfdff;
+  --light-sand-950: #fbfdff;
+  --light-sky-100: #fbfdff;
+  --light-sky-200: #f5faff;
+  --light-sky-25: #fbfdff;
+  --light-sky-300: #edf6ff;
+  --light-sky-400: #e1f0ff;
+  --light-sky-50: #f5faff;
+  --light-sky-500: #cee7fe;
+  --light-sky-600: #b7d9f8;
+  --light-sky-700: #96c7f2;
+  --light-sky-800: #5eb0ef;
+  --light-sky-900: #006adc;
+  --light-sky-950: #cee7fe;
+  --light-slate-100: #fbfdff;
+  --light-slate-200: #fbfdff;
+  --light-slate-25: #fbfdff;
+  --light-slate-300: #fbfdff;
+  --light-slate-400: #fbfdff;
+  --light-slate-50: #fbfdff;
+  --light-slate-500: #fbfdff;
+  --light-slate-600: #fbfdff;
+  --light-slate-700: #fbfdff;
+  --light-slate-800: #fbfdff;
+  --light-slate-900: #fbfdff;
+  --light-slate-950: #fbfdff;
+  --light-teal-100: #fbfdff;
+  --light-teal-200: #f5faff;
+  --light-teal-25: #fbfdff;
+  --light-teal-300: #edf6ff;
+  --light-teal-400: #e1f0ff;
+  --light-teal-50: #f5faff;
+  --light-teal-500: #cee7fe;
+  --light-teal-600: #b7d9f8;
+  --light-teal-700: #96c7f2;
+  --light-teal-800: #5eb0ef;
+  --light-teal-900: #006adc;
+  --light-teal-950: #cee7fe;
+  --light-tomato-100: #fbfdff;
+  --light-tomato-200: #f5faff;
+  --light-tomato-25: #fbfdff;
+  --light-tomato-300: #edf6ff;
+  --light-tomato-400: #e1f0ff;
+  --light-tomato-50: #f5faff;
+  --light-tomato-500: #cee7fe;
+  --light-tomato-600: #b7d9f8;
+  --light-tomato-700: #96c7f2;
+  --light-tomato-800: #5eb0ef;
+  --light-tomato-900: #006adc;
+  --light-tomato-950: #cee7fe;
+  --light-violet-100: #fbfdff;
+  --light-violet-200: #f5faff;
+  --light-violet-25: #fbfdff;
+  --light-violet-300: #edf6ff;
+  --light-violet-400: #e1f0ff;
+  --light-violet-50: #f5faff;
+  --light-violet-500: #cee7fe;
+  --light-violet-600: #b7d9f8;
+  --light-violet-700: #96c7f2;
+  --light-violet-800: #5eb0ef;
+  --light-violet-900: #006adc;
+  --light-violet-950: #cee7fe;
+  --light-yellow-100: #fbfdff;
+  --light-yellow-200: #f5faff;
+  --light-yellow-25: #fbfdff;
+  --light-yellow-300: #edf6ff;
+  --light-yellow-400: #e1f0ff;
+  --light-yellow-50: #f5faff;
+  --light-yellow-500: #cee7fe;
+  --light-yellow-600: #b7d9f8;
+  --light-yellow-700: #96c7f2;
+  --light-yellow-800: #5eb0ef;
+  --light-yellow-900: #006adc;
+  --light-yellow-950: #cee7fe;
+  --overlay-black-100: #fbfdff;
+  --overlay-black-200: #f5faff;
+  --overlay-black-25: #fbfdff;
+  --overlay-black-300: #edf6ff;
+  --overlay-black-400: #e1f0ff;
+  --overlay-black-50: #f5faff;
+  --overlay-black-500: #cee7fe;
+  --overlay-black-600: #b7d9f8;
+  --overlay-black-700: #96c7f2;
+  --overlay-black-800: #5eb0ef;
+  --overlay-black-900: #006adc;
+  --overlay-black-950: #cee7fe;
+  --overlay-white-100: #fbfdff;
+  --overlay-white-200: #f5faff;
+  --overlay-white-25: #fbfdff;
+  --overlay-white-300: #edf6ff;
+  --overlay-white-400: #e1f0ff;
+  --overlay-white-50: #f5faff;
+  --overlay-white-500: #cee7fe;
+  --overlay-white-600: #b7d9f8;
+  --overlay-white-700: #96c7f2;
+  --overlay-white-800: #5eb0ef;
+  --overlay-white-900: #006adc;
+  --overlay-white-950: #cee7fe;
+  --person-person-1: male;
+  --person-person-10: female;
+  --person-person-11: male;
+  --person-person-12: male;
+  --person-person-2: male;
+  --person-person-3: female;
+  --person-person-4: female;
+  --person-person-5: male;
+  --person-person-6: male;
+  --person-person-7: male;
+  --person-person-8: male;
+  --person-person-9: female;
+  --text-text-md-bold:
+    Family: Inter, Size: 16px, Weight: Bold, Line height: 24px,
+    Letter spacing: 0px;
+  --text-text-md-medium:
+    Family: Inter, Size: 16px, Weight: Medium, Line height: 24px,
+    Letter spacing: 0px;
+  --text-text-md-regular:
+    Family: Inter, Size: 16px, Weight: Regular, Line height: 24px,
+    Letter spacing: 0px;
+  --text-text-md-semibold:
+    Family: Inter, Size: 16px, Weight: Semi Bold, Line height: 24px,
+    Letter spacing: 0px;
+  --text-text-sm-bold:
+    Family: Inter, Size: 14px, Weight: Bold, Line height: 20px,
+    Letter spacing: 0px;
+  --text-text-sm-medium:
+    Family: Inter, Size: 14px, Weight: Medium, Line height: 20px,
+    Letter spacing: 0px;
+  --text-text-sm-regular:
+    Family: Inter, Size: 14px, Weight: Regular, Line height: 20px,
+    Letter spacing: 0px;
+  --text-text-sm-semibold:
+    Family: Inter, Size: 14px, Weight: Semi Bold, Line height: 20px,
+    Letter spacing: 0px;
+  --text-text-xs-bold:
+    Family: Inter, Size: 12px, Weight: Bold, Line height: 18px,
+    Letter spacing: 0px;
+  --text-text-xs-medium:
+    Family: Inter, Size: 12px, Weight: Medium, Line height: 18px,
+    Letter spacing: 0px;
+  --text-text-xs-regular:
+    Family: Inter, Size: 12px, Weight: Regular, Line height: 18px,
+    Letter spacing: 0px;
+  --text-text-xs-semibold:
+    Family: Inter, Size: 12px, Weight: Semi Bold, Line height: 18px,
+    Letter spacing: 0px;
+  --utility-black: #000000;
+  --utility-transparent: #fbfdff;
+  --utility-white: #ffffff;
+}

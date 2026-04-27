@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 import {
   Card,
@@ -15,17 +15,6 @@ import {
   cn,
 } from "@acme/ui";
 
-const chartData = [
-  { month: "Jan", uv: 4000, pv: 2400 },
-  { month: "Feb", uv: 3000, pv: 1398 },
-  { month: "Mar", uv: 2000, pv: 9800 },
-  { month: "Apr", uv: 2780, pv: 3908 },
-  { month: "May", uv: 1890, pv: 4800 },
-  { month: "Jun", uv: 2390, pv: 3800 },
-];
-
-// Generate more granular data points for smooth line look like the screenshot
-// (or just use more array points if doing a static mock)
 const detailedData = Array.from({ length: 60 }).map((_, i) => ({
   date: `${i}`,
   uv: Math.sin(i / 3) * 2000 + 4000 + Math.random() * 1000,
@@ -46,15 +35,14 @@ const detailedData = Array.from({ length: 60 }).map((_, i) => ({
                 : "",
 }));
 
-// We'll hardcode orange/teal in CSS variables just for this component or inline them.
 const chartConfig = {
   uv: {
     label: "Visitors (Current)",
-    color: "#f97316", // Orange hue
+    color: "#f97316",
   },
   pv: {
     label: "Visitors (Previous)",
-    color: "#14b8a6", // Teal hue
+    color: "#14b8a6",
   },
 };
 
@@ -141,7 +129,6 @@ export function TrafficChart({ className }: { className?: string }) {
               cursor={{ stroke: "hsl(var(--border))", strokeWidth: 1 }}
               content={<ChartTooltipContent indicator="dot" />}
             />
-            {/* The line at back */}
             <Area
               dataKey="pv"
               type="monotone"
@@ -150,7 +137,6 @@ export function TrafficChart({ className }: { className?: string }) {
               strokeWidth={2}
               dot={false}
             />
-            {/* The line in front */}
             <Area
               dataKey="uv"
               type="monotone"

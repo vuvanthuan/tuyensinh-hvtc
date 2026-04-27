@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import { DashboardTable } from "~/components/dashboard/dashboard-table";
 import { StatCard } from "~/components/dashboard/stat-card";
 import { TrafficChart } from "~/components/dashboard/traffic-chart";

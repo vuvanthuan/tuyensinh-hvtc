@@ -1,31 +1,34 @@
 import { useCallback, useEffect, useState } from "react";
 
-export const getValueFromLocalStorage = <T>(key: string, defaultValue: T) => {
-  if (typeof window === "undefined" || typeof window === "undefined")
-    return defaultValue;
+export const getValueFromLocalStorage = <T>(
+  key: string,
+  defaultValue: T,
+): T => {
+  if (typeof window === "undefined") return defaultValue;
+
   try {
     const item = window.localStorage.getItem(key);
-    return item ? JSON.parse(item) : defaultValue;
-  } catch (_error) {
+    return item ? (JSON.parse(item) as T) : defaultValue;
+  } catch {
     window.localStorage.removeItem(key);
     return defaultValue;
   }
 };
 
-export const setValueIntoLocalStorage = (key: string, value: any) => {
-  if (typeof window === "undefined" || typeof window === "undefined")
-    return false;
+export const setValueIntoLocalStorage = <T>(key: string, value: T): boolean => {
+  if (typeof window === "undefined") return false;
+
   try {
     window.localStorage.setItem(key, JSON.stringify(value));
     return true;
-  } catch (_error) {
+  } catch {
     return false;
   }
 };
 
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const [storedValue, setStoredValue] = useState<T | null>(() =>
-    getValueFromLocalStorage(key, initialValue),
+    getValueFromLocalStorage<T>(key, initialValue),
   );
 
   const setValue = useCallback(
@@ -44,7 +47,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
   }, [key]);
 
   const reHydrate = useCallback(() => {
-    const data = getValueFromLocalStorage(key, initialValue);
+    const data = getValueFromLocalStorage<T>(key, initialValue);
     setStoredValue(data);
   }, [key, initialValue]);
 

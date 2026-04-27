@@ -5,10 +5,10 @@
   "scripts": {
     "build": "SKIP_ENV_VALIDATION=1 pnpm with-env next build",
     "clean": "git clean -xdf .cache .next .turbo node_modules",
-    "dev": "pnpm with-env next dev",
+    "dev": "pnpm with-env sh -c 'next dev -p $LANDING_PORT'",
     "format": "prettier --check . --ignore-path ../../.gitignore",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
-    "start": "pnpm with-env next start",
+    "start": "pnpm with-env sh -c 'next start -p $LANDING_PORT'",
     "typecheck": "tsc --noEmit",
     "with-env": "dotenv -e ../../.env --"
   },

@@ -1,11 +1,11 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { CheckCircle2, CircleDashed, FileText, Tag } from "lucide-react";
 
-import { Course } from "@acme/api-contract";
-import { Badge, Checkbox } from "@acme/ui";
+import type { Course } from "@acme/api-contract";
+import { Checkbox } from "@acme/ui";
 import { DataTableColumnHeader } from "@acme/ui/table";
 
 export const columns: ColumnDef<Course>[] = [
@@ -53,11 +53,11 @@ export const columns: ColumnDef<Course>[] = [
       <DataTableColumnHeader column={column} title="Category" />
     ),
     cell: ({ row }) => {
-      const category = row.getValue("category") as string;
+      const category = row.getValue("category");
       return (
         <div className="text-muted-foreground flex items-center">
           <Tag className="mr-2 size-3.5" />
-          <span>{category}</span>
+          <span>{String(category)}</span>
         </div>
       );
     },
@@ -90,7 +90,7 @@ export const columns: ColumnDef<Course>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      const status = row.getValue("status") as string;
+      const status = row.getValue("status");
 
       if (status === "published") {
         return (
@@ -111,7 +111,7 @@ export const columns: ColumnDef<Course>[] = [
       return (
         <div className="text-muted-foreground flex items-center">
           <FileText className="mr-2 size-4" />
-          <span className="font-medium capitalize">{status}</span>
+          <span className="font-medium capitalize">{String(status)}</span>
         </div>
       );
     },
@@ -131,7 +131,7 @@ export const columns: ColumnDef<Course>[] = [
       <DataTableColumnHeader column={column} title="Price" />
     ),
     cell: ({ row }) => {
-      const price = parseFloat(row.getValue("price") as string);
+      const price = parseFloat(row.getValue("price"));
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
@@ -149,7 +149,7 @@ export const columns: ColumnDef<Course>[] = [
       <DataTableColumnHeader column={column} title="Created At" />
     ),
     cell: ({ row }) => {
-      const date = row.getValue("createdAt") as string;
+      const date = String(row.getValue("createdAt"));
       return (
         <div className="text-muted-foreground">
           {format(new Date(date), "MMM d, yyyy")}

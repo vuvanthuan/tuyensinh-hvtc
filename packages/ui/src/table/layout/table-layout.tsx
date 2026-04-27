@@ -218,10 +218,8 @@ export function AdvancedDataTable<
           data={rowAction.row.original}
           showTrigger={false}
           onSuccess={() => {
-            if (rowAction.row) {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              (rowAction.row as Row<any>).toggleSelected(false);
-            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (rowAction.row as Row<any>).toggleSelected(false);
           }}
         />
       )}
@@ -231,13 +229,11 @@ export function AdvancedDataTable<
         <actionComponents.delete
           open={true}
           onOpenChange={() => setRowAction(null)}
-          data={rowAction.row.original ? [rowAction.row.original] : []}
+          data={[rowAction.row.original]}
           showTrigger={false}
           onSuccess={() => {
-            if (rowAction.row) {
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              (rowAction.row as Row<any>).toggleSelected(false);
-            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (rowAction.row as Row<any>).toggleSelected(false);
           }}
         />
       )}

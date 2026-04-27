@@ -1,8 +1,5 @@
 "use client";
 
-import * as React from "react";
-
-import { CourseQuery } from "@acme/api-contract";
 import {
   DataTable,
   DataTableSkeleton,
@@ -63,7 +60,8 @@ export function CoursesTable() {
           <p className="mt-1 text-sm opacity-90">
             {typeof error === "string"
               ? error
-              : (error as any)?.message ||
+              : // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                (error as unknown as { message?: string }).message ||
                 JSON.stringify(error) ||
                 "An unexpected error occurred while fetching course data."}
           </p>

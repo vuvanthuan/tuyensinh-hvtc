@@ -19,7 +19,7 @@ interface MessageResponse {
 
 export interface FormSubmitProps<T extends z.ZodSchema<FieldValues>> {
   schema: T;
-  defaultValues: DefaultValues<z.infer<T>>; // Change to DefaultValues type
+  defaultValues: DefaultValues<z.infer<T>>;
   onSubmitAction: (data: z.infer<T>) => Promise<MessageResponse>;
   onErrorIgnore: (error: unknown) => boolean;
 }
@@ -30,8 +30,10 @@ export const useFormAction = <T extends z.ZodSchema<FieldValues>>(
   const { schema, defaultValues, onSubmitAction, onErrorIgnore } = props;
 
   const form: UseFormReturn<z.infer<T>> = useForm<z.infer<T>>({
+    //allowed
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(schema as any),
-    defaultValues, // Now defaults are correctly typed
+    defaultValues,
   });
 
   const [message, setMessage] = useState<FormMessage | null>(null);
@@ -39,15 +41,13 @@ export const useFormAction = <T extends z.ZodSchema<FieldValues>>(
 
   const onSubmit = (action: (data: z.infer<T>) => Promise<MessageResponse>) => {
     const setResponseMessage = (res: MessageResponse) => {
-      if (res && "success" in res) {
-        setMessage({
-          type: res.success ? "success" : "error",
-          message: res?.message || "",
-        });
-      }
+      setMessage({
+        type: res.success ? "success" : "error",
+        message: res.message,
+      });
     };
 
-    return async (data: z.infer<T>) => {
+    return (data: z.infer<T>) => {
       setMessage(null);
 
       startTransition(() => {

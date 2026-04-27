@@ -155,7 +155,7 @@ function FacetedBadgeList(props: FacetedBadgeListProps) {
     [options],
   );
 
-  if (!values || values.length === 0) {
+  if (values.length === 0) {
     return (
       <div
         {...badgeListProps}
@@ -239,7 +239,7 @@ function FacetedItem(props: FacetedItemProps) {
         context.onItemSelect(currentValue);
       }
     },
-    [onSelect, context.onItemSelect],
+    [onSelect, context],
   );
 
   return (

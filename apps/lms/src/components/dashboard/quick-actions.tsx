@@ -1,4 +1,3 @@
-import * as React from "react";
 import Link from "next/link";
 import { BarChart3Icon, PlusIcon, SettingsIcon, UsersIcon } from "lucide-react";
 

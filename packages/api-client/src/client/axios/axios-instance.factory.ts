@@ -87,7 +87,6 @@ export class AxiosInstanceFactory {
   private static buildBaseConfig(config: ApiClientConfig): AxiosRequestConfig {
     return {
       baseURL: config.baseURL,
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       timeout: config.timeout ?? 30_000,
       withCredentials: config.withCredentials ?? false,
       headers: {
@@ -148,15 +147,23 @@ export class AxiosInstanceFactory {
     // Error normalization interceptor
     instance.interceptors.response.use(
       (response) => response,
-      (error) => {
+      (error: unknown) => {
         const normalizedError = {
           message:
-            error.response?.data?.message ||
-            error.message ||
+            (error as { response?: { data?: { message?: string } } }).response
+              ?.data?.message ??
+            (error as { message?: string }).message ??
             "An unexpected error occurred",
-          status: error.response?.status,
-          data: error.response?.data,
+          status:
+            (error as { response?: { status?: number } }).response?.status ??
+            undefined,
+          data:
+            (error as { response?: { data?: unknown } }).response?.data ??
+            undefined,
         };
+
+        //alowed
+        // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
         return Promise.reject(normalizedError);
       },
     );

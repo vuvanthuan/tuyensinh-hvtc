@@ -137,7 +137,6 @@ export class ApiClient {
     // Logging is always last so it observes the final resolved config
     interceptors.push(new LoggingInterceptor());
 
-
     this.httpClient = AxiosInstanceFactory.create(config, interceptors);
   }
 
@@ -145,10 +144,10 @@ export class ApiClient {
    * The underlying AxiosInstance used by this client.
    * Only available when using the Axios-backed HttpClient.
    */
-  public get instance(): any {
+  public get instance(): unknown {
     // We cast to any here because ApiClient is technically framework-agnostic
     // but in this monorepo we know it's always AxiosHttpClient.
-    return (this.httpClient as any).instance;
+    return (this.httpClient as unknown as { instance: unknown }).instance;
   }
 
   // ─── Core request execution ───────────────────────────────────────────────
