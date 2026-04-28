@@ -57,14 +57,23 @@ function getValueByPath(pathStr, tokens) {
   return current;
 }
 
-function resolveReference(ref, tokens, depth = 0) {
+function resolveReference(ref, depth = 0) {
   if (depth > 10) return ref;
   const pathStr = ref.slice(1, -1);
-  const token = getValueByPath(pathStr, tokens);
-  if (token && typeof token === "object" && token.value !== undefined) {
-    return transformValue(token, tokens, depth + 1);
+
+  let finalPath = pathStr;
+  for (const [alias, actualPath] of Object.entries(referenceAliases)) {
+    if (pathStr === alias || pathStr.startsWith(`${alias}.`)) {
+      const remaining = pathStr.slice(alias.length).replace(/^\./, "");
+      finalPath = actualPath + (remaining ? "." + remaining : "");
+      break;
+    }
   }
-  return token !== null && token !== undefined ? token : ref;
+
+  const parts = finalPath.split(".");
+  const { key } = cleanKey(parts);
+
+  return `var(--${key})`;
 }
 
 function transformValue(token, allTokens, depth = 0) {
@@ -246,9 +255,7 @@ topKeys.forEach((key) => {
   if (rawTokens[key]) walk(rawTokens[key], [key]);
 });
 
-// Helper để chuyển đổi tên token thành tên Tailwind theme hợp lệ
 function toThemeKey(key) {
-  // Chuyển đổi các pattern đặc biệt
   let themeKey = key
     .replace(/^bg-/, "background-color-")
     .replace(/^text-/, "color-")
@@ -262,13 +269,12 @@ function toThemeKey(key) {
     .replace(/^letter-spacing-/, "letter-spacing-")
     .replace(/^spacing-/, "spacing-")
     .replace(/^radius-/, "border-radius-")
-    .replace(/^focus-ring-/, "ring-offset-") // Focus ring thành ring offset
-    .replace(/^overlay/, "box-shadow-"); // Overlay thành box shadow
+    .replace(/^focus-ring-/, "ring-offset-")
+    .replace(/^overlay/, "box-shadow-");
 
   return themeKey;
 }
 
-// Tách riêng các token cho @theme
 const themeColors = {};
 const themeSpacing = {};
 const themeBorderRadius = {};
@@ -280,11 +286,9 @@ const themeLetterSpacing = {};
 const themeBoxShadow = {};
 const themeBackgroundImage = {};
 
-// Xử lý themeTokens cho Tailwind v4
 Object.entries(themeTokens).forEach(([key, value]) => {
-  if (typeof value !== "string" || value.includes("{")) return;
+  const varValue = `var(--${key})`;
 
-  // Colors
   if (
     key.startsWith("bg-") ||
     key.startsWith("text-") ||
@@ -296,56 +300,37 @@ Object.entries(themeTokens).forEach(([key, value]) => {
     else if (key.startsWith("border-")) colorKey = key.replace(/^border-/, "");
     else colorKey = key;
 
-    themeColors[colorKey] = value;
-  }
-  // Spacing
-  else if (key.startsWith("spacing-")) {
+    themeColors[colorKey] = varValue;
+  } else if (key.startsWith("spacing-")) {
     const spacingKey = key.replace(/^spacing-/, "");
-    themeSpacing[spacingKey] = value;
-  }
-  // Border Radius
-  else if (key.startsWith("radius-")) {
+    themeSpacing[spacingKey] = varValue;
+  } else if (key.startsWith("radius-")) {
     const radiusKey = key.replace(/^radius-/, "");
-    themeBorderRadius[radiusKey] = value;
-  }
-  // Font Family
-  else if (key.startsWith("font-family-")) {
+    themeBorderRadius[radiusKey] = varValue;
+  } else if (key.startsWith("font-family-")) {
     const fontKey = key.replace(/^font-family-/, "");
-    themeFontFamily[fontKey] = value;
-  }
-  // Font Size
-  else if (key.startsWith("font-size-")) {
+    themeFontFamily[fontKey] = varValue;
+  } else if (key.startsWith("font-size-")) {
     const sizeKey = key.replace(/^font-size-/, "");
-    themeFontSize[sizeKey] = value;
-  }
-  // Font Weight
-  else if (key.startsWith("font-weight-")) {
+    themeFontSize[sizeKey] = varValue;
+  } else if (key.startsWith("font-weight-")) {
     const weightKey = key.replace(/^font-weight-/, "");
-    themeFontWeight[weightKey] = value;
-  }
-  // Line Height
-  else if (key.startsWith("line-height-")) {
+    themeFontWeight[weightKey] = varValue;
+  } else if (key.startsWith("line-height-")) {
     const lineKey = key.replace(/^line-height-/, "");
-    themeLineHeight[lineKey] = value;
-  }
-  // Letter Spacing
-  else if (key.startsWith("letter-spacing-")) {
+    themeLineHeight[lineKey] = varValue;
+  } else if (key.startsWith("letter-spacing-")) {
     const letterKey = key.replace(/^letter-spacing-/, "");
-    themeLetterSpacing[letterKey] = value;
-  }
-  // Box Shadow
-  else if (key.startsWith("shadow-")) {
+    themeLetterSpacing[letterKey] = varValue;
+  } else if (key.startsWith("shadow-")) {
     const shadowKey = key.replace(/^shadow-/, "");
-    themeBoxShadow[shadowKey] = value;
-  }
-  // Gradients
-  else if (key.startsWith("gradient-")) {
+    themeBoxShadow[shadowKey] = varValue;
+  } else if (key.startsWith("gradient-")) {
     const gradientKey = key.replace(/^gradient-/, "");
-    themeBackgroundImage[gradientKey] = value;
+    themeBackgroundImage[gradientKey] = varValue;
   }
 });
 
-// Helper để format @theme block
 function formatThemeBlock(entries, prefix = "") {
   if (Object.keys(entries).length === 0) return "";
 
@@ -357,14 +342,17 @@ function formatThemeBlock(entries, prefix = "") {
   return lines.join("\n");
 }
 
-// Tạo CSS với @theme đúng chuẩn Tailwind v4
 const cssContent = `/**
  * Do not edit directly, this file was auto-generated.
  */
 
 :root {
 ${Object.entries(primitives)
-  .filter(([, value]) => typeof value === "string" && !value.includes("{"))
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([key, value]) => `  --${key}: ${value};`)
+  .join("\n")}
+
+${Object.entries(themeTokens)
   .sort(([a], [b]) => a.localeCompare(b))
   .map(([key, value]) => `  --${key}: ${value};`)
   .join("\n")}
@@ -411,7 +399,6 @@ if (!fs.existsSync(outputDir)) {
 fs.writeFileSync(path.join(outputDir, "tokens.css"), cssContent);
 console.log(`✅ Generated tokens.css with :root and @theme blocks`);
 
-// Tạo file SCSS (giữ nguyên format cũ)
 const scssVars = `/**
  * Do not edit directly, this file was auto-generated.
  */
@@ -426,7 +413,6 @@ ${Object.entries({ ...primitives, ...themeTokens })
 fs.writeFileSync(path.join(outputDir, "_tokens.scss"), scssVars);
 console.log("✅ SCSS file generated");
 
-// Clean up
 const filesToDelete = [
   path.join(outputDir, "tokens.json"),
   path.join(__dirname, "design-tokens.fixed.json"),
