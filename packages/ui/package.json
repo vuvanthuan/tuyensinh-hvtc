@@ -4,6 +4,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
+    "./icons/*": "./src/atoms/icons/generated/*.tsx",
     "./atoms/*": "./src/atoms/*/index.tsx",
     "./molecules/*": "./src/molecules/*/index.tsx",
     "./theme": "./src/molecules/theme/index.tsx",
@@ -18,6 +19,7 @@
   "scripts": {
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "format": "prettier --check . --ignore-path ../../.gitignore",
+    "format:fix": "prettier --write . --ignore-path ../../.gitignore",
     "lint": "eslint --flag unstable_native_nodejs_ts_config",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
     "ui-add": "pnpm dlx shadcn@latest add && prettier src --write --list-different"

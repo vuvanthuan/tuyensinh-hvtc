@@ -1,0 +1,30 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function MessageBubbleSolid(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <path
+            fill="#11181C"
+            d="m2.293 21.292-.01.01a1 1 0 0 0 .975 1.664l5.795-1.545c1.08.375 2.241.579 3.447.579C18.299 22 23 17.299 23 11.5S18.299 1 12.5 1 2 5.701 2 11.5c0 2.103.62 4.064 1.685 5.707q-.043.477-.166 1.097c-.23 1.148-.568 1.925-.83 2.398a4 4 0 0 1-.32.495q-.054.072-.076.095"
+          />
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default MessageBubbleSolid;

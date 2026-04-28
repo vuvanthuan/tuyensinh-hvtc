@@ -1,0 +1,32 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function DeviceDesktopLight(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <path
+            fill="#11181C"
+            fillRule="evenodd"
+            d="M1 4.857C1 3.211 2.414 2 4 2h16c1.586 0 3 1.21 3 2.857v9.286C23 15.789 21.586 17 20 17h-7v3h3.5a1 1 0 1 1 0 2h-9a1 1 0 1 1 0-2H11v-3H4c-1.586 0-3-1.21-3-2.857zM4 4c-.623 0-1 .452-1 .857v9.286c0 .405.377.857 1 .857h16c.623 0 1-.452 1-.857V4.857C21 4.452 20.623 4 20 4z"
+            clipRule="evenodd"
+          />
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default DeviceDesktopLight;

@@ -2,9 +2,7 @@
 
 import type * as React from "react";
 
-import type {
-  ToastActionElement,
-  ToastProps} from "@acme/ui";
+import type { ToastActionElement, ToastProps } from "@acme/ui";
 import {
   Toast,
   ToastClose,

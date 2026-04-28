@@ -14,3 +14,4 @@ export * from "./tooltip";
 export * from "./radio-group";
 export * from "./toggle";
 export * from "./scroll-area";
+export * from "./icons/generated";

@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "@acme/ui";
 
+import type { ExtendedColumnFilter, FilterOperator } from "../types/data-table";
 import { useDebouncedCallback } from "../hooks/debounced-callback";
 import {
   getDefaultFilterOperator,
@@ -41,7 +42,6 @@ import {
 import { formatDate } from "../lib/format";
 import { generateId } from "../lib/id";
 import { getFiltersStateParser } from "../lib/parsers";
-import type { ExtendedColumnFilter, FilterOperator } from "../types/data-table";
 import { DataTableRangeFilter } from "./data-table-range-filter";
 
 const FILTERS_KEY = "filters";

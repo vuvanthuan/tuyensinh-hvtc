@@ -1,0 +1,32 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function LockOpenLight(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <path
+            fill="#11181C"
+            fillRule="evenodd"
+            d="M9.172 4.172A4 4 0 0 1 15.919 6.2a1 1 0 0 0 1.96-.4A6 6 0 0 0 6 7v3H5a3 3 0 0 0-3 3v7a3 3 0 0 0 3 3h14a3 3 0 0 0 3-3v-7a3 3 0 0 0-3-3H8V7a4 4 0 0 1 1.172-2.828M5 12a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1z"
+            clipRule="evenodd"
+          />
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default LockOpenLight;

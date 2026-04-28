@@ -1,0 +1,32 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function WaveformEcgLight(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <path
+            fill="#11181C"
+            fillRule="evenodd"
+            d="M9 2a1 1 0 0 1 .949.684L15 17.838l2.051-6.154A1 1 0 0 1 18 11h4a1 1 0 1 1 0 2h-3.28l-2.771 8.316a1 1 0 0 1-1.898 0L9 6.162l-2.051 6.154A1 1 0 0 1 6 13H2a1 1 0 1 1 0-2h3.28L8.05 2.684A1 1 0 0 1 9 2"
+            clipRule="evenodd"
+          />
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default WaveformEcgLight;

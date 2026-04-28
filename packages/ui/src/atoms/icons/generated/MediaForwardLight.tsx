@@ -1,0 +1,32 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function MediaForwardLight(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <path
+            fill="#11181C"
+            fillRule="evenodd"
+            d="M3.42 4.838C2.437 4.072 1 4.774 1 6.022v11.956c0 1.248 1.436 1.95 2.42 1.184l8.194-6.373A1 1 0 0 0 12 12v5.978c0 1.248 1.436 1.95 2.42 1.184l8.194-6.373a1 1 0 0 0 0-1.578L14.42 4.838C13.436 4.072 12 4.774 12 6.022V12a1 1 0 0 0-.386-.79zM9.372 12 3 16.955v-9.91zm11 0L14 16.955v-9.91z"
+            clipRule="evenodd"
+          />
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default MediaForwardLight;

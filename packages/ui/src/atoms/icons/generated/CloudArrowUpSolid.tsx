@@ -1,0 +1,32 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function CloudArrowUpSolid(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <path
+            fill="#11181C"
+            fillRule="evenodd"
+            d="M4.1 7.813a7.001 7.001 0 0 1 13.265-1.73 4.5 4.5 0 0 1 3.514 5.457 5.501 5.501 0 0 1-1.518 10.393A1 1 0 0 1 19 22H7.5A7.5 7.5 0 0 1 4.1 7.813M8.5 12.5a1 1 0 0 1-.707-1.707l3.5-3.5a1 1 0 0 1 1.414 0l3.5 3.5A1 1 0 0 1 15.5 12.5h-2V18a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-5.5z"
+            clipRule="evenodd"
+          />
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default CloudArrowUpSolid;

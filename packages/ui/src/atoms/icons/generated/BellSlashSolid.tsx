@@ -1,0 +1,35 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function BellSlashSolid(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <g fill="#11181C">
+            <path d="M12 0a7.417 7.417 0 0 0-7.417 7.417v.916c0 1.613-.16 3.1-.429 4.322a1 1 0 0 0 1.684.921L16.48 2.933a1 1 0 0 0-.119-1.515A7.4 7.4 0 0 0 12 0" />
+            <path
+              fillRule="evenodd"
+              d="M23.354 2.768a1 1 0 0 0 0-1.414l-.708-.708a1 1 0 0 0-1.414 0L.646 21.232a1 1 0 0 0 0 1.414l.708.707a1 1 0 0 0 1.414 0l5.562-5.561h12.837a1 1 0 0 0 1-1v-.209a1 1 0 0 0-.99-1c-.023-.007-.125-.05-.295-.267-.23-.292-.482-.777-.711-1.465-.456-1.366-.754-3.317-.754-5.518v-.916q0-.345-.031-.682z"
+              clipRule="evenodd"
+            />
+            <path d="M9.25 19.5a1 1 0 0 0-.804 1.595C9.278 22.22 10.536 23 12 23c1.465 0 2.722-.78 3.554-1.905a1 1 0 0 0-.804-1.595z" />
+          </g>
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default BellSlashSolid;

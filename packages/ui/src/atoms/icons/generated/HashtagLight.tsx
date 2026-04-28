@@ -1,0 +1,32 @@
+import type React from "react";
+
+import type { IconWrapperProps } from "../base/IconWrapper/types";
+import { IconWrapper } from "../base/IconWrapper";
+
+function HashtagLight(allProps: IconWrapperProps): React.ReactElement {
+  const { svgProps: props, icon: _icon, ...restProps } = allProps;
+  return (
+    <IconWrapper
+      icon={
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1em"
+          height="1em"
+          fill="none"
+          viewBox="0 0 24 24"
+          {...props}
+        >
+          <path
+            fill="#11181C"
+            fillRule="evenodd"
+            d="M10.11 2.006a1 1 0 0 1 .884 1.104L10.45 8h3.987l.568-5.11a1 1 0 1 1 1.988.22L16.45 8H20a1 1 0 1 1 0 2h-3.772l-.444 4H20a1 1 0 1 1 0 2h-4.438l-.568 5.11a1 1 0 1 1-1.988-.22L13.55 16H9.562l-.568 5.11a1 1 0 1 1-1.988-.22L7.55 16H4a1 1 0 1 1 0-2h3.772l.444-4H4a1 1 0 0 1 0-2h4.438l.568-5.11a1 1 0 0 1 1.104-.884M13.772 14l.444-4h-3.988l-.444 4z"
+            clipRule="evenodd"
+          />
+        </svg>
+      }
+      {...restProps}
+    />
+  );
+}
+
+export default HashtagLight;
