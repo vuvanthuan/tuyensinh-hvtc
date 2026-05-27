@@ -1,9 +1,8 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { ReactNode } from "react";
+import { Inter } from "next/font/google";
 
 import { cn } from "@acme/ui";
-import { ThemeProvider, ThemeToggle } from "@acme/ui/theme";
-import { Toaster } from "@acme/ui/toast";
 
 import { env } from "~/env";
 
@@ -12,57 +11,51 @@ import "~/app/styles.css";
 export const metadata: Metadata = {
   metadataBase: new URL(
     env.VERCEL_ENV === "production"
-      ? "https://turbo.t3.gg"
+      ? "https://tuyensinh.hvtc.edu.vn"
       : "http://localhost:3000",
   ),
-  title: "Create T3 Turbo",
-  description: "Simple monorepo with shared backend for web & mobile apps",
+  title: "Tuyển sinh HVTC Vừa làm vừa học",
+  description:
+    "Trang đăng ký tư vấn tuyển sinh hệ đại học vừa làm vừa học Học Viện Tài Chính.",
   openGraph: {
-    title: "Create T3 Turbo",
-    description: "Simple monorepo with shared backend for web & mobile apps",
-    url: "https://create-t3-turbo.vercel.app",
-    siteName: "Create T3 Turbo",
+    title: "Tuyển sinh HVTC Vừa làm vừa học",
+    description:
+      "Đăng ký tư vấn chương trình đại học vừa làm vừa học của Học Viện Tài Chính.",
+    url: "https://tuyensinh.hvtc.edu.vn",
+    siteName: "Học Viện Tài Chính",
   },
   twitter: {
     card: "summary_large_image",
-    site: "@jullerino",
-    creator: "@jullerino",
+  },
+  icons: {
+    icon: [{ url: "/hvtc-logo-mark.png", type: "image/png" }],
+    apple: [{ url: "/hvtc-logo-mark.png", type: "image/png" }],
+    shortcut: [{ url: "/hvtc-logo-mark.png", type: "image/png" }],
   },
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
+    { media: "(prefers-color-scheme: light)", color: "#1a5c3a" },
+    { media: "(prefers-color-scheme: dark)", color: "#1a5c3a" },
   ],
 };
 
-const geistSans = Geist({
-  subsets: ["latin"],
-  variable: "--font-geist-sans",
-});
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
+const inter = Inter({
+  subsets: ["latin", "vietnamese"],
+  variable: "--font-inter",
 });
 
-export default function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout(props: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="vi">
       <body
         className={cn(
-          "bg-background text-foreground min-h-screen font-sans antialiased",
-          geistSans.variable,
-          geistMono.variable,
+          "min-h-screen bg-white font-sans text-gray-900 antialiased",
+          inter.variable,
         )}
       >
-        <ThemeProvider>
-          {props.children}
-          <div className="absolute right-4 bottom-4">
-            <ThemeToggle />
-          </div>
-          <Toaster />
-        </ThemeProvider>
+        {props.children}
       </body>
     </html>
   );

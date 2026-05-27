@@ -1,17 +1,29 @@
-import { Suspense } from "react";
+import { DegreeNote } from "~/components/DegreeNote";
+import { EnrollmentSection } from "~/components/EnrollmentSection";
+import { FloatingButtons } from "~/components/FloatingButtons";
+import { Footer } from "~/components/Footer";
+import { HeroSection } from "~/components/HeroSection";
+import { LearningFormat } from "~/components/LearningFormat";
+import { MajorsSection } from "~/components/MajorsSection";
+import { Navbar } from "~/components/Navbar";
+import { Testimonials } from "~/components/Testimonials";
+import { ValuesSection } from "~/components/ValuesSection";
 
 export default function HomePage() {
   return (
-    <main className="container h-screen py-16">
-      <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
-          Create <span className="text-primary">T3</span> Turbo
-        </h1>
-
-        <div className="w-full max-w-2xl overflow-y-scroll">
-          <Suspense fallback={<div>Loading API...</div>} />
-        </div>
-      </div>
-    </main>
+    <>
+      <Navbar />
+      <main>
+        <HeroSection />
+        <MajorsSection />
+        <EnrollmentSection />
+        <LearningFormat />
+        <ValuesSection />
+        <DegreeNote />
+        <Testimonials />
+      </main>
+      <Footer />
+      <FloatingButtons />
+    </>
   );
 }
