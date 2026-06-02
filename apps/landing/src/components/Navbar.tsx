@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { FileText, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { href: "#majors", label: "Ngành đào tạo" },
@@ -58,14 +58,6 @@ export function Navbar() {
           ))}
         </div>
 
-        <a
-          className="hidden items-center gap-2 rounded-full bg-[#F5A623] px-5 py-2.5 text-sm font-black text-[#1a5c3a] shadow-sm transition hover:bg-[#ee9d2b] lg:flex"
-          href="#register"
-        >
-          <FileText aria-hidden="true" className="h-4 w-4" strokeWidth={2.5} />
-          Tải lộ trình học
-        </a>
-
         <button
           className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg border border-gray-200 text-[#1a5c3a] md:hidden"
           type="button"
@@ -94,13 +86,6 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a
-              className="rounded-lg bg-[#F5A623] px-3 py-3 text-center text-sm font-black text-[#1a5c3a]"
-              href="#register"
-              onClick={() => setIsOpen(false)}
-            >
-              Tải lộ trình học
-            </a>
           </div>
         </div>
       ) : null}

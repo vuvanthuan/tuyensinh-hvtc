@@ -6,7 +6,7 @@ export function DegreeNote() {
       <div className="page-container">
         <p className="section-label text-center">Mẫu văn bằng</p>
         <h2 className="section-title mt-3 text-center">
-          Không ghi hình thức đào tạo trên bằng tốt nghiệp
+          Học viện Tài chính thống nhất 1 mẫu văn bằng cử nhân
         </h2>
         <div className="mx-auto mt-5 mb-7 h-1 w-16 rounded-full bg-[#1a5c3a]" />
 
@@ -29,11 +29,11 @@ export function DegreeNote() {
 
           <div className="text-sm leading-7 text-gray-700">
             <p>
-              Theo quy định tại Thông tư 27/2019/TT-BGDĐT, văn bằng giáo dục đại
-              học không ghi hình thức đào tạo. Người học chương trình Vừa làm
-              vừa học sau khi tốt nghiệp được cấp bằng cử nhân có giá trị sử
-              dụng theo quy định, phục vụ nhu cầu học tiếp, thi tuyển, xét nâng
-              ngạch và phát triển nghề nghiệp.
+              Học viện Tài chính thống nhất 1 mẫu văn bằng đối với các hệ đào
+              tạo bậc cử nhân. Người học chương trình Vừa làm vừa học sau khi
+              tốt nghiệp được cấp bằng cử nhân có giá trị sử dụng theo quy định,
+              phục vụ nhu cầu học tiếp, thi tuyển, xét nâng ngạch và phát triển
+              nghề nghiệp.
             </p>
             <p className="mt-4 font-semibold text-[#1a5c3a]">
               Bằng tốt nghiệp được Bộ GD&ĐT công nhận trên toàn quốc.

@@ -1,6 +1,14 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+
+const TARGET_TIMESTAMP = new Date("2026-07-25T23:59:59.999+07:00").getTime();
+const initialRemaining = {
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0,
+};
 
 const getRemaining = (target: number) => {
   const distance = Math.max(target - Date.now(), 0);
@@ -14,21 +22,22 @@ const getRemaining = (target: number) => {
 };
 
 export function CountdownTimer() {
-  const target = useMemo(() => {
-    const date = new Date();
-    date.setDate(date.getDate() + 14);
-    date.setHours(23, 59, 59, 999);
-    return date.getTime();
-  }, []);
-  const [remaining, setRemaining] = useState(() => getRemaining(target));
+  const [remaining, setRemaining] = useState(initialRemaining);
 
   useEffect(() => {
+    const timeout = window.setTimeout(() => {
+      setRemaining(getRemaining(TARGET_TIMESTAMP));
+    }, 0);
+
     const interval = window.setInterval(() => {
-      setRemaining(getRemaining(target));
+      setRemaining(getRemaining(TARGET_TIMESTAMP));
     }, 1000);
 
-    return () => window.clearInterval(interval);
-  }, [target]);
+    return () => {
+      window.clearTimeout(timeout);
+      window.clearInterval(interval);
+    };
+  }, []);
 
   const items = [
     ["Ngày", remaining.days],

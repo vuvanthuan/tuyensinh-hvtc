@@ -7,14 +7,12 @@ import {
 
 const programs = [
   {
-    label: "Đối tượng 01",
     title: "Tốt nghiệp THPT",
     description:
       "Dành cho học sinh đã tốt nghiệp THPT hoặc tương đương, muốn theo học đại học theo lộ trình linh hoạt.",
     notes: ["Xét tuyển hồ sơ", "Lộ trình đại học", "Phù hợp người mới bắt đầu"],
   },
   {
-    label: "Đối tượng 02",
     title: "Liên thông Cao đẳng lên Đại học",
     description:
       "Dành cho người đã có bằng Cao đẳng, cần hoàn thiện văn bằng đại học để phát triển công việc.",
@@ -25,7 +23,6 @@ const programs = [
     ],
   },
   {
-    label: "Đối tượng 03",
     title: "Văn bằng 2",
     description:
       "Dành cho người đã có bằng đại học và muốn bổ sung ngành học mới trong khối kinh tế, tài chính, quản trị.",
@@ -44,13 +41,11 @@ export function LearningFormat() {
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <div className="lg:sticky lg:top-24">
             <p className="section-label">Chương trình học</p>
-            <h2 className="section-title mt-3">
-              3 lộ trình tuyển sinh hệ vừa làm vừa học
-            </h2>
+            <h2 className="section-title mt-3">3 chương trình tuyển sinh</h2>
             <p className="mt-4 text-sm leading-7 text-gray-600">
-              Mỗi nhóm học viên có điểm xuất phát khác nhau. Chương trình được
-              chia rõ theo hồ sơ đầu vào để tư vấn đúng ngành, đúng lộ trình và
-              tiết kiệm thời gian chuẩn bị.
+              Mỗi nhóm học viên có các tiêu chí khác nhau. Chương trình được
+              chia rõ theo hồ sơ đầu vào để tư vấn đúng ngành và tiết kiệm thời
+              gian chuẩn bị.
             </p>
 
             <div className="mt-7 rounded-xl border border-[#dfe9e3] bg-[#f7fbf8] p-5">
@@ -86,10 +81,7 @@ export function LearningFormat() {
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-3">
                       <span className="rounded-full bg-[#fff7e6] px-3 py-1 text-xs font-semibold text-[#9a6400]">
-                        {program.label}
-                      </span>
-                      <span className="text-xs font-semibold tracking-wide text-gray-400 uppercase">
-                        Lộ trình {String(index + 1).padStart(2, "0")}
+                        Chương trình {String(index + 1).padStart(2, "0")}
                       </span>
                     </div>
                     <h3 className="mt-3 text-xl font-bold text-[#1a5c3a]">

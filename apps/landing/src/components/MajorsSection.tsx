@@ -1,7 +1,6 @@
 import {
   BriefcaseBusiness,
   Calculator,
-  CheckCircle2,
   Landmark,
   Megaphone,
 } from "lucide-react";
@@ -9,46 +8,26 @@ import {
 const majors = [
   {
     name: "Tài chính - Ngân hàng",
-    code: "01",
     description:
       "Trang bị nền tảng về tài chính doanh nghiệp, ngân hàng, đầu tư và quản trị dòng tiền.",
-    highlights: [
-      "Tài chính doanh nghiệp",
-      "Ngân hàng thương mại",
-      "Phân tích đầu tư",
-    ],
     Icon: Landmark,
   },
   {
     name: "Kế toán",
-    code: "02",
     description:
       "Phù hợp người muốn phát triển nghiệp vụ kế toán, kiểm toán, thuế và báo cáo tài chính.",
-    highlights: ["Kế toán tài chính", "Thuế và kiểm toán", "Báo cáo quản trị"],
     Icon: Calculator,
   },
   {
     name: "Quản trị kinh doanh",
-    code: "03",
     description:
       "Tập trung vào vận hành, chiến lược, nhân sự, bán hàng và quản trị hiệu quả doanh nghiệp.",
-    highlights: [
-      "Quản trị vận hành",
-      "Chiến lược kinh doanh",
-      "Quản trị nhân sự",
-    ],
     Icon: BriefcaseBusiness,
   },
   {
     name: "Marketing",
-    code: "04",
     description:
       "Cung cấp tư duy thị trường, thương hiệu, truyền thông và triển khai hoạt động marketing.",
-    highlights: [
-      "Nghiên cứu thị trường",
-      "Truyền thông thương hiệu",
-      "Digital marketing",
-    ],
     Icon: Megaphone,
   },
 ];
@@ -73,40 +52,32 @@ export function MajorsSection() {
       <div className="page-container relative">
         <div className="mx-auto max-w-[48rem] text-center">
           <p className="section-label">Các ngành đào tạo</p>
-          <h2 className="section-title mt-3">
-            Đào tạo hệ vừa làm vừa học các ngành
+          <h2 className="section-title mt-3 font-black uppercase">
+            Các ngành đào tạo
           </h2>
           <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base">
             Chương trình tập trung vào các nhóm ngành có nhu cầu tuyển dụng cao,
-            phù hợp học viên đang đi làm hoặc muốn bổ sung bằng đại học.
+            phù hợp học viên đang đi làm vừa có thời gian tham gia giảng đường
+            đại học.
           </p>
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-2xl bg-[#005f55] shadow-[0_16px_38px_rgba(0,95,85,0.18)] ring-1 ring-[#1a5c3a]/10">
+        <div className="mt-10 overflow-hidden rounded-xl bg-white shadow-[0_16px_38px_rgba(0,95,85,0.12)] ring-1 ring-[#1a5c3a]/10">
           <div
-            className="relative min-h-[180px] bg-cover bg-center"
+            className="relative min-h-[220px] bg-cover bg-center md:min-h-[280px]"
             style={{ backgroundImage: "url('/aof-branch-banner.png')" }}
-          >
-            <div className="absolute inset-0 bg-black/20" />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/0 via-black/16 to-black/42" />
-            <div className="relative ml-auto flex min-h-[180px] max-w-[35rem] flex-col justify-center px-6 py-8 text-white md:px-10">
-              <span className="text-xs font-semibold tracking-[0.18em] text-[#ffd56a] uppercase drop-shadow">
-                Học Viện Tài Chính Phân hiệu TP.HCM
+            role="img"
+            aria-label="Học Viện Tài Chính Phân hiệu Thành phố Hồ Chí Minh"
+          />
+          <div className="flex flex-wrap gap-2 border-t border-[#e4eee8] bg-white px-5 py-4 md:px-6">
+            {summary.map((item) => (
+              <span
+                className="rounded-full bg-[#e8f5e9] px-3 py-1.5 text-xs font-semibold text-[#1a5c3a] ring-1 ring-[#1a5c3a]/10"
+                key={item}
+              >
+                {item}
               </span>
-              <p className="mt-3 text-2xl leading-tight font-bold drop-shadow-[0_2px_10px_rgba(0,0,0,0.35)] md:text-3xl">
-                Chọn ngành phù hợp với mục tiêu nghề nghiệp
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {summary.map((item) => (
-                  <span
-                    className="rounded-full bg-black/24 px-3 py-1.5 text-xs font-semibold text-white ring-1 ring-white/20 backdrop-blur"
-                    key={item}
-                  >
-                    {item}
-                  </span>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -136,7 +107,7 @@ export function MajorsSection() {
                   </div>
                   <div className="min-w-0">
                     <span className="text-xs font-semibold tracking-wide text-[#1a5c3a]/70 uppercase">
-                      Ngành {major.code}
+                      Ngành
                     </span>
                     <h3 className="mt-1 text-xl leading-tight font-bold text-[#1a5c3a]">
                       {major.name}
@@ -151,19 +122,6 @@ export function MajorsSection() {
               <p className="relative mt-5 text-sm leading-6 text-gray-600">
                 {major.description}
               </p>
-
-              <ul className="relative mt-5 grid gap-2 text-sm text-gray-700 sm:grid-cols-3 md:grid-cols-1 lg:grid-cols-3">
-                {major.highlights.map((highlight) => (
-                  <li className="flex items-start gap-2" key={highlight}>
-                    <CheckCircle2
-                      aria-hidden="true"
-                      className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#1a5c3a]"
-                      strokeWidth={2.4}
-                    />
-                    <span>{highlight}</span>
-                  </li>
-                ))}
-              </ul>
 
               <a
                 className="relative mt-6 inline-flex text-sm font-semibold text-[#1a5c3a] transition hover:underline"

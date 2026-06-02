@@ -60,7 +60,7 @@ export function HeroSection() {
 
             <div className="mt-8">
               <p className="text-3xl leading-tight font-black uppercase sm:text-5xl">
-                Hệ đại vừa làm vừa học
+                Các hệ đại học vừa làm vừa học
               </p>
               <div className="mt-5 flex max-w-full flex-wrap rounded-lg bg-[#F5A623] px-4 py-2 text-xs leading-5 font-black whitespace-normal text-[#1a5c3a] uppercase shadow-md sm:inline-flex sm:text-sm">
                 Học trực tuyến · Chủ động thời gian · Tiết kiệm chi phí

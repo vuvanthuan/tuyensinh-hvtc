@@ -77,7 +77,9 @@ export function EnrollmentSection() {
         <div id="schedule">
           <div className="overflow-hidden rounded-xl bg-white shadow-lg">
             <div className="border-b-4 border-[#F5A623] bg-[#005f55] px-6 py-5 text-center text-white">
-              <h3 className="text-lg font-bold">Lịch khai giảng dự kiến</h3>
+              <h3 className="text-lg font-bold">
+                Đăng ký nhận tư vấn hướng dẫn
+              </h3>
               <p className="mt-1 text-[13px] text-white/85">
                 Ưu tiên hỗ trợ hồ sơ đăng ký trước
               </p>

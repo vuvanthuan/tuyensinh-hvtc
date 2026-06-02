@@ -4,15 +4,22 @@ import { Mail, MapPin, Phone } from "lucide-react";
 const contacts = [
   {
     Icon: MapPin,
-    text: "Địa chỉ: Hà Nội & TP.HCM",
+    text: "ĐỊA CHỈ: Phân hiệu Học viện Tài Chính TP.HCM, B2/1A, Đ. Số 385, Tăng Nhơn Phú, Hồ Chí Minh 70000, Việt Nam",
   },
   {
     Icon: Phone,
-    text: "Điện thoại: 1900 xxx xxx",
+    text: "Điện thoại: 0934272956 - Mr.Phúc",
+  },
+];
+
+const emails = [
+  {
+    label: "Email tuyển sinh",
+    value: "tuyensinh@hvtc.edu.vn",
   },
   {
-    Icon: Mail,
-    text: "Email: tuyensinh@hvtc.edu.vn",
+    label: "Email GV hỗ trợ",
+    value: "buihongphuc2901@gmail.com",
   },
 ];
 
@@ -62,6 +69,28 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-2 md:max-w-[30rem]">
+              {emails.map((email) => (
+                <a
+                  className="group rounded-xl border border-white/15 bg-white/10 p-4 text-sm text-white shadow-sm backdrop-blur transition hover:border-[#F5A623]/70 hover:bg-white/15"
+                  href={`mailto:${email.value}`}
+                  key={email.value}
+                >
+                  <span className="mb-2 flex items-center gap-2 font-bold text-[#F5A623]">
+                    <Mail
+                      aria-hidden="true"
+                      className="h-4 w-4 flex-shrink-0"
+                      strokeWidth={2.4}
+                    />
+                    {email.label}
+                  </span>
+                  <span className="block leading-6 break-all text-white/86 group-hover:text-white">
+                    {email.value}
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
