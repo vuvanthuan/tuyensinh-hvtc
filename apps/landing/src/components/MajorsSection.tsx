@@ -43,7 +43,7 @@ export function MajorsSection() {
   return (
     <section
       className="section-block relative overflow-hidden bg-[#f5faf7]"
-      id="majors"
+      id="nganh-dao-tao"
     >
       <div
         aria-hidden="true"
@@ -51,7 +51,6 @@ export function MajorsSection() {
       />
       <div className="page-container relative">
         <div className="mx-auto max-w-[48rem] text-center">
-          <p className="section-label">Các ngành đào tạo</p>
           <h2 className="section-title mt-3 font-black uppercase">
             Các ngành đào tạo
           </h2>
@@ -125,7 +124,7 @@ export function MajorsSection() {
 
               <a
                 className="relative mt-6 inline-flex text-sm font-semibold text-[#1a5c3a] transition hover:underline"
-                href="#enrollment"
+                href="#thong-tin-tuyen-sinh"
               >
                 Xem chi tiết →
               </a>

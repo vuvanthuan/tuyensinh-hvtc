@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Inter } from "next/font/google";
+import { Be_Vietnam_Pro } from "next/font/google";
 
 import { cn } from "@acme/ui";
 
@@ -14,18 +14,30 @@ export const metadata: Metadata = {
       ? "https://tuyensinh.hvtc.edu.vn"
       : "http://localhost:3000",
   ),
-  title: "Tuyển sinh HVTC Vừa làm vừa học",
+  title: "Tuyển Sinh Học viện Tài chính - Academy of Finance",
   description:
-    "Trang đăng ký tư vấn tuyển sinh hệ đại học vừa làm vừa học Học Viện Tài Chính.",
+    "Tuyển Sinh Học viện Tài chính. Học viện Tài chính được thành lập ngày 17 tháng 8 năm 2001 theo Quyết định số 120/2001/QĐ-TTg của Thủ tướng Chính phủ. Học viện trực thuộc Bộ Tài chính.",
   openGraph: {
-    title: "Tuyển sinh HVTC Vừa làm vừa học",
+    title: "Tuyển Sinh Học viện Tài chính - Academy of Finance",
     description:
-      "Đăng ký tư vấn chương trình đại học vừa làm vừa học của Học Viện Tài Chính.",
+      "Tuyển Sinh Học viện Tài chính. Học viện Tài chính được thành lập ngày 17 tháng 8 năm 2001 theo Quyết định số 120/2001/QĐ-TTg của Thủ tướng Chính phủ. Học viện trực thuộc Bộ Tài chính.",
     url: "https://tuyensinh.hvtc.edu.vn",
     siteName: "Học Viện Tài Chính",
+    images: [
+      {
+        url: "/banner.jpg",
+        width: 2158,
+        height: 729,
+        alt: "Tuyển sinh Học viện Tài chính - Academy of Finance",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
+    title: "Tuyển Sinh Học viện Tài chính - Academy of Finance",
+    description:
+      "Tuyển Sinh Học viện Tài chính. Học viện Tài chính được thành lập ngày 17 tháng 8 năm 2001 theo Quyết định số 120/2001/QĐ-TTg của Thủ tướng Chính phủ. Học viện trực thuộc Bộ Tài chính.",
+    images: ["/banner.jpg"],
   },
   icons: {
     icon: [{ url: "/hvtc-logo-mark.png", type: "image/png" }],
@@ -41,9 +53,10 @@ export const viewport: Viewport = {
   ],
 };
 
-const inter = Inter({
+const googleSans = Be_Vietnam_Pro({
   subsets: ["latin", "vietnamese"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  variable: "--font-google-sans",
 });
 
 export default function RootLayout(props: { children: ReactNode }) {
@@ -52,7 +65,7 @@ export default function RootLayout(props: { children: ReactNode }) {
       <body
         className={cn(
           "min-h-screen bg-white font-sans text-gray-900 antialiased",
-          inter.variable,
+          googleSans.variable,
         )}
       >
         {props.children}

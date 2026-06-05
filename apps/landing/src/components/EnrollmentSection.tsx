@@ -12,7 +12,7 @@ export function EnrollmentSection() {
   return (
     <section
       className="section-block relative overflow-hidden bg-[#005f55] text-white"
-      id="enrollment"
+      id="thong-tin-tuyen-sinh"
     >
       <div className="absolute inset-0 bg-[url('/enrollment-bg-overlay.png')] bg-cover bg-center opacity-100" />
       <div className="absolute inset-0 bg-gradient-to-r from-[#003f38]/30 via-[#005f55]/10 to-[#003f38]/38" />
@@ -74,7 +74,7 @@ export function EnrollmentSection() {
           </div>
         </div>
 
-        <div id="schedule">
+        <div id="lich-khai-giang">
           <div className="overflow-hidden rounded-xl bg-white shadow-lg">
             <div className="border-b-4 border-[#F5A623] bg-[#005f55] px-6 py-5 text-center text-white">
               <h3 className="text-lg font-bold">

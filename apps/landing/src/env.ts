@@ -15,6 +15,10 @@ export const env = createEnv({
    */
   server: {
     POSTGRES_URL: z.url(),
+    GOOGLE_SERVICE_ACCOUNT_EMAIL: z.email(),
+    GOOGLE_PRIVATE_KEY: z.string().min(1),
+    GOOGLE_SHEET_ID: z.string().min(1),
+    GOOGLE_DRIVE_FOLDER_ID: z.string().optional(),
   },
 
   /**
