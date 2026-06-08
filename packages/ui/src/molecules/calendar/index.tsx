@@ -17,10 +17,21 @@ function Calendar({
       showOutsideDays={showOutsideDays}
       className={cn("p-3", className)}
       classNames={{
+        button_reset: "appearance-none",
+        button: cn(
+          buttonVariants({ variant: "ghost" }),
+          "inline-flex items-center justify-center",
+        ),
         months: "flex flex-col sm:flex-row gap-2",
-        month: "flex flex-col gap-4",
+        month: "flex w-full flex-col gap-4",
         caption: "flex justify-center pt-1 relative items-center w-full",
         caption_label: "text-sm font-medium",
+        caption_dropdowns: "flex items-center justify-center gap-2",
+        dropdown:
+          "h-8 rounded-md border border-input bg-background px-2 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring",
+        dropdown_month: "relative",
+        dropdown_year: "relative",
+        dropdown_icon: "ml-1 size-4 opacity-50",
         nav: "flex items-center gap-1",
         nav_button: cn(
           buttonVariants({ variant: "outline" }),
@@ -28,13 +39,15 @@ function Calendar({
         ),
         nav_button_previous: "absolute left-1",
         nav_button_next: "absolute right-1",
-        table: "w-full border-collapse space-x-1",
+        table: "w-full border-collapse",
+        head: "w-full",
         head_row: "flex",
         head_cell:
-          "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem]",
+          "text-muted-foreground flex h-8 w-8 items-center justify-center rounded-md font-normal text-[0.8rem]",
+        tbody: "block w-full",
         row: "flex w-full mt-2",
         cell: cn(
-          "[&:has([aria-selected])]:bg-accent relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected].day-range-end)]:rounded-r-md",
+          "[&:has([aria-selected])]:bg-accent relative h-8 w-8 p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected].day-range-end)]:rounded-r-md",
           props.mode === "range"
             ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
             : "[&:has([aria-selected])]:rounded-md",

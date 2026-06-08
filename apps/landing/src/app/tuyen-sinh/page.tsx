@@ -677,10 +677,14 @@ function SelectField({
 
 function FileButtonText({ fileList }: { fileList: unknown }) {
   const file = getFirstFile(fileList);
+  const fileName = file?.name ?? "Chưa có tệp nào được chọn";
 
   return (
-    <span className="ml-3 min-w-0 truncate text-gray-900">
-      {file ? file.name : "Chưa có tệp nào được chọn"}
+    <span
+      className="block max-w-full min-w-0 truncate px-1 text-sm text-gray-900"
+      title={fileName}
+    >
+      {fileName}
     </span>
   );
 }
@@ -733,7 +737,7 @@ function ImageUploadField({
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="space-y-1">
+        <FormItem className="min-w-0 space-y-1">
           <label className="flex min-h-40 cursor-pointer flex-col items-center justify-center gap-3 rounded border border-dashed border-gray-500 bg-white px-4 py-4 text-sm transition hover:border-green-700 hover:bg-green-50/30">
             <FormControl>
               <Input
@@ -747,12 +751,14 @@ function ImageUploadField({
               />
             </FormControl>
             <ImagePreview fileList={field.value} />
-            <div className="flex flex-wrap items-center justify-center gap-2">
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-2">
               <span className="inline-flex items-center gap-1 rounded bg-blue-600 px-3 py-2 font-semibold text-white">
                 <UploadCloud className="h-4 w-4" />
                 Chọn tệp
               </span>
-              <span className="font-medium text-gray-900">{label}</span>
+              <span className="max-w-full min-w-0 text-center font-medium text-gray-900">
+                {label}
+              </span>
             </div>
           </label>
           <FileButtonText fileList={field.value} />
@@ -787,7 +793,12 @@ function PdfUploadField({ name }: { name: PdfFieldName }) {
             <span className="flex items-center border-r border-gray-300 bg-gray-50 px-3">
               Chọn tệp
             </span>
-            <span className="flex min-w-0 flex-1 items-center px-3 text-gray-700">
+            <span
+              className="flex min-w-0 flex-1 items-center truncate px-3 text-gray-700"
+              title={
+                getFirstFile(field.value)?.name ?? "Chưa có tệp nào được chọn"
+              }
+            >
               {getFirstFile(field.value)?.name ?? "Chưa có tệp nào được chọn"}
             </span>
           </label>

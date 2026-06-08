@@ -3,7 +3,7 @@
 @import "@acme/tailwind-config/theme";
 @import "@acme/tailwind-config/tokens";
 
-@source "../../../../packages/ui/src/*.{ts,tsx}";
+@source "../../../../packages/ui/src/**/*.{ts,tsx}";
 
 @custom-variant dark (&:where(.dark, .dark *));
 @custom-variant light (&:where(.light, .light *));

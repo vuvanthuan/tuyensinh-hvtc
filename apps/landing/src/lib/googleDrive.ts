@@ -53,13 +53,17 @@ export async function uploadFileToDrive({
   const fileId = createdFile.data.id;
 
   if (fileId) {
-    await drive.permissions.create({
-      fileId,
-      requestBody: {
-        role: "reader",
-        type: "anyone",
-      },
-    });
+    try {
+      await drive.permissions.create({
+        fileId,
+        requestBody: {
+          role: "reader",
+          type: "anyone",
+        },
+      });
+    } catch (error) {
+      console.warn("google-drive public permission error", error);
+    }
   }
 
   return {
