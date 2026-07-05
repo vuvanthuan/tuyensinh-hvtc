@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - ".github/workflows/deploy-fe.yml"
-      - "apps/web/**"
+      - "apps/landing/**"
       - "packages/**"
       - "tooling/**"
       - "package.json"
@@ -19,7 +19,7 @@ on:
       - main
     paths:
       - ".github/workflows/deploy-fe.yml"
-      - "apps/web/**"
+      - "apps/landing/**"
       - "packages/**"
       - "tooling/**"
       - "package.json"
@@ -35,15 +35,15 @@ concurrency:
 env:
   NODE_VERSION: "22.21.0"
   PNPM_VERSION: "10.19.0"
-  APP_PACKAGE: "@acme/web" # CHANGE ME if the workspace package name changes.
-  APP_PATH: "apps/web" # CHANGE ME if the frontend app path changes.
-  IMAGE_NAME: "${{ secrets.DOCKER_USERNAME }}/asemis-fe" # CHANGE ME if the Docker Hub repository name changes.
-  CONTAINER_NAME: "asemis-web" # CHANGE ME if the container name on the VPS changes.
+  APP_PACKAGE: "@acme/landing" # CHANGE ME if the workspace package name changes.
+  APP_PATH: "apps/landing" # CHANGE ME if the frontend app path changes.
+  IMAGE_NAME: "${{ secrets.DOCKER_USERNAME }}/asemis-landing" # CHANGE ME if the Docker Hub repository name changes.
+  CONTAINER_NAME: "asemis-landing" # CHANGE ME if the container name on the VPS changes.
   APP_DOMAIN: "aofvualamvuahoc.sgt.vn" # CHANGE ME if the public domain changes.
-  HOST_PORT: "3003" # CHANGE ME if Nginx/VPS should expose another host port.
-  CONTAINER_PORT: "3003" # CHANGE ME only if the app listens on a different port.
-  REMOTE_ENV_FILE: "/root/asemis/env/web.env" # CHANGE ME if the env file path on VPS is different.
-  CANARY_PORT: "3004" # CHANGE ME if 3004 is already used on the VPS.
+  HOST_PORT: "3005" # CHANGE ME if Nginx/VPS should expose another host port.
+  CONTAINER_PORT: "3005" # CHANGE ME only if the app listens on a different port.
+  REMOTE_ENV_FILE: "/root/asemis/env/landing.env" # CHANGE ME if the env file path on VPS is different.
+  CANARY_PORT: "3006" # CHANGE ME if 3006 is already used on the VPS.
 
 jobs:
   ci:
@@ -70,10 +70,10 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Typecheck web app and its dependency graph
+      - name: Typecheck landing app and its dependency graph
         run: pnpm turbo run typecheck --filter=${{ env.APP_PACKAGE }}
 
-      - name: Build web app and required workspace packages
+      - name: Build landing app and required workspace packages
         run: pnpm turbo run build --filter=${{ env.APP_PACKAGE }}
 
   deploy:
@@ -97,17 +97,17 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and push frontend image
+      - name: Build and push landing image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./apps/web/Dockerfile
+          file: ./apps/landing/Dockerfile
           push: true
           tags: |
             ${{ env.IMAGE_NAME }}:latest
             ${{ env.IMAGE_NAME }}:${{ github.sha }}
-          cache-from: type=gha,scope=asemis-fe
-          cache-to: type=gha,mode=max,scope=asemis-fe
+          cache-from: type=gha,scope=asemis-landing
+          cache-to: type=gha,mode=max,scope=asemis-landing
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
