@@ -39,10 +39,11 @@ env:
   APP_PATH: "apps/web" # CHANGE ME if the frontend app path changes.
   IMAGE_NAME: "${{ secrets.DOCKER_USERNAME }}/asemis-fe" # CHANGE ME if the Docker Hub repository name changes.
   CONTAINER_NAME: "asemis-web" # CHANGE ME if the container name on the VPS changes.
-  HOST_PORT: "3000" # CHANGE ME if Nginx/VPS should expose another host port.
-  CONTAINER_PORT: "3000" # CHANGE ME only if the app listens on a different port.
+  APP_DOMAIN: "aofvualamvuahoc.sgt.vn" # CHANGE ME if the public domain changes.
+  HOST_PORT: "3003" # CHANGE ME if Nginx/VPS should expose another host port.
+  CONTAINER_PORT: "3003" # CHANGE ME only if the app listens on a different port.
   REMOTE_ENV_FILE: "/root/asemis/env/web.env" # CHANGE ME if the env file path on VPS is different.
-  CANARY_PORT: "3001" # CHANGE ME if 3001 is already used on the VPS.
+  CANARY_PORT: "3004" # CHANGE ME if 3004 is already used on the VPS.
 
 jobs:
   ci:
@@ -114,6 +115,7 @@ jobs:
           IMAGE_NAME: ${{ env.IMAGE_NAME }}
           IMAGE_TAG: ${{ github.sha }}
           CONTAINER_NAME: ${{ env.CONTAINER_NAME }}
+          APP_DOMAIN: ${{ env.APP_DOMAIN }}
           HOST_PORT: ${{ env.HOST_PORT }}
           CONTAINER_PORT: ${{ env.CONTAINER_PORT }}
           REMOTE_ENV_FILE: ${{ env.REMOTE_ENV_FILE }}
@@ -124,7 +126,7 @@ jobs:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          envs: IMAGE_NAME,IMAGE_TAG,CONTAINER_NAME,HOST_PORT,CONTAINER_PORT,REMOTE_ENV_FILE,CANARY_PORT,DOCKER_USERNAME,DOCKER_PASSWORD
+          envs: IMAGE_NAME,IMAGE_TAG,CONTAINER_NAME,APP_DOMAIN,HOST_PORT,CONTAINER_PORT,REMOTE_ENV_FILE,CANARY_PORT,DOCKER_USERNAME,DOCKER_PASSWORD
           script: |
             set -Eeuo pipefail
 
@@ -141,6 +143,8 @@ jobs:
               echo "Missing env file: ${REMOTE_ENV_FILE}"
               exit 1
             fi
+
+            echo "Deploying ${APP_DOMAIN} on host port ${HOST_PORT} -> container port ${CONTAINER_PORT}"
 
             echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
             docker pull "${IMAGE_NAME}:${IMAGE_TAG}"
@@ -239,3 +243,5 @@ jobs:
 
             docker rm -f "${PREVIOUS_NAME}" >/dev/null 2>&1 || true
             docker image prune -af --filter "until=168h" >/dev/null 2>&1 || true
+
+            echo "Deployment completed for https://${APP_DOMAIN}"
