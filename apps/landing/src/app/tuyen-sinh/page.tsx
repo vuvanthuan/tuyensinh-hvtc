@@ -210,6 +210,42 @@ const specializationByMajor: Record<(typeof majorOptions)[number], string[]> = {
 };
 
 const maxFileSize = 5 * 1024 * 1024;
+const monthNames = [
+  "Tháng 1",
+  "Tháng 2",
+  "Tháng 3",
+  "Tháng 4",
+  "Tháng 5",
+  "Tháng 6",
+  "Tháng 7",
+  "Tháng 8",
+  "Tháng 9",
+  "Tháng 10",
+  "Tháng 11",
+  "Tháng 12",
+] as const;
+const weekdayNames = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"] as const;
+const getMonthName = (date: Date) =>
+  monthNames[date.getMonth()] ?? `Tháng ${date.getMonth() + 1}`;
+const getWeekdayName = (date: Date) =>
+  weekdayNames[date.getDay()] ?? `${date.getDay()}`;
+
+const calendarLabels = {
+  labelMonthDropdown: () => "Tháng:",
+  labelYearDropdown: () => "Năm:",
+  labelNext: () => "Tháng sau",
+  labelPrevious: () => "Tháng trước",
+  labelDay: (date: Date) =>
+    `${date.getDate()} ${getMonthName(date)} ${date.getFullYear()}`,
+  labelWeekday: (date: Date) => getWeekdayName(date),
+};
+
+const calendarFormatters = {
+  formatCaption: (date: Date) => `${getMonthName(date)} ${date.getFullYear()}`,
+  formatMonthCaption: (date: Date) => getMonthName(date),
+  formatYearCaption: (date: Date) => `${date.getFullYear()}`,
+  formatWeekdayName: (date: Date) => getWeekdayName(date),
+};
 
 const isFileList = (value: unknown): value is FileList =>
   typeof FileList !== "undefined" && value instanceof FileList;
@@ -255,6 +291,9 @@ const pdfFileSchema = requiredFileSchema(
   ["application/pdf"],
   "File minh chứng phải là PDF",
 );
+
+const scorePattern = /^(?:\d+(?:[.,]\d+)?)$/;
+const parseScore = (value: string) => Number(value.replace(",", "."));
 
 const formSchema = z.object({
   hoVaTen: z.string().trim().min(1, "Vui lòng nhập họ và tên"),
@@ -304,13 +343,13 @@ const formSchema = z.object({
     .string()
     .trim()
     .min(1, "Vui lòng nhập điểm TBC học tập")
-    .refine((value) => /^\d{1,2}(\.\d)?$/.test(value), {
-      message: "Điểm TBC chỉ nhập tối đa 1 chữ số thập phân",
+    .refine((value) => scorePattern.test(value), {
+      message: "Điểm TBC phải là số, có thể nhập số thập phân",
     })
     .refine((value) => {
-      if (!/^\d{1,2}(\.\d)?$/.test(value)) return true;
+      if (!scorePattern.test(value)) return true;
 
-      const score = Number(value);
+      const score = parseScore(value);
 
       return score >= 0 && score <= 10;
     }, "Điểm TBC phải từ 0 đến 10"),
@@ -644,6 +683,32 @@ function DatePickerField({
                   mode="single"
                   selected={selectedDate}
                   captionLayout="dropdown"
+                  className="rounded-xl border border-green-800/15 bg-white p-3 shadow-xl"
+                  classNames={{
+                    caption:
+                      "relative flex flex-col items-start gap-3 pb-2 sm:flex-row sm:items-center sm:justify-between",
+                    caption_label:
+                      "text-base font-semibold text-green-900 sm:absolute sm:left-1 sm:top-1.5",
+                    caption_dropdowns:
+                      "ml-0 flex w-full items-center gap-2 sm:ml-32 sm:w-auto",
+                    dropdown:
+                      "h-9 rounded-lg border border-gray-300 bg-white px-3 text-sm font-medium text-gray-900 shadow-sm outline-none transition focus:border-green-700 focus:ring-2 focus:ring-green-700/20",
+                    dropdown_month: "flex items-center gap-2 text-sm",
+                    dropdown_year: "flex items-center gap-2 text-sm",
+                    dropdown_icon: "ml-1 size-4 text-gray-500",
+                    table: "mt-2 w-full border-collapse",
+                    head_cell:
+                      "flex h-8 w-9 items-center justify-center rounded-md text-xs font-bold text-green-900/70",
+                    row: "mt-1 flex w-full",
+                    cell: "relative h-9 w-9 p-0 text-center text-sm",
+                    day: "h-9 w-9 rounded-lg p-0 text-sm font-medium text-gray-900 transition hover:bg-green-50 hover:text-green-800 focus:bg-green-50 focus:text-green-800",
+                    day_selected:
+                      "bg-green-700 text-white hover:bg-green-800 hover:text-white focus:bg-green-800 focus:text-white",
+                    day_today: "bg-amber-100 text-amber-900",
+                    day_outside: "text-gray-400 opacity-70",
+                  }}
+                  formatters={calendarFormatters}
+                  labels={calendarLabels}
                   fromYear={1950}
                   toYear={new Date().getFullYear() + 1}
                   onSelect={(date) => {
@@ -1270,7 +1335,7 @@ export default function TuyenSinhPage() {
                 />
                 <TextareaField
                   name="noiHocTruocDay"
-                  label="Nơi học trước đây (ghi tên trường và địa chỉ trường)"
+                  label="Nơi học trước đây"
                   required
                 />
                 <div className="md:col-span-3">

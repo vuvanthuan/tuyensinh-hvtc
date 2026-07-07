@@ -77,6 +77,20 @@ const getErrorMessage = (error: unknown) => {
   return "Vui lòng kiểm tra cấu hình Google API.";
 };
 
+const getGoogleSetupHint = (message: string) => {
+  const lowerMessage = message.toLowerCase();
+
+  if (lowerMessage.includes("permission") || lowerMessage.includes("403")) {
+    return "Hãy kiểm tra Google Sheet/Drive folder đã share quyền Editor cho service account.";
+  }
+
+  if (lowerMessage.includes("not found") || lowerMessage.includes("404")) {
+    return "Hãy kiểm tra GOOGLE_SHEET_ID hoặc GOOGLE_DRIVE_FOLDER_ID có đúng không.";
+  }
+
+  return "Vui lòng kiểm tra cấu hình Google API.";
+};
+
 const parseHoSoInput = (data: unknown) => {
   const result = hoSoDangKySchema.safeParse(data);
 
@@ -105,10 +119,11 @@ export async function POST(request: Request) {
       if (input instanceof NextResponse) return input;
 
       const fileUrls: Record<string, string> = {};
+      const uploadErrors: string[] = [];
 
-      try {
-        await Promise.all(
-          fileFields.map(async ({ name, label }) => {
+      await Promise.all(
+        fileFields.map(async ({ name, label }) => {
+          try {
             const value = formData.get(name);
 
             if (!(value instanceof File) || value.size === 0) return;
@@ -120,19 +135,15 @@ export async function POST(request: Request) {
             });
 
             fileUrls[name] = uploadedFile.url;
-          }),
-        );
-      } catch (error) {
-        console.error("submit-hoso drive upload error", error);
+          } catch (error) {
+            const message = getErrorMessage(error);
 
-        return NextResponse.json(
-          {
-            success: false,
-            message: `Không thể upload file minh chứng lên Google Drive. ${getErrorMessage(error)}`,
-          },
-          { status: 500 },
-        );
-      }
+            console.error(`submit-hoso drive upload error: ${name}`, error);
+            uploadErrors.push(`${label}: ${message}`);
+            fileUrls[name] = `Upload lỗi: ${message}`;
+          }
+        }),
+      );
 
       try {
         await appendToSheet({
@@ -142,11 +153,12 @@ export async function POST(request: Request) {
         });
       } catch (error) {
         console.error("submit-hoso sheet append error", error);
+        const message = getErrorMessage(error);
 
         return NextResponse.json(
           {
             success: false,
-            message: `Không thể lưu hồ sơ vào Google Sheet. ${getErrorMessage(error)}`,
+            message: `Không thể lưu hồ sơ vào Google Sheet. ${message} ${getGoogleSetupHint(message)}`,
           },
           { status: 500 },
         );
@@ -155,7 +167,11 @@ export async function POST(request: Request) {
       return NextResponse.json({
         success: true,
         maHoSo,
-        message: "Hồ sơ đã được ghi nhận!",
+        message:
+          uploadErrors.length > 0
+            ? "Hồ sơ đã được ghi nhận, nhưng một số file chưa upload được lên Google Drive."
+            : "Hồ sơ đã được ghi nhận!",
+        uploadErrors,
       });
     }
 
@@ -167,11 +183,12 @@ export async function POST(request: Request) {
       await appendToSheet({ ...(input as HoSoDangKyInput), maHoSo });
     } catch (error) {
       console.error("submit-hoso sheet append error", error);
+      const message = getErrorMessage(error);
 
       return NextResponse.json(
         {
           success: false,
-          message: `Không thể lưu hồ sơ vào Google Sheet. ${getErrorMessage(error)}`,
+          message: `Không thể lưu hồ sơ vào Google Sheet. ${message} ${getGoogleSetupHint(message)}`,
         },
         { status: 500 },
       );
