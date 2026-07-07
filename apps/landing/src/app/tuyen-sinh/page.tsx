@@ -109,6 +109,25 @@ const provinces = [
   "Yên Bái",
 ];
 
+interface AdministrativeWard {
+  name: string;
+}
+
+interface AdministrativeDistrict {
+  wards?: AdministrativeWard[];
+}
+
+interface AdministrativeProvince {
+  name: string;
+  wards?: AdministrativeWard[];
+  districts?: AdministrativeDistrict[];
+}
+
+interface ProvinceOption {
+  name: string;
+  wards: string[];
+}
+
 const ethnicities = [
   "Kinh",
   "Tày",
@@ -409,6 +428,76 @@ const splitFullName = (fullName: string) => {
   };
 };
 
+const normalizeOptionName = (value: string) =>
+  value
+    .trim()
+    .replace(/^(Tỉnh|Thành phố|TP\.)\s+/i, "")
+    .replace(/^(Xã|Phường|Thị trấn)\s+/i, "")
+    .toLocaleLowerCase("vi-VN");
+
+const dedupeOptions = (values: string[]) => {
+  const seen = new Set<string>();
+
+  return values.filter((value) => {
+    const key = normalizeOptionName(value);
+    if (!key || seen.has(key)) return false;
+
+    seen.add(key);
+    return true;
+  });
+};
+
+const findProvince = (options: ProvinceOption[], selectedName: string) => {
+  const selectedKey = normalizeOptionName(selectedName);
+
+  return options.find(
+    (option) => normalizeOptionName(option.name) === selectedKey,
+  );
+};
+
+const fallbackProvinceOptions: ProvinceOption[] = provinces.map((name) => ({
+  name,
+  wards: [],
+}));
+
+const administrativeApiUrls = [
+  "https://provinces.open-api.vn/api/v2/?depth=2",
+  "https://provinces.open-api.vn/api/v1/?depth=3",
+];
+
+const toProvinceOptions = (data: AdministrativeProvince[]) =>
+  data.map((province) => ({
+    name: province.name,
+    wards: dedupeOptions(
+      province.wards?.map((ward) => ward.name) ??
+        province.districts?.flatMap(
+          (district) => district.wards?.map((ward) => ward.name) ?? [],
+        ) ??
+        [],
+    ),
+  }));
+
+const loadProvinceOptions = async () => {
+  for (const url of administrativeApiUrls) {
+    try {
+      const response = await fetch(url);
+
+      if (!response.ok) continue;
+
+      const data = (await response.json()) as AdministrativeProvince[];
+      const provinceOptions = toProvinceOptions(data);
+
+      if (provinceOptions.some((province) => province.wards.length > 0)) {
+        return provinceOptions;
+      }
+    } catch {
+      continue;
+    }
+  }
+
+  return fallbackProvinceOptions;
+};
+
 function formatDate(date: Date) {
   const day = `${date.getDate()}`.padStart(2, "0");
   const month = `${date.getMonth() + 1}`.padStart(2, "0");
@@ -675,6 +764,50 @@ function SelectField({
   );
 }
 
+function WardField({
+  name,
+  label,
+  provinceName,
+  options,
+  required,
+  isLoading,
+}: {
+  name: Extract<TextFormFieldName, "xaThuongTru" | "xaHienNay">;
+  label: string;
+  provinceName?: string;
+  options: string[];
+  required?: boolean;
+  isLoading: boolean;
+}) {
+  if (options.length > 0 || !provinceName) {
+    return (
+      <SelectField
+        name={name}
+        label={label}
+        options={options}
+        placeholder={
+          isLoading
+            ? "Đang tải xã/phường..."
+            : provinceName
+              ? "-- Xã/Phường --"
+              : "Chọn tỉnh/thành phố trước"
+        }
+        required={required}
+        disabled={!provinceName || isLoading}
+      />
+    );
+  }
+
+  return (
+    <TextField
+      name={name}
+      label={label}
+      placeholder="Nhập xã/phường"
+      required={required}
+    />
+  );
+}
+
 function FileButtonText({ fileList }: { fileList: unknown }) {
   const file = getFirstFile(fileList);
   const fileName = file?.name ?? "Chưa có tệp nào được chọn";
@@ -813,6 +946,10 @@ export default function TuyenSinhPage() {
   const [successCode, setSuccessCode] = useState("");
   const [serverError, setServerError] = useState("");
   const [validationError, setValidationError] = useState("");
+  const [provinceOptions, setProvinceOptions] = useState<ProvinceOption[]>(
+    fallbackProvinceOptions,
+  );
+  const [isAdministrativeLoading, setIsAdministrativeLoading] = useState(true);
   const [selectedMajor, setSelectedMajor] = useState<
     (typeof majorOptions)[number] | ""
   >("");
@@ -826,7 +963,52 @@ export default function TuyenSinhPage() {
   const specializations = selectedMajor
     ? specializationByMajor[selectedMajor]
     : [];
+  const selectedPermanentProvince = form.watch("tinhThuongTru");
+  const selectedCurrentProvince = form.watch("tinhHienNay");
+  const provinceNames = useMemo(
+    () => provinceOptions.map((province) => province.name),
+    [provinceOptions],
+  );
+  const permanentWardOptions = useMemo(
+    () =>
+      selectedPermanentProvince
+        ? (findProvince(provinceOptions, selectedPermanentProvince)?.wards ??
+          [])
+        : [],
+    [provinceOptions, selectedPermanentProvince],
+  );
+  const currentWardOptions = useMemo(
+    () =>
+      selectedCurrentProvince
+        ? (findProvince(provinceOptions, selectedCurrentProvince)?.wards ?? [])
+        : [],
+    [provinceOptions, selectedCurrentProvince],
+  );
   const isSubmitting = form.formState.isSubmitting;
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const loadAdministrativeUnits = async () => {
+      try {
+        const nextProvinceOptions = await loadProvinceOptions();
+
+        if (isMounted && nextProvinceOptions.length > 0) {
+          setProvinceOptions(nextProvinceOptions);
+        }
+      } catch {
+        if (isMounted) setProvinceOptions(fallbackProvinceOptions);
+      } finally {
+        if (isMounted) setIsAdministrativeLoading(false);
+      }
+    };
+
+    void loadAdministrativeUnits();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const onSubmit = async (values: FormValues) => {
     setSuccessCode("");
@@ -850,11 +1032,24 @@ export default function TuyenSinhPage() {
       if (file) formData.append(name, file);
     });
 
-    const response = await fetch("/api/submit-hoso", {
-      method: "POST",
-      body: formData,
-    });
-    const result = (await response.json()) as {
+    let response: Response;
+
+    try {
+      response = await fetch("/api/submit-hoso", {
+        method: "POST",
+        body: formData,
+      });
+    } catch {
+      setServerError(
+        "Không thể kết nối tới hệ thống nộp hồ sơ. Vui lòng thử lại sau.",
+      );
+      return;
+    }
+
+    const result = (await response.json().catch(() => ({
+      success: false,
+      message: "Phản hồi từ máy chủ không hợp lệ. Vui lòng thử lại sau.",
+    }))) as {
       success: boolean;
       maHoSo?: string;
       message: string;
@@ -953,7 +1148,7 @@ export default function TuyenSinhPage() {
                 <SelectField
                   name="noiSinh"
                   label="Nơi sinh"
-                  options={provinces}
+                  options={provinceNames}
                   placeholder="-- Tỉnh thành --"
                   required
                 />
@@ -1010,14 +1205,21 @@ export default function TuyenSinhPage() {
                 <SelectField
                   name="tinhThuongTru"
                   label="Tỉnh/TP thường trú"
-                  options={provinces}
+                  options={provinceNames}
                   placeholder="-- Tỉnh thành --"
                   required
+                  disabled={isAdministrativeLoading}
+                  onValueChange={() => {
+                    form.setValue("xaThuongTru", "", { shouldValidate: true });
+                  }}
                 />
-                <TextField
+                <WardField
                   name="xaThuongTru"
                   label="Xã/Phường thường trú"
+                  provinceName={selectedPermanentProvince}
+                  options={permanentWardOptions}
                   required
+                  isLoading={isAdministrativeLoading}
                 />
                 <TextField
                   name="diaChiThuongTru"
@@ -1027,10 +1229,20 @@ export default function TuyenSinhPage() {
                 <SelectField
                   name="tinhHienNay"
                   label="Tỉnh/TP ở hiện nay"
-                  options={provinces}
+                  options={provinceNames}
                   placeholder="-- Tỉnh thành --"
+                  disabled={isAdministrativeLoading}
+                  onValueChange={() => {
+                    form.setValue("xaHienNay", "", { shouldValidate: true });
+                  }}
                 />
-                <TextField name="xaHienNay" label="Xã/Phường ở hiện nay" />
+                <WardField
+                  name="xaHienNay"
+                  label="Xã/Phường ở hiện nay"
+                  provinceName={selectedCurrentProvince}
+                  options={currentWardOptions}
+                  isLoading={isAdministrativeLoading}
+                />
                 <TextField name="diaChiHienNay" label="Địa chỉ ở hiện nay" />
                 <TextField
                   name="ngheNghiep"

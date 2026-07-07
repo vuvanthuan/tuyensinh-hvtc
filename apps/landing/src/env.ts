@@ -14,7 +14,6 @@ export const env = createEnv({
    * This way you can ensure the app isn't built with invalid env vars.
    */
   server: {
-    POSTGRES_URL: z.url(),
     GOOGLE_SERVICE_ACCOUNT_EMAIL: z.email(),
     GOOGLE_PRIVATE_KEY: z.string().min(1),
     GOOGLE_SHEET_ID: z.string().min(1),
