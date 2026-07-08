@@ -43,6 +43,8 @@ import {
   Textarea,
 } from "@acme/ui";
 
+import { env } from "~/env";
+
 const provinces = [
   "An Giang",
   "Bà Rịa - Vũng Tàu",
@@ -422,6 +424,53 @@ const uploadFieldNames: FileFieldName[] = [
   "minhChungUuTien",
 ];
 
+const uploadFieldLabels: Record<FileFieldName, string> = {
+  anhThe: "Ảnh thẻ",
+  anhCccdTruoc: "Ảnh CCCD mặt trước",
+  anhCccdSau: "Ảnh CCCD mặt sau",
+  minhChungBangTotNghiep: "Bằng tốt nghiệp",
+  minhChungBangDiem: "Bảng điểm/học bạ",
+  minhChungGiayKhaiSinh: "Giấy khai sinh",
+  minhChungUuTien: "Giấy tờ ưu tiên",
+};
+
+const uploadFileToCloudinary = async (file: File) => {
+  const cloudName = env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
+  const uploadPreset = env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+
+  if (!cloudName || !uploadPreset) {
+    throw new Error(
+      "Chưa cấu hình Cloudinary. Vui lòng kiểm tra NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME và NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET.",
+    );
+  }
+
+  const formData = new FormData();
+
+  formData.append("file", file);
+  formData.append("upload_preset", uploadPreset);
+
+  const response = await fetch(
+    `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`,
+    {
+      method: "POST",
+      body: formData,
+    },
+  );
+
+  const result = (await response.json().catch(() => null)) as {
+    secure_url?: string;
+    error?: { message?: string };
+  } | null;
+
+  if (!response.ok || !result?.secure_url) {
+    throw new Error(
+      result?.error?.message ?? "Không thể tải file lên Cloudinary.",
+    );
+  }
+
+  return result.secure_url;
+};
+
 const defaultValues = {
   hoVaTen: "",
   gioiTinh: "",
@@ -678,30 +727,32 @@ function DatePickerField({
                   </Button>
                 </FormControl>
               </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
+              <PopoverContent className="w-[344px] p-0" align="start">
                 <Calendar
                   mode="single"
                   selected={selectedDate}
                   captionLayout="dropdown"
-                  className="rounded-xl border border-green-800/15 bg-white p-3 shadow-xl"
+                  className="w-full rounded-xl border border-green-800/15 bg-white p-4 shadow-xl"
                   classNames={{
                     caption:
-                      "relative flex flex-col items-start gap-3 pb-2 sm:flex-row sm:items-center sm:justify-between",
-                    caption_label:
-                      "text-base font-semibold text-green-900 sm:absolute sm:left-1 sm:top-1.5",
+                      "relative flex w-full items-center justify-center pb-3",
+                    caption_label: "sr-only",
                     caption_dropdowns:
-                      "ml-0 flex w-full items-center gap-2 sm:ml-32 sm:w-auto",
+                      "grid w-full grid-cols-2 items-center gap-3",
                     dropdown:
-                      "h-9 rounded-lg border border-gray-300 bg-white px-3 text-sm font-medium text-gray-900 shadow-sm outline-none transition focus:border-green-700 focus:ring-2 focus:ring-green-700/20",
-                    dropdown_month: "flex items-center gap-2 text-sm",
-                    dropdown_year: "flex items-center gap-2 text-sm",
+                      "h-10 w-full rounded-lg border border-gray-300 bg-white px-3 text-sm font-semibold text-gray-900 shadow-sm outline-none transition focus:border-green-700 focus:ring-2 focus:ring-green-700/20",
+                    dropdown_month:
+                      "grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 text-sm font-semibold text-green-900",
+                    dropdown_year:
+                      "grid grid-cols-[auto_minmax(0,1fr)] items-center gap-2 text-sm font-semibold text-green-900",
                     dropdown_icon: "ml-1 size-4 text-gray-500",
-                    table: "mt-2 w-full border-collapse",
+                    nav: "hidden",
+                    table: "mt-1 w-full border-collapse",
                     head_cell:
-                      "flex h-8 w-9 items-center justify-center rounded-md text-xs font-bold text-green-900/70",
-                    row: "mt-1 flex w-full",
-                    cell: "relative h-9 w-9 p-0 text-center text-sm",
-                    day: "h-9 w-9 rounded-lg p-0 text-sm font-medium text-gray-900 transition hover:bg-green-50 hover:text-green-800 focus:bg-green-50 focus:text-green-800",
+                      "flex h-8 w-11 items-center justify-center rounded-md text-xs font-bold text-green-900/70",
+                    row: "mt-1 flex w-full justify-between",
+                    cell: "relative h-10 w-11 p-0 text-center text-sm",
+                    day: "mx-auto h-10 w-10 rounded-lg p-0 text-sm font-medium text-gray-900 transition hover:bg-green-50 hover:text-green-800 focus:bg-green-50 focus:text-green-800",
                     day_selected:
                       "bg-green-700 text-white hover:bg-green-800 hover:text-white focus:bg-green-800 focus:text-white",
                     day_today: "bg-amber-100 text-amber-900",
@@ -1011,6 +1062,7 @@ export default function TuyenSinhPage() {
   const [successCode, setSuccessCode] = useState("");
   const [serverError, setServerError] = useState("");
   const [validationError, setValidationError] = useState("");
+  const [submitStatus, setSubmitStatus] = useState("");
   const [provinceOptions, setProvinceOptions] = useState<ProvinceOption[]>(
     fallbackProvinceOptions,
   );
@@ -1079,35 +1131,60 @@ export default function TuyenSinhPage() {
     setSuccessCode("");
     setServerError("");
     setValidationError("");
+    setSubmitStatus("Đang tải file...");
 
     const { hoDem, ten } = splitFullName(values.hoVaTen);
-    const formData = new FormData();
+    const payload: Record<string, string | Record<string, string>> = {};
 
     Object.entries(values).forEach(([key, value]) => {
       if (uploadFieldNames.includes(key as FileFieldName)) return;
-      if (typeof value === "string") formData.append(key, value);
+      if (typeof value === "string") payload[key] = value;
     });
 
-    formData.append("hoDem", hoDem);
-    formData.append("ten", ten);
-
-    uploadFieldNames.forEach((name) => {
-      const file = getFirstFile(values[name]);
-
-      if (file) formData.append(name, file);
-    });
+    payload.hoDem = hoDem;
+    payload.ten = ten;
 
     let response: Response;
 
     try {
+      const uploadedEntries = await Promise.all(
+        uploadFieldNames.map(async (name) => {
+          const file = getFirstFile(values[name]);
+
+          if (!file) return [name, ""] as const;
+
+          try {
+            return [name, await uploadFileToCloudinary(file)] as const;
+          } catch (error) {
+            const message =
+              error instanceof Error
+                ? error.message
+                : "Không thể tải file lên Cloudinary.";
+
+            throw new Error(`${uploadFieldLabels[name]}: ${message}`);
+          }
+        }),
+      );
+
+      payload.fileUrls = Object.fromEntries(
+        uploadedEntries.filter(([, url]) => url),
+      );
+      setSubmitStatus("Đang lưu hồ sơ...");
+
       response = await fetch("/api/submit-hoso", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
-    } catch {
+    } catch (error) {
       setServerError(
-        "Không thể kết nối tới hệ thống nộp hồ sơ. Vui lòng thử lại sau.",
+        error instanceof Error
+          ? error.message
+          : "Không thể kết nối tới hệ thống nộp hồ sơ. Vui lòng thử lại sau.",
       );
+      setSubmitStatus("");
       return;
     }
 
@@ -1122,10 +1199,12 @@ export default function TuyenSinhPage() {
 
     if (!response.ok || !result.success || !result.maHoSo) {
       setServerError(result.message || "Có lỗi xảy ra");
+      setSubmitStatus("");
       return;
     }
 
     setSuccessCode(result.maHoSo);
+    setSubmitStatus("");
     setSelectedMajor("");
     form.reset(defaultValues);
   };
@@ -1455,7 +1534,7 @@ export default function TuyenSinhPage() {
                 {isSubmitting ? (
                   <>
                     <LoaderCircle className="mr-2 h-4 w-4 animate-spin" />
-                    Đang xử lý...
+                    {submitStatus || "Đang xử lý..."}
                   </>
                 ) : (
                   "Nộp hồ sơ"

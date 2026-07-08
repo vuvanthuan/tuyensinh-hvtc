@@ -18,6 +18,7 @@ const fileFields = [
 ] as const;
 
 const dateStringSchema = z.string().trim().min(1);
+const fileUrlsSchema = z.record(z.string(), z.string()).optional();
 
 const hoSoDangKySchema = z.object({
   hoDem: z.string().optional(),
@@ -58,6 +59,7 @@ const hoSoDangKySchema = z.object({
   nganhDangKy: z.string().trim().min(1, "Vui lòng chọn ngành đăng ký"),
   chuyenNganh: z.string().trim().min(1, "Vui lòng chọn chuyên ngành"),
   diemTbcht: z.string().trim().min(1, "Vui lòng nhập điểm TBC học tập"),
+  fileUrls: fileUrlsSchema,
 });
 
 const parseFormData = async (request: Request) => {
