@@ -39,7 +39,7 @@ export function Testimonials() {
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
           <div>
             <p className="section-label">Cảm nhận học viên</p>
-            <h2 className="section-title mt-3">
+            <h2 className="section-title mt-3 text-[28px] leading-tight font-bold text-[#1f174c] md:text-[30px]">
               Những câu chuyện học tập từ người đang đi làm
             </h2>
           </div>

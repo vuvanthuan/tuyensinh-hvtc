@@ -5,7 +5,7 @@ export function DegreeNote() {
     <section className="bg-white py-10 md:py-14">
       <div className="page-container">
         <p className="section-label text-center">Mẫu văn bằng</p>
-        <h2 className="section-title mt-3 text-center">
+        <h2 className="section-title mt-3 text-center text-[28px] leading-tight font-bold text-[#1f174c] md:text-[30px]">
           Học viện Tài chính thống nhất 1 mẫu văn bằng cử nhân
         </h2>
         <div className="mx-auto mt-5 mb-7 h-1 w-16 rounded-full bg-[#1a5c3a]" />

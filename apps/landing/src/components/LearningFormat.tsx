@@ -36,12 +36,14 @@ const programs = [
 
 export function LearningFormat() {
   return (
-    <section className="section-block bg-white">
+    <section className="section-block bg-white" id="thong-tin-tuyen-sinh">
       <div className="page-container">
         <div className="grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-start">
           <div className="lg:sticky lg:top-24">
             <p className="section-label">Chương trình học</p>
-            <h2 className="section-title mt-3">3 chương trình tuyển sinh</h2>
+            <h2 className="section-title mt-3 text-[28px] font-bold text-[#1f174c] md:text-[30px]">
+              3 chương trình tuyển sinh
+            </h2>
             <p className="mt-4 text-sm leading-7 text-gray-600">
               Mỗi nhóm học viên có các tiêu chí khác nhau. Chương trình được
               chia rõ theo hồ sơ đầu vào để tư vấn đúng ngành và tiết kiệm thời
@@ -107,7 +109,7 @@ export function LearningFormat() {
 
                   <a
                     className="inline-flex h-10 flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-[#1a5c3a] px-4 text-sm font-semibold text-white transition hover:bg-[#007565] sm:self-center"
-                    href="#enrollment"
+                    href="#lich-khai-giang"
                   >
                     Tư vấn
                     <ArrowRight aria-hidden="true" className="h-4 w-4" />

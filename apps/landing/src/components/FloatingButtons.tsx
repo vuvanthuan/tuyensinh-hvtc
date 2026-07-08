@@ -1,6 +1,7 @@
 "use client";
 
-import { MessageCircle, Phone, Send } from "lucide-react";
+import Image from "next/image";
+import { Phone } from "lucide-react";
 
 import { cn } from "@acme/ui";
 
@@ -9,15 +10,15 @@ const buttons = [
     href: "https://zalo.me/",
     label: "Zalo",
     tooltip: "Zalo",
-    className: "bg-blue-500 hover:bg-blue-600",
-    Icon: Send,
+    className: "bg-transparent overflow-hidden",
+    imageSrc: "/zalo.png",
   },
   {
     href: "https://m.me/",
     label: "Messenger",
     tooltip: "Chat với tư vấn viên",
-    className: "bg-blue-600 hover:bg-blue-700",
-    Icon: MessageCircle,
+    className: "bg-transparent overflow-hidden",
+    imageSrc: "/facebook.png",
   },
   {
     href: "tel:1900000000",
@@ -44,11 +45,23 @@ export function FloatingButtons() {
           rel="noreferrer"
           target={button.href.startsWith("http") ? "_blank" : undefined}
         >
-          <button.Icon
-            aria-hidden="true"
-            className="h-5 w-5"
-            strokeWidth={2.5}
-          />
+          {button.imageSrc ? (
+            <Image
+              src={button.imageSrc}
+              alt={button.label}
+              width={48}
+              height={48}
+              className="h-full w-full rounded-full object-cover"
+            />
+          ) : (
+            button.Icon && (
+              <button.Icon
+                aria-hidden="true"
+                className="h-5 w-5"
+                strokeWidth={2.5}
+              />
+            )
+          )}
         </a>
       ))}
     </div>

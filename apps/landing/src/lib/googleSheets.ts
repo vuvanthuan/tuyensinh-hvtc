@@ -1,5 +1,7 @@
 import { google } from "googleapis";
 
+import type { EnrollmentLeadInput } from "@acme/validators";
+
 import { env } from "~/env";
 
 export interface HoSoDangKyInput {
@@ -46,10 +48,9 @@ const splitFullName = (fullName: string) => {
   };
 };
 
-export async function appendToSheet(data: HoSoDangKyInput) {
+const createSheetsClient = () => {
   const clientEmail = env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
   const privateKey = env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, "\n");
-  const spreadsheetId = env.GOOGLE_SHEET_ID;
 
   const auth = new google.auth.JWT({
     email: clientEmail,
@@ -57,7 +58,12 @@ export async function appendToSheet(data: HoSoDangKyInput) {
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
 
-  const sheets = google.sheets({ version: "v4", auth });
+  return google.sheets({ version: "v4", auth });
+};
+
+export async function appendToSheet(data: HoSoDangKyInput) {
+  const spreadsheetId = env.GOOGLE_SHEET_ID;
+  const sheets = createSheetsClient();
   const maHoSo = data.maHoSo ?? `VLVH${Date.now()}`;
   const hoVaTen = (data.hoVaTen ?? "").trim();
   const nameParts = hoVaTen ? splitFullName(hoVaTen) : null;
@@ -122,4 +128,81 @@ export async function appendToSheet(data: HoSoDangKyInput) {
   });
 
   return maHoSo;
+}
+
+const enrollmentLeadSheetTitle = "TuVan";
+
+const ensureEnrollmentLeadSheet = async (
+  sheets: ReturnType<typeof createSheetsClient>,
+  spreadsheetId: string,
+) => {
+  const spreadsheet = await sheets.spreadsheets.get({
+    spreadsheetId,
+    fields: "sheets.properties.title",
+  });
+
+  const sheetExists = spreadsheet.data.sheets?.some(
+    (sheet) => sheet.properties?.title === enrollmentLeadSheetTitle,
+  );
+
+  if (sheetExists) return;
+
+  await sheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          addSheet: {
+            properties: {
+              title: enrollmentLeadSheetTitle,
+            },
+          },
+        },
+      ],
+    },
+  });
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: `${enrollmentLeadSheetTitle}!A1:F1`,
+    valueInputOption: "USER_ENTERED",
+    requestBody: {
+      values: [
+        [
+          "Thời gian",
+          "Họ và tên",
+          "Số điện thoại",
+          "Email",
+          "Ngành học",
+          "Nguồn",
+        ],
+      ],
+    },
+  });
+};
+
+export async function appendEnrollmentLeadToSheet(data: EnrollmentLeadInput) {
+  const spreadsheetId = env.GOOGLE_SHEET_ID;
+  const sheets = createSheetsClient();
+
+  await ensureEnrollmentLeadSheet(sheets, spreadsheetId);
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId,
+    range: `${enrollmentLeadSheetTitle}!A:F`,
+    valueInputOption: "USER_ENTERED",
+    insertDataOption: "INSERT_ROWS",
+    requestBody: {
+      values: [
+        [
+          new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }),
+          data.fullName,
+          data.phone,
+          data.email ?? "",
+          data.major,
+          "Landing - Giữ suất tư vấn",
+        ],
+      ],
+    },
+  });
 }

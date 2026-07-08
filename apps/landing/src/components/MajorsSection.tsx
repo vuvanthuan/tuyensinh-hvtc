@@ -51,13 +51,14 @@ export function MajorsSection() {
       />
       <div className="page-container relative">
         <div className="mx-auto max-w-[48rem] text-center">
-          <h2 className="section-title mt-3 font-black uppercase">
+          <h2 className="section-title mt-3 text-[28px] font-[900] text-[#1f174c] uppercase md:text-[30px]">
             Các ngành đào tạo
           </h2>
           <p className="mt-3 text-sm leading-6 text-gray-600 md:text-base">
-            Chương trình tập trung vào các nhóm ngành có nhu cầu tuyển dụng cao,
-            phù hợp học viên đang đi làm vừa có thời gian tham gia giảng đường
-            đại học.
+            Chương trình đào tạo được thiết kế theo định hướng thực tiễn, đa
+            dạng nhóm ngành kinh tế và quản trị, giúp người học xây dựng nền
+            tảng chuyên môn vững chắc, phát triển kỹ năng nghề nghiệp và sẵn
+            sàng đáp ứng nhu cầu của thị trường lao động.
           </p>
         </div>
 

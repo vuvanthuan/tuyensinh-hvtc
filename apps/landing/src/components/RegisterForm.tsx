@@ -1,6 +1,7 @@
 "use client";
 
 import type { CSSProperties } from "react";
+import { useState } from "react";
 import { useForm } from "@tanstack/react-form";
 import { ChevronDown } from "lucide-react";
 
@@ -40,13 +41,46 @@ export function RegisterForm({
   accentHoverColor = "#2e8b57",
   buttonLabel = "Đăng ký ngay",
 }: RegisterFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const form = useForm({
     defaultValues,
     validators: {
       onSubmit: enrollmentLeadSchema,
     },
-    onSubmit: ({ value }) => {
-      console.log("TODO: wire to tRPC mutation", value);
+    onSubmit: async ({ value }) => {
+      setIsSubmitting(true);
+      setServerError("");
+      setSuccessMessage("");
+
+      try {
+        const response = await fetch("/api/enrollment-leads", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(value),
+        });
+        const result = (await response.json().catch(() => ({
+          success: false,
+          message: "Phản hồi từ máy chủ không hợp lệ.",
+        }))) as { success: boolean; message: string };
+
+        if (!response.ok || !result.success) {
+          setServerError(result.message || "Không thể lưu thông tin tư vấn.");
+          return;
+        }
+
+        setSuccessMessage(result.message);
+        form.reset();
+      } catch {
+        setServerError(
+          "Không thể kết nối tới hệ thống tư vấn. Vui lòng thử lại sau.",
+        );
+      } finally {
+        setIsSubmitting(false);
+      }
     },
   });
 
@@ -181,10 +215,23 @@ export function RegisterForm({
       <button
         className="mt-2 box-border h-[52px] min-h-[52px] w-full rounded-lg bg-[var(--form-accent)] px-4 text-[15px] font-semibold tracking-[0.5px] text-white uppercase shadow-[var(--form-accent-shadow)] shadow-md transition hover:bg-[var(--form-accent-hover)] focus:ring-2 focus:ring-[#F5A623] focus:ring-offset-2 focus:outline-none disabled:cursor-not-allowed disabled:opacity-70"
         type="button"
+        disabled={isSubmitting}
         onClick={() => void form.handleSubmit()}
       >
-        {buttonLabel}
+        {isSubmitting ? "Đang lưu..." : buttonLabel}
       </button>
+
+      {successMessage ? (
+        <p className="mt-3 text-center text-sm font-semibold text-[#005f55]">
+          {successMessage}
+        </p>
+      ) : null}
+
+      {serverError ? (
+        <p className="mt-3 text-center text-sm font-semibold text-red-600">
+          {serverError}
+        </p>
+      ) : null}
     </div>
   );
 }

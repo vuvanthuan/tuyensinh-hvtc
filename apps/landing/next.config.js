@@ -22,6 +22,18 @@ const config = {
 
   /** We already do linting and typechecking as separate tasks in CI */
   typescript: { ignoreBuildErrors: true },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cms.hvtc.edu.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "hvtc.edu.vn",
+      },
+    ],
+  },
 };
 
 export default config;

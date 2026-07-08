@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const mainLinks = [
@@ -54,15 +55,15 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="relative hidden h-8 overflow-hidden bg-[#005f55] md:block">
+    <header className="sticky top-0 z-50 bg-white shadow-[0_4px_18px_rgba(15,23,42,0.08)]">
+      <div className="relative hidden h-[5px] overflow-hidden bg-[#005f55] md:block">
         <div className="absolute inset-0 bg-gradient-to-r from-[#003f38]/30 via-[#005f55]/10 to-[#003f38]/38" />
       </div>
 
-      <nav className="h-20 border-b border-gray-100 bg-white md:h-24">
-        <div className="page-container flex h-full items-center justify-between gap-8">
+      <nav className="h-[72px] border-b border-gray-100 bg-white md:h-[88px]">
+        <div className="page-container flex h-full items-center justify-between gap-4 md:gap-8">
           <button
-            className="relative h-14 w-64 flex-shrink-0 md:h-20 md:w-80"
+            className="relative h-12 w-56 flex-shrink-0 cursor-pointer md:h-16 md:w-72"
             type="button"
             aria-label="Học Viện Tài Chính"
             onClick={() => scrollToSection("top")}
@@ -77,16 +78,16 @@ export function Navbar() {
             />
           </button>
 
-          <div className="hidden h-full min-w-0 flex-1 items-center justify-end gap-10 md:flex">
+          <div className="hidden h-full min-w-0 flex-1 items-center justify-end gap-10 md:flex lg:gap-12">
             {mainLinks.map((link) => {
               const isActive = activeId === link.id;
 
               return (
                 <button
-                  className={`flex h-full items-center border-b-2 text-sm font-semibold transition ${
+                  className={`relative flex cursor-pointer items-center py-2 text-[16px] leading-none font-bold transition after:absolute after:right-0 after:-bottom-2 after:left-0 after:h-[2px] after:rounded-full after:transition ${
                     isActive
-                      ? "border-green-700 text-green-700"
-                      : "border-transparent text-gray-700 hover:border-green-700 hover:text-green-700"
+                      ? "text-green-700 after:bg-green-700"
+                      : "text-gray-700 after:bg-transparent hover:text-green-700 hover:after:bg-green-700"
                   }`}
                   key={`${link.label}-${link.id}`}
                   type="button"
@@ -98,19 +99,32 @@ export function Navbar() {
             })}
           </div>
 
-          <button
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-green-800 md:hidden"
-            type="button"
-            aria-label="Mở menu"
-            aria-expanded={isOpen}
-            onClick={() => setIsOpen((value) => !value)}
-          >
-            {isOpen ? (
-              <X aria-hidden="true" className="h-5 w-5" strokeWidth={2.5} />
-            ) : (
-              <Menu aria-hidden="true" className="h-5 w-5" strokeWidth={2.5} />
-            )}
-          </button>
+          <div className="flex flex-shrink-0 items-center gap-3">
+            <Link
+              className="inline-flex h-11 cursor-pointer items-center justify-center rounded-lg bg-[#005f55] px-4 text-[15px] font-bold text-white shadow-[0_10px_22px_rgba(0,95,85,0.24)] transition hover:bg-[#003f38] focus:ring-2 focus:ring-[#F5A623] focus:ring-offset-2 focus:outline-none md:h-[52px] md:px-6 md:text-[16px]"
+              href="/tuyen-sinh"
+            >
+              Đăng ký ngay
+            </Link>
+
+            <button
+              className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-gray-200 text-green-800 md:hidden"
+              type="button"
+              aria-label="Mở menu"
+              aria-expanded={isOpen}
+              onClick={() => setIsOpen((value) => !value)}
+            >
+              {isOpen ? (
+                <X aria-hidden="true" className="h-5 w-5" strokeWidth={2.5} />
+              ) : (
+                <Menu
+                  aria-hidden="true"
+                  className="h-5 w-5"
+                  strokeWidth={2.5}
+                />
+              )}
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -119,7 +133,7 @@ export function Navbar() {
           <div className="page-container flex flex-col gap-2">
             {mainLinks.map((link) => (
               <button
-                className="rounded-lg px-3 py-2 text-left text-sm font-bold text-gray-800 hover:bg-gray-50 hover:text-green-800"
+                className="cursor-pointer rounded-lg px-3 py-2 text-left text-[16px] font-bold text-gray-800 hover:bg-gray-50 hover:text-green-800"
                 key={`${link.label}-${link.id}`}
                 type="button"
                 onClick={() => {
