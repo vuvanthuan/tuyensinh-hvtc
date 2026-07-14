@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: "Học Viện Tài Chính",
     images: [
       {
-        url: "/banner.jpg",
+        url: "/banner_home.jpg",
         width: 2158,
         height: 729,
         alt: "Tuyển sinh Học viện Tài chính - Academy of Finance",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     title: "Tuyển Sinh Học viện Tài chính - Academy of Finance",
     description:
       "Tuyển Sinh Học viện Tài chính. Học viện Tài chính được thành lập ngày 17 tháng 8 năm 2001 theo Quyết định số 120/2001/QĐ-TTg của Thủ tướng Chính phủ. Học viện trực thuộc Bộ Tài chính.",
-    images: ["/banner.jpg"],
+    images: ["/banner_home.jpg"],
   },
   icons: {
     icon: [{ url: "/hvtc-logo-mark.png", type: "image/png" }],
